@@ -75,16 +75,16 @@ class NistBeaconValue(object):
             return None
 
         # We now must check for all the expected properties
-        required_values = [
-            'version',
-            'frequency',
-            'timeStamp',
-            'seedValue',
-            'previousOutputValue',
-            'signatureValue',
-            'outputValue',
-            'statusCode',
-        ]
+        required_values = {
+            'version': None,
+            'frequency': None,
+            'timeStamp': None,
+            'seedValue': None,
+            'previousOutputValue': None,
+            'signatureValue': None,
+            'outputValue': None,
+            'statusCode': None,
+        }
 
         # TODO: This return is just for local testing / development
         return tree
