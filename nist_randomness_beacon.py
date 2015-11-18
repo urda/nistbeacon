@@ -77,6 +77,14 @@ class NistBeaconValue(object):
 
     @classmethod
     def from_xml(cls, input_xml: str):
+        """
+        Convert a string of XML which represents a NIST Randomness Beacon value
+        into a 'NistBeaconValue' object.
+
+        :param input_xml: The XML string to parse a 'NistBeaconValue' out of
+        :return: A complete 'NistBeaconValue' object, 'None' otherwise
+        """
+
         # First attempt to load the xml, return 'None' on ParseError
         try:
             tree = ElementTree.fromstring(input_xml)
