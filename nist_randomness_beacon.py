@@ -3,7 +3,7 @@
 NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
 
-class nist_beacon_value(object):
+class NistBeaconValue(object):
     def __init__(
             self,
             version: str,
