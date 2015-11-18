@@ -108,9 +108,17 @@ class NistBeaconValue(object):
         if None in required_values.values():
             return None
 
-        # TODO: This return is just for local testing / development
-        return required_values
-
+        # We have all the required values, return a node object
+        return cls(
+            version=required_values[cls.NIST_KEY_VERSION],
+            frequency=required_values[cls.NIST_KEY_FREQUENCY],
+            timestamp=required_values[cls.NIST_KEY_TIMESTAMP],
+            seed_value=required_values[cls.NIST_KEY_SEED_VALUE],
+            previous_output_value=required_values[cls.NIST_KEY_PREVIOUS_OUTPUT_VALUE],
+            signature_value=required_values[cls.NIST_KEY_SIGNATURE_VALUE],
+            output_value=required_values[cls.NIST_KEY_OUTPUT_VALUE],
+            status_code=required_values[cls.NIST_KEY_STATUS_CODE],
+        )
 
 if __name__ == '__main__':
     pass
