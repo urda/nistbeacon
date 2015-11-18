@@ -63,6 +63,10 @@ class NistBeaconValue(object):
         self.output_value = output_value
         self.status_code = status_code
 
+    @classmethod
+    def from_xml(cls, input_xml: str):
+        pass
+
 
 if __name__ == '__main__':
     pass
