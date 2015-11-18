@@ -85,14 +85,14 @@ class NistBeaconValue(object):
 
         # We now must check for all the expected properties
         required_values = {
-            'version': None,
-            'frequency': None,
-            'timeStamp': None,
-            'seedValue': None,
-            'previousOutputValue': None,
-            'signatureValue': None,
-            'outputValue': None,
-            'statusCode': None,
+            cls.NIST_KEY_FREQUENCY: None,
+            cls.NIST_KEY_OUTPUT_VALUE: None,
+            cls.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
+            cls.NIST_KEY_SEED_VALUE: None,
+            cls.NIST_KEY_SIGNATURE_VALUE: None,
+            cls.NIST_KEY_STATUS_CODE: None,
+            cls.NIST_KEY_TIMESTAMP: None,
+            cls.NIST_KEY_VERSION: None,
         }
 
         # Using the required values, let's load the xml values in
