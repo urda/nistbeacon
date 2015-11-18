@@ -86,8 +86,21 @@ class NistBeaconValue(object):
             'statusCode': None,
         }
 
+        # Using the required values, let's load the xml values in
+        for key in required_values:
+            discovered_element = tree.find(key)
+
+            if discovered_element is None:
+                continue
+
+            required_values[key] = discovered_element.text
+
+        # Confirm that the required values are set, and not 'None'
+        if None in required_values.values():
+            return None
+
         # TODO: This return is just for local testing / development
-        return tree
+        return required_values
 
 
 if __name__ == '__main__':
