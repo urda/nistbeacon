@@ -5,6 +5,15 @@ from xml.etree import ElementTree
 
 NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
+NIST_KEY_FREQUENCY = 'frequency'
+NIST_KEY_OUTPUT_VALUE = 'outputValue'
+NIST_KEY_PREVIOUS_OUTPUT_VALUE = 'previousOutputValue'
+NIST_KEY_SEED_VALUE = 'seedValue'
+NIST_KEY_SIGNATURE_VALUE = 'signatureValue'
+NIST_KEY_STATUS_CODE = 'statusCode'
+NIST_KEY_TIMESTAMP = 'timeStamp'
+NIST_KEY_VERSION = 'version'
+
 
 class NistBeaconValue(object):
     def __init__(
