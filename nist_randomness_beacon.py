@@ -54,14 +54,14 @@ class NistBeaconValue(object):
                         the chain is still intact
             """
 
-            self.version = None
-            self.frequency = None
-            self.timestamp = None
-            self.seed_value = None
-            self.previous_output_value = None
-            self.signature_value = None
-            self.output_value = None
-            self.status_code = None
+            self.version = version
+            self.frequency = frequency
+            self.timestamp = timestamp
+            self.seed_value = seed_value
+            self.previous_output_value = previous_output_value
+            self.signature_value = signature_value
+            self.output_value = output_value
+            self.status_code = status_code
 
 
 if __name__ == '__main__':
