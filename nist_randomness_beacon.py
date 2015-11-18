@@ -1,5 +1,8 @@
 #! /usr/bin/env python
 
+from xml.etree import ElementTree
+
+
 NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
 
@@ -65,7 +68,26 @@ class NistBeaconValue(object):
 
     @classmethod
     def from_xml(cls, input_xml: str):
-        pass
+        # First attempt to load the xml, return 'None' on ParseError
+        try:
+            tree = ElementTree.fromstring(input_xml)
+        except ElementTree.ParseError:
+            return None
+
+        # We now must check for all the expected properties
+        required_values = [
+            'version',
+            'frequency',
+            'timeStamp',
+            'seedValue',
+            'previousOutputValue',
+            'signatureValue',
+            'outputValue',
+            'statusCode',
+        ]
+
+        # TODO: This return is just for local testing / development
+        return tree
 
 
 if __name__ == '__main__':
