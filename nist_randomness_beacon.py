@@ -85,13 +85,10 @@ class NistBeaconValue(object):
         :return: A complete 'NistBeaconValue' object, 'None' otherwise
         """
 
-        # First attempt to load the xml, return 'None' on ParseError
-        try:
-            tree = ElementTree.fromstring(input_xml)
-        except ElementTree.ParseError:
-            return None
+        invalid_result = None
 
-        # We now must check for all the expected properties
+        # Our required values are "must haves". This makes it simple
+        # to verify we loaded everything out of XML correctly.
         required_values = {
             cls.NIST_KEY_FREQUENCY: None,
             cls.NIST_KEY_OUTPUT_VALUE: None,
@@ -102,6 +99,12 @@ class NistBeaconValue(object):
             cls.NIST_KEY_TIMESTAMP: None,
             cls.NIST_KEY_VERSION: None,
         }
+
+        # First attempt to load the xml, return 'None' on ParseError
+        try:
+            tree = ElementTree.fromstring(input_xml)
+        except ElementTree.ParseError:
+            return invalid_result
 
         # Using the required values, let's load the xml values in
         for key in required_values:
@@ -114,7 +117,7 @@ class NistBeaconValue(object):
 
         # Confirm that the required values are set, and not 'None'
         if None in required_values.values():
-            return None
+            return invalid_result
 
         # We have all the required values, return a node object
         return cls(
