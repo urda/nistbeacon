@@ -3,9 +3,6 @@
 from xml.etree import ElementTree
 
 
-NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
-
-
 class NistBeaconValue(object):
     NIST_KEY_FREQUENCY = 'frequency'
     NIST_KEY_OUTPUT_VALUE = 'outputValue'
@@ -132,6 +129,11 @@ class NistBeaconValue(object):
             output_value=required_values[cls.NIST_KEY_OUTPUT_VALUE],
             status_code=required_values[cls.NIST_KEY_STATUS_CODE],
         )
+
+
+class NistBeacon(object):
+    NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
+
 
 if __name__ == '__main__':
     pass
