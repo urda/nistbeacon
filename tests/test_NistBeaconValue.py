@@ -85,9 +85,20 @@ class TestNistBeaconValue(TestCase):
                                 )
 
     def test_from_xml(self):
-        expected_node = None
-        actual_node = NistBeaconValue.from_xml(self.sample_nist_xml)
-        pass
+        actual = NistBeaconValue.from_xml(self.sample_nist_xml)
+
+        # Verify a value was actually created
+        self.assertIsInstance(actual, NistBeaconValue)
+
+        # Verify values
+        self.assertEqual(actual.frequency, self.expected_frequency)
+        self.assertEqual(actual.output_value, self.expected_output_value)
+        self.assertEqual(actual.previous_output_value, self.expected_previous_output_value)
+        self.assertEqual(actual.seed_value, self.expected_seed_value)
+        self.assertEqual(actual.signature_value, self.expected_signature_value)
+        self.assertEqual(actual.status_code, self.expected_status_code)
+        self.assertEqual(actual.timestamp, self.expected_timestamp)
+        self.assertEqual(actual.version, self.expected_version)
 
     def test_noop(self):
         self.assertIsInstance(self.sample_nist_xml, str)
