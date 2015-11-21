@@ -4,8 +4,43 @@ from nist_randomness_beacon import NistBeaconValue
 
 
 class TestNistBeaconValue(TestCase):
+    # noinspection SpellCheckingInspection
     def setUp(self):
-        # noinspection SpellCheckingInspection
+        # Configure the expected properties
+        self.expected_frequency = int(60)
+        self.expected_output_value = '2BE1468DF2E4081306002B9F9E344C7826DDC2' \
+                                     '25583ED7FACC8804086867457DD4F4BD2DF9F5' \
+                                     'CE4B88DF6E30E4838F15168946BE18DFF596E6' \
+                                     '67EC543AC08F54'
+        self.expected_previous_output_value = 'F4F571DFBA7DA2D3872AF1696B6A3' \
+                                              '2B5039EB9CABF03CBB17EAB095D83' \
+                                              'B1483A12CE2D0347BEAF2709CA0BA' \
+                                              'C0EB78C330D20CD3BE2FBEC2F7816' \
+                                              'AB2BB953AA3D'
+        self.expected_seed_value = '6189C4FF1F17ED41F9FF017CEB82DB2579193FBB' \
+                                   'B867B95E7FEBA52E74C937377626C522454C6223' \
+                                   'B25C007BF09C4B3AB55D24CFE1EB8F67C306FA75' \
+                                   '147E1CD2'
+        self.expected_signature_value = 'F029F1A167DDBC17C041B9EB0A6AF2BC417' \
+                                        'D42C75001E39C2F9E2281AB9533B34ACBB5' \
+                                        '84414AC10C20322F72C53D6425F3C595ECA' \
+                                        '31A0B26A23D0573DCA6DEADE09D02214A7F' \
+                                        '9AF7EC0424D69B26EAF7269C648349AD189' \
+                                        'D90A43D67576BF4B00035118F1AD939D228' \
+                                        '489A37EF822FEB04C2B4D1676B1041EC928' \
+                                        '83101150AAF7747EC88FE176BCA1B289E60' \
+                                        '8E04CAF4CF47BE16A1B6243F8330E539740' \
+                                        'B9F6EB70A7A8E06777932B98617745AA2B5' \
+                                        '45EFFA0DAA8DE016D00B55B01AEC9100050' \
+                                        '8ACC4908D17A17311C68D156D63A0311025' \
+                                        '0CB959A023BA75C700FE4EB43543DC1AC35' \
+                                        '781FF91D72AA7FE467F83569318C83D3168' \
+                                        '01CC7159E83E2C306ADC2D'
+        self.expected_status_code = '0'
+        self.expected_timestamp = int(1447873020)
+        self.expected_version = 'Version 1.0'
+
+        # A full XML sample from the service
         self.sample_nist_xml = ('<?xml version="1.0" '
                                 'encoding="UTF-8" standalone="yes"?>'
                                 '<record>'
