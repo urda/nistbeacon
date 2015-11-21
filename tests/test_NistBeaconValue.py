@@ -44,3 +44,6 @@ class TestNistBeaconValue(TestCase):
                                 '<statusCode>0</statusCode>'
                                 '</record>'
                                 )
+
+    def test_noop(self):
+        self.assertIsInstance(self.sample_nist_xml, str)
