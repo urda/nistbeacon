@@ -112,8 +112,8 @@ class NistBeaconValue(object):
         # We have all the required values, return a node object
         return cls(
             version=required_values[cn.NIST_KEY_VERSION],
-            frequency=required_values[cn.NIST_KEY_FREQUENCY],
-            timestamp=required_values[cn.NIST_KEY_TIMESTAMP],
+            frequency=int(required_values[cn.NIST_KEY_FREQUENCY]),
+            timestamp=int(required_values[cn.NIST_KEY_TIMESTAMP]),
             seed_value=required_values[cn.NIST_KEY_SEED_VALUE],
             previous_output_value=required_values[
                 cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE
