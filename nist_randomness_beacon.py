@@ -2,17 +2,10 @@
 
 from xml.etree import ElementTree
 
+import nist_beacon_constants as cn
+
 
 class NistBeaconValue(object):
-    NIST_KEY_FREQUENCY = 'frequency'
-    NIST_KEY_OUTPUT_VALUE = 'outputValue'
-    NIST_KEY_PREVIOUS_OUTPUT_VALUE = 'previousOutputValue'
-    NIST_KEY_SEED_VALUE = 'seedValue'
-    NIST_KEY_SIGNATURE_VALUE = 'signatureValue'
-    NIST_KEY_STATUS_CODE = 'statusCode'
-    NIST_KEY_TIMESTAMP = 'timeStamp'
-    NIST_KEY_VERSION = 'version'
-
     def __init__(
             self,
             version: str,
@@ -87,14 +80,14 @@ class NistBeaconValue(object):
         # Our required values are "must haves". This makes it simple
         # to verify we loaded everything out of XML correctly.
         required_values = {
-            cls.NIST_KEY_FREQUENCY: None,
-            cls.NIST_KEY_OUTPUT_VALUE: None,
-            cls.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
-            cls.NIST_KEY_SEED_VALUE: None,
-            cls.NIST_KEY_SIGNATURE_VALUE: None,
-            cls.NIST_KEY_STATUS_CODE: None,
-            cls.NIST_KEY_TIMESTAMP: None,
-            cls.NIST_KEY_VERSION: None,
+            cn.NIST_KEY_FREQUENCY: None,
+            cn.NIST_KEY_OUTPUT_VALUE: None,
+            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
+            cn.NIST_KEY_SEED_VALUE: None,
+            cn.NIST_KEY_SIGNATURE_VALUE: None,
+            cn.NIST_KEY_STATUS_CODE: None,
+            cn.NIST_KEY_TIMESTAMP: None,
+            cn.NIST_KEY_VERSION: None,
         }
 
         # First attempt to load the xml, return 'None' on ParseError
@@ -118,16 +111,16 @@ class NistBeaconValue(object):
 
         # We have all the required values, return a node object
         return cls(
-            version=required_values[cls.NIST_KEY_VERSION],
-            frequency=required_values[cls.NIST_KEY_FREQUENCY],
-            timestamp=required_values[cls.NIST_KEY_TIMESTAMP],
-            seed_value=required_values[cls.NIST_KEY_SEED_VALUE],
+            version=required_values[cn.NIST_KEY_VERSION],
+            frequency=required_values[cn.NIST_KEY_FREQUENCY],
+            timestamp=required_values[cn.NIST_KEY_TIMESTAMP],
+            seed_value=required_values[cn.NIST_KEY_SEED_VALUE],
             previous_output_value=required_values[
-                cls.NIST_KEY_PREVIOUS_OUTPUT_VALUE
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE
             ],
-            signature_value=required_values[cls.NIST_KEY_SIGNATURE_VALUE],
-            output_value=required_values[cls.NIST_KEY_OUTPUT_VALUE],
-            status_code=required_values[cls.NIST_KEY_STATUS_CODE],
+            signature_value=required_values[cn.NIST_KEY_SIGNATURE_VALUE],
+            output_value=required_values[cn.NIST_KEY_OUTPUT_VALUE],
+            status_code=required_values[cn.NIST_KEY_STATUS_CODE],
         )
 
 
