@@ -99,23 +99,10 @@ class TestNistBeaconValue(TestCase):
         self.assertEqual(nist_beacon.version, self.expected_version)
 
     def test_from_xml(self):
-        actual = NistBeaconValue.from_xml(self.sample_nist_xml)
-
-        # Verify a value was actually created
-        self.assertIsInstance(actual, NistBeaconValue)
-
-        # Verify values
-        self.assertEqual(actual.frequency, self.expected_frequency)
-        self.assertEqual(actual.output_value, self.expected_output_value)
-        self.assertEqual(actual.previous_output_value, self.expected_previous_output_value)
-        self.assertEqual(actual.seed_value, self.expected_seed_value)
-        self.assertEqual(actual.signature_value, self.expected_signature_value)
-        self.assertEqual(actual.status_code, self.expected_status_code)
-        self.assertEqual(actual.timestamp, self.expected_timestamp)
-        self.assertEqual(actual.version, self.expected_version)
+        self.object_value_test(NistBeaconValue.from_xml(self.sample_nist_xml))
 
     def test_init(self):
-        actual = NistBeaconValue(
+        self.object_value_test(NistBeaconValue(
             version=self.expected_version,
             frequency=self.expected_frequency,
             timestamp=self.expected_timestamp,
@@ -124,17 +111,4 @@ class TestNistBeaconValue(TestCase):
             signature_value=self.expected_signature_value,
             output_value=self.expected_output_value,
             status_code=self.expected_status_code,
-        )
-
-        # Verify a value was actually created
-        self.assertIsInstance(actual, NistBeaconValue)
-
-        # Verify values
-        self.assertEqual(actual.frequency, self.expected_frequency)
-        self.assertEqual(actual.output_value, self.expected_output_value)
-        self.assertEqual(actual.previous_output_value, self.expected_previous_output_value)
-        self.assertEqual(actual.seed_value, self.expected_seed_value)
-        self.assertEqual(actual.signature_value, self.expected_signature_value)
-        self.assertEqual(actual.status_code, self.expected_status_code)
-        self.assertEqual(actual.timestamp, self.expected_timestamp)
-        self.assertEqual(actual.version, self.expected_version)
+        ))
