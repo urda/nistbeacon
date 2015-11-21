@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from nist_randomness_beacon import NistBeaconValue
+
 
 class TestNistBeaconValue(TestCase):
     def setUp(self):
@@ -44,6 +46,11 @@ class TestNistBeaconValue(TestCase):
                                 '<statusCode>0</statusCode>'
                                 '</record>'
                                 )
+
+    def test_from_xml(self):
+        expected_node = None
+        actual_node = NistBeaconValue.from_xml(self.sample_nist_xml)
+        pass
 
     def test_noop(self):
         self.assertIsInstance(self.sample_nist_xml, str)
