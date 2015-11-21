@@ -6,7 +6,9 @@ from nist_randomness_beacon import NistBeaconValue
 class TestNistBeaconValue(TestCase):
     def setUp(self):
         # noinspection SpellCheckingInspection
-        self.sample_nist_xml = ('<record>'
+        self.sample_nist_xml = ('<?xml version="1.0" '
+                                'encoding="UTF-8" standalone="yes"?>'
+                                '<record>'
                                 '<version>Version 1.0</version>'
                                 '<frequency>60</frequency>'
                                 '<timeStamp>1447873020</timeStamp>'
