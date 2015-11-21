@@ -99,6 +99,3 @@ class TestNistBeaconValue(TestCase):
         self.assertEqual(actual.status_code, self.expected_status_code)
         self.assertEqual(actual.timestamp, self.expected_timestamp)
         self.assertEqual(actual.version, self.expected_version)
-
-    def test_noop(self):
-        self.assertIsInstance(self.sample_nist_xml, str)
