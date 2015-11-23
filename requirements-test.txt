@@ -1,5 +1,6 @@
 -r requirements.txt
 
+coveralls
 pep8
 pytest
 pytest-cov
