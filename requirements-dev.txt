@@ -1,4 +1,3 @@
 -r requirements-test.txt
 
 ipython[all]
-pep8
