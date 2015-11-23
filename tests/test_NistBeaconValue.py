@@ -112,9 +112,15 @@ class TestNistBeaconValue(TestCase):
         # Verify values
         self.assertEqual(nist_beacon.frequency, self.expected_frequency)
         self.assertEqual(nist_beacon.output_value, self.expected_output_value)
-        self.assertEqual(nist_beacon.previous_output_value, self.expected_previous_output_value)
+        self.assertEqual(
+            nist_beacon.previous_output_value,
+            self.expected_previous_output_value
+        )
         self.assertEqual(nist_beacon.seed_value, self.expected_seed_value)
-        self.assertEqual(nist_beacon.signature_value, self.expected_signature_value)
+        self.assertEqual(
+            nist_beacon.signature_value,
+            self.expected_signature_value
+        )
         self.assertEqual(nist_beacon.status_code, self.expected_status_code)
         self.assertEqual(nist_beacon.timestamp, self.expected_timestamp)
         self.assertEqual(nist_beacon.version, self.expected_version)
