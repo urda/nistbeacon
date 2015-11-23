@@ -85,6 +85,13 @@ class TestNistBeaconValue(TestCase):
                                 )
 
     def object_value_test(self, nist_beacon: NistBeaconValue):
+        """
+        Given a NIST Random Value Beacon,
+        verify the object properties are correct
+
+        :param nist_beacon: The NIST beacon to check
+        """
+
         # Verify a value was actually created
         self.assertIsInstance(nist_beacon, NistBeaconValue)
 
@@ -99,9 +106,17 @@ class TestNistBeaconValue(TestCase):
         self.assertEqual(nist_beacon.version, self.expected_version)
 
     def test_from_xml(self):
+        """
+        Test construction from XML
+        """
+
         self.object_value_test(NistBeaconValue.from_xml(self.sample_nist_xml))
 
     def test_init(self):
+        """
+        Test the object's init method
+        """
+
         self.object_value_test(NistBeaconValue(
             version=self.expected_version,
             frequency=self.expected_frequency,
