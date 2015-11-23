@@ -5,4 +5,5 @@ python:
 
 install: pip install -U -r requirements-test.txt
 
-script: make test
+script:
+  - make test
