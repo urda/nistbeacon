@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from nist_randomness_beacon import NistBeaconValue
+from py_nist_beacon.nist_randomness_beacon import NistBeaconValue
 
 
 class TestNistBeaconValue(TestCase):

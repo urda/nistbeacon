@@ -2,7 +2,7 @@
 
 from xml.etree import ElementTree
 
-import nist_beacon_constants as cn
+import py_nist_beacon.nist_beacon_constants as cn
 
 
 class NistBeaconValue(object):
