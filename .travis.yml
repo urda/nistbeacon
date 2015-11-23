@@ -8,3 +8,6 @@ install: pip install -U -r requirements-test.txt
 script:
   - make test
   - make pep8
+
+after_success:
+  - coveralls
