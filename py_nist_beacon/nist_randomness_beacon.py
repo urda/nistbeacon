@@ -2,6 +2,8 @@
 
 from xml.etree import ElementTree
 
+import requests
+
 import py_nist_beacon.nist_beacon_constants as cn
 
 
@@ -124,8 +126,13 @@ class NistBeaconValue(object):
         )
 
 
-class NistBeacon(object):
+class NistRandomnessBeacon(object):
     NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
+
+    @classmethod
+    def last_record(cls):
+        r = requests.get("{}/last".format(cls.NIST_BASE_URL))
+        return NistBeaconValue.from_xml(r.text)
 
 
 if __name__ == '__main__':
