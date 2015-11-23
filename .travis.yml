@@ -5,4 +5,4 @@ python:
 
 install: pip install -U -r requirements-test.txt
 
-script: py.test -r fEsxXw --verbose --cov py_nist_beacon --cov-report html
+script: make test
