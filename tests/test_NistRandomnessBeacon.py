@@ -98,6 +98,18 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
+    def test_get_next(self):
+        next_record = NistRandomnessBeacon.get_next(self.reference_timestamp)
+        self.assertEqual(self.expected_next, next_record)
+
+    def test_get_previous(self):
+        previous_record = NistRandomnessBeacon.get_previous(self.reference_timestamp)
+        self.assertEqual(self.expected_previous, previous_record)
+
+    def test_get_record(self):
+        record = NistRandomnessBeacon.get_record(self.reference_timestamp)
+        self.assertEqual(self.expected_current, record)
+
     def test_get_last_record(self):
         last_record = NistRandomnessBeacon.get_last_record()
 
