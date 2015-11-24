@@ -27,17 +27,16 @@ class TestNistRandomnessBeacon(TestCase):
             self.assertIsNone(NistRandomnessBeacon.get_last_record())
 
     def test_get_last_record_exceptions(self):
-        with patch('requests.get') as patched_requests:
+        exceptions_to_test = [
+            requests.exceptions.RequestException(),
+            requests.exceptions.ConnectionError(),
+            requests.exceptions.HTTPError(),
+            requests.exceptions.URLRequired(),
+            requests.exceptions.TooManyRedirects(),
+            requests.exceptions.Timeout(),
+        ]
 
-            exceptions_to_test = [
-                requests.exceptions.RequestException(),
-                requests.exceptions.ConnectionError(),
-                requests.exceptions.HTTPError(),
-                requests.exceptions.URLRequired(),
-                requests.exceptions.TooManyRedirects(),
-                requests.exceptions.Timeout(),
-            ]
-
-            for exception_test in exceptions_to_test:
-                patched_requests.side_effect = exception_test
+        for exception_to_test in exceptions_to_test:
+            with patch('requests.get') as patched_requests:
+                patched_requests.side_effect = exception_to_test
                 self.assertIsNone(NistRandomnessBeacon.get_last_record())
