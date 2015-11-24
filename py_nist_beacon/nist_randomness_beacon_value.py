@@ -1,5 +1,4 @@
 from xml.etree import ElementTree
-
 import py_nist_beacon.nist_beacon_constants as cn
 
 
@@ -64,14 +63,18 @@ class NistRandomnessBeaconValue(object):
         self.status_code = status_code
 
     def __eq__(self, other):
-        return self.version == other.version \
-               and self.frequency == other.frequency \
-               and self.timestamp == other.timestamp \
-               and self.seed_value == other.seed_value \
-               and self.previous_output_value == other.previous_output_value \
-               and self.signature_value == other.signature_value \
-               and self.output_value == other.output_value \
-               and self.status_code == other.status_code
+        try:
+            return self.version == other.version \
+                   and self.frequency == other.frequency \
+                   and self.timestamp == other.timestamp \
+                   and self.seed_value == other.seed_value \
+                   and self.previous_output_value == \
+                   other.previous_output_value \
+                   and self.signature_value == other.signature_value \
+                   and self.output_value == other.output_value \
+                   and self.status_code == other.status_code
+        except (AttributeError, TypeError):
+            return False
 
     def __ne__(self, other):
         return not self.__eq__(other)
