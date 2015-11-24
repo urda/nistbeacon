@@ -1,6 +1,18 @@
-.PHONY: clean pep8 test
+.PHONY: register upload prod-register prod-upload clean pep8 test
 
-all:
+all: pep8 test clean
+
+register:
+	python setup.py register -r pypitest
+
+upload:
+	python setup.py sdist upload -r pypitest
+
+prod-register:
+	python setup.py register -r pypi
+
+prod-upload:
+	python setup.py sdist upload -r pypi
 
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
