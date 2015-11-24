@@ -10,58 +10,12 @@ class NistRandomnessBeacon(object):
     NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
     @classmethod
-    def get_last_record(cls):
-        try:
-            r = requests.get("{}/last".format(cls.NIST_BASE_URL))
-
-            if r.status_code is requests.codes.OK:
-                return NistRandomnessBeaconValue.from_xml(r.text)
-            else:
-                return None
-        except RequestException:
-            return None
-
-    @classmethod
-    def get_next(cls, timestamp: int):
-        try:
-            r = requests.get(
-                "{0}/next/{1}".format(
-                    cls.NIST_BASE_URL,
-                    timestamp,
-                )
-            )
-
-            if r.status_code is requests.codes.OK:
-                return NistRandomnessBeaconValue.from_xml(r.text)
-            else:
-                return None
-        except RequestException:
-            return None
-
-    @classmethod
-    def get_previous(cls, timestamp: int):
-        try:
-            r = requests.get(
-                "{0}/previous/{1}".format(
-                    cls.NIST_BASE_URL,
-                    timestamp,
-                )
-            )
-
-            if r.status_code is requests.codes.OK:
-                return NistRandomnessBeaconValue.from_xml(r.text)
-            else:
-                return None
-        except RequestException:
-            return None
-
-    @classmethod
-    def get_record(cls, timestamp: int):
+    def _query_nist(cls, url_data: str) -> NistRandomnessBeaconValue:
         try:
             r = requests.get(
                 "{0}/{1}".format(
                     cls.NIST_BASE_URL,
-                    timestamp,
+                    url_data,
                 )
             )
 
@@ -71,3 +25,19 @@ class NistRandomnessBeacon(object):
                 return None
         except RequestException:
             return None
+
+    @classmethod
+    def get_last_record(cls):
+        return cls._query_nist("last")
+
+    @classmethod
+    def get_next(cls, timestamp: int):
+        return cls._query_nist("next/{}".format(timestamp))
+
+    @classmethod
+    def get_previous(cls, timestamp: int):
+        return cls._query_nist("previous/{}".format(timestamp))
+
+    @classmethod
+    def get_record(cls, timestamp: int):
+        return cls._query_nist(str(timestamp))
