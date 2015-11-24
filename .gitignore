@@ -1,6 +1,9 @@
 ### Python ###
 __pycache__/
 
+# Packaging
+dist/
+
 # Testing
 .coverage
 
