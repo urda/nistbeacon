@@ -155,6 +155,10 @@ class TestNistRandomnessBeaconValue(TestCase):
         # Which should return "False" when asked if they are not equal
         self.assertFalse(from_props != from_xml)
 
+        # As well as when compared to wrong things
+        self.assertFalse(from_props == '')
+        self.assertTrue(from_props != '')
+
     def test_from_xml(self):
         """
         Test construction from XML
