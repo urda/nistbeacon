@@ -3,7 +3,7 @@ from unittest import TestCase
 from py_nist_beacon.nist_randomness_beacon_value import NistRandomnessBeaconValue
 
 
-class TestNistBeaconValue(TestCase):
+class TestNistRandomnessBeaconValue(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
         # Configure the expected properties
