@@ -1,3 +1,4 @@
 from py_nist_beacon.nist_randomness_beacon import NistRandomnessBeacon
+from py_nist_beacon.version_info import version_string
 
-__version__ = '0.1.3'
+__version__ = version_string
