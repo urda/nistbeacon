@@ -1,6 +1,8 @@
 from unittest import TestCase
 
-from py_nist_beacon.nist_randomness_beacon_value import NistRandomnessBeaconValue
+from py_nist_beacon.nist_randomness_beacon_value import (
+    NistRandomnessBeaconValue
+)
 
 
 class TestNistRandomnessBeaconValue(TestCase):
@@ -130,7 +132,11 @@ class TestNistRandomnessBeaconValue(TestCase):
         Test construction from XML
         """
 
-        self.object_value_test(NistRandomnessBeaconValue.from_xml(self.sample_nist_xml))
+        self.object_value_test(
+            NistRandomnessBeaconValue.from_xml(
+                self.sample_nist_xml
+            )
+        )
 
     def test_init(self):
         """
@@ -158,5 +164,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         )
 
         self.assertIsNone(
-            NistRandomnessBeaconValue.from_xml(self.sample_nist_missing_content)
+            NistRandomnessBeaconValue.from_xml(
+                self.sample_nist_missing_content
+            )
         )

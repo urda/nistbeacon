@@ -69,8 +69,8 @@ class NistRandomnessBeaconValue(object):
         Convert a string of XML which represents a NIST Randomness Beacon value
         into a 'NistRandomnessBeaconValue' object.
 
-        :param input_xml: The XML string to parse a 'NistRandomnessBeaconValue' out of
-        :return: A complete 'NistRandomnessBeaconValue' object, 'None' otherwise
+        :param input_xml: XML to build a 'NistRandomnessBeaconValue' from
+        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
         """
 
         invalid_result = None
