@@ -3,7 +3,7 @@
 all:
 
 clean:
-	rm -rf ./.cache/ ./htmlcov/ .coverage
+	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
 
 pep8:
 	pep8 ./py_nist_beacon/*.py ./tests/*.py
