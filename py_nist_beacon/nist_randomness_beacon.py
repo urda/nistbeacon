@@ -10,7 +10,7 @@ class NistRandomnessBeacon(object):
     NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
     @classmethod
-    def last_record(cls):
+    def get_last_record(cls):
         try:
             r = requests.get("{}/last".format(cls.NIST_BASE_URL))
             return NistRandomnessBeaconValue.from_xml(r.text)
