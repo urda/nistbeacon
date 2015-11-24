@@ -3,6 +3,7 @@
 from xml.etree import ElementTree
 
 import requests
+from requests.exceptions import RequestException
 
 import py_nist_beacon.nist_beacon_constants as cn
 
@@ -131,8 +132,11 @@ class NistRandomnessBeacon(object):
 
     @classmethod
     def last_record(cls):
-        r = requests.get("{}/last".format(cls.NIST_BASE_URL))
-        return NistBeaconValue.from_xml(r.text)
+        try:
+            r = requests.get("{}/last".format(cls.NIST_BASE_URL))
+            return NistBeaconValue.from_xml(r.text)
+        except RequestException:
+            return None
 
 
 if __name__ == '__main__':
