@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 import requests
 from requests.exceptions import RequestException
 
@@ -16,7 +14,3 @@ class NistRandomnessBeacon(object):
             return NistRandomnessBeaconValue.from_xml(r.text)
         except RequestException:
             return None
-
-
-if __name__ == '__main__':
-    pass
