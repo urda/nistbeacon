@@ -3,7 +3,7 @@
 import requests
 from requests.exceptions import RequestException
 
-from py_nist_beacon.nist_beacon_value import NistRandomnessBeaconValue
+from py_nist_beacon.nist_randomness_beacon_value import NistRandomnessBeaconValue
 
 
 class NistRandomnessBeacon(object):
