@@ -127,6 +127,34 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertEqual(nist_beacon.timestamp, self.expected_timestamp)
         self.assertEqual(nist_beacon.version, self.expected_version)
 
+    def test_equality_operators(self):
+        """
+        Verify the "equals" and "not equals" operators
+        are working correctly
+        """
+
+        from_xml = NistRandomnessBeaconValue.from_xml(self.sample_nist_xml)
+
+        from_props = NistRandomnessBeaconValue(
+            version=from_xml.version,
+            frequency=from_xml.frequency,
+            timestamp=from_xml.timestamp,
+            seed_value=from_xml.seed_value,
+            previous_output_value=from_xml.previous_output_value,
+            signature_value=from_xml.signature_value,
+            output_value=from_xml.output_value,
+            status_code=from_xml.status_code,
+        )
+
+        # These should be two different objects
+        self.assertFalse(from_props is from_xml)
+
+        # But they should be consider "equal"
+        self.assertTrue(from_props == from_xml)
+
+        # Which should return "False" when asked if they are not equal
+        self.assertFalse(from_props != from_xml)
+
     def test_from_xml(self):
         """
         Test construction from XML
