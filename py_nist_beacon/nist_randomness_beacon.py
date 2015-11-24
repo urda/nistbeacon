@@ -13,6 +13,10 @@ class NistRandomnessBeacon(object):
     def get_last_record(cls):
         try:
             r = requests.get("{}/last".format(cls.NIST_BASE_URL))
-            return NistRandomnessBeaconValue.from_xml(r.text)
+
+            if r.status_code is requests.codes.OK:
+                return NistRandomnessBeaconValue.from_xml(r.text)
+            else:
+                return None
         except RequestException:
             return None
