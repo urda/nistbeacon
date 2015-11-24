@@ -63,6 +63,19 @@ class NistRandomnessBeaconValue(object):
         self.output_value = output_value
         self.status_code = status_code
 
+    def __eq__(self, other):
+        return self.version == other.version \
+               and self.frequency == other.frequency \
+               and self.timestamp == other.timestamp \
+               and self.seed_value == other.seed_value \
+               and self.previous_output_value == other.previous_output_value \
+               and self.signature_value == other.signature_value \
+               and self.output_value == other.output_value \
+               and self.status_code == other.status_code
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     @classmethod
     def from_xml(cls, input_xml: str):
         """
