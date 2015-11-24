@@ -47,7 +47,7 @@ class TestNistRandomnessBeacon(TestCase):
         self.expected_next = NistRandomnessBeaconValue(
             version='Version 1.0',
             frequency=int(60),
-            timestamp=int(1447872960),
+            timestamp=int(1447873080),
             seed_value='7C82286A7198A052775066CA19AA08D13DF50E7B9B917C54C08AD5'
                        '8A888EFDDC74420794D5D6FACD9BCC23FF389B8C64F4B253F2029E'
                        '4B8B5DD40522C6A79C31',
@@ -65,9 +65,9 @@ class TestNistRandomnessBeacon(TestCase):
                             '6BA061319D4D95C911F9EBFAC57012DA6145B2E4AE325B8B4'
                             '6653E85335F804770CFC2EC4A54DADF49E628C657122B24A0'
                             '1025349578BE8E1E5C3B6B',
-            output_value='2BE1468DF2E4081306002B9F9E344C7826DDC225583ED7FACC88'
-                         '04086867457DD4F4BD2DF9F5CE4B88DF6E30E4838F15168946BE'
-                         '18DFF596E667EC543AC08F54',
+            output_value='7C4C052130AF855FC7B05B03E7C06C6CF6613A60698931DD438A'
+                         'CE70E3F65346DA089114DC8A334510FF86C7692B9F54F25653B6'
+                         '30FB8E36209A45EF864C426F',
             status_code='0',
         )
 
