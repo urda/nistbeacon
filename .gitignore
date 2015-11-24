@@ -3,6 +3,7 @@ __pycache__/
 
 # Packaging
 dist/
+MANIFEST
 
 # Testing
 .coverage
