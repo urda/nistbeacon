@@ -3,7 +3,7 @@ from xml.etree import ElementTree
 import py_nist_beacon.nist_beacon_constants as cn
 
 
-class NistBeaconValue(object):
+class NistRandomnessBeaconValue(object):
     def __init__(
             self,
             version: str,
@@ -67,10 +67,10 @@ class NistBeaconValue(object):
     def from_xml(cls, input_xml: str):
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
-        into a 'NistBeaconValue' object.
+        into a 'NistRandomnessBeaconValue' object.
 
-        :param input_xml: The XML string to parse a 'NistBeaconValue' out of
-        :return: A complete 'NistBeaconValue' object, 'None' otherwise
+        :param input_xml: The XML string to parse a 'NistRandomnessBeaconValue' out of
+        :return: A complete 'NistRandomnessBeaconValue' object, 'None' otherwise
         """
 
         invalid_result = None

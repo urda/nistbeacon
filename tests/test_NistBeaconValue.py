@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from py_nist_beacon.nist_beacon_value import NistBeaconValue
+from py_nist_beacon.nist_beacon_value import NistRandomnessBeaconValue
 
 
 class TestNistBeaconValue(TestCase):
@@ -98,7 +98,7 @@ class TestNistBeaconValue(TestCase):
                                 '</record>'
                                 )
 
-    def object_value_test(self, nist_beacon: NistBeaconValue):
+    def object_value_test(self, nist_beacon: NistRandomnessBeaconValue):
         """
         Given a NIST Random Value Beacon,
         verify the object properties are correct
@@ -107,7 +107,7 @@ class TestNistBeaconValue(TestCase):
         """
 
         # Verify a value was actually created
-        self.assertIsInstance(nist_beacon, NistBeaconValue)
+        self.assertIsInstance(nist_beacon, NistRandomnessBeaconValue)
 
         # Verify values
         self.assertEqual(nist_beacon.frequency, self.expected_frequency)
@@ -130,14 +130,14 @@ class TestNistBeaconValue(TestCase):
         Test construction from XML
         """
 
-        self.object_value_test(NistBeaconValue.from_xml(self.sample_nist_xml))
+        self.object_value_test(NistRandomnessBeaconValue.from_xml(self.sample_nist_xml))
 
     def test_init(self):
         """
         Test the object's init method
         """
 
-        self.object_value_test(NistBeaconValue(
+        self.object_value_test(NistRandomnessBeaconValue(
             version=self.expected_version,
             frequency=self.expected_frequency,
             timestamp=self.expected_timestamp,
@@ -154,9 +154,9 @@ class TestNistBeaconValue(TestCase):
         """
 
         self.assertIsNone(
-            NistBeaconValue.from_xml(self.sample_nist_parse_error)
+            NistRandomnessBeaconValue.from_xml(self.sample_nist_parse_error)
         )
 
         self.assertIsNone(
-            NistBeaconValue.from_xml(self.sample_nist_missing_content)
+            NistRandomnessBeaconValue.from_xml(self.sample_nist_missing_content)
         )
