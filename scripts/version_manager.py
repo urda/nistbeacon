@@ -33,7 +33,6 @@ def get_package_version() -> str:
 def get_setup_py_version() -> str:
     magic_line = "    version='"
 
-    # noinspection PyBroadException
     try:
         f = open(paths['setup.py'], 'r')
         lines = f.readlines()
