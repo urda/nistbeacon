@@ -47,6 +47,22 @@ class VersionScrapper(object):
         return result
 
 
+new_paths = [
+    VersionScrapper(
+        key_name='package',
+        file_path=join(curr_location, '../py_nist_beacon/__init__.py'),
+        magic_line="__version__ = '",
+        strip_end_chars=1,
+    ),
+    VersionScrapper(
+        key_name='setup.py',
+        file_path=join(curr_location, '../setup.py'),
+        magic_line="    version='",
+        strip_end_chars=3,
+    ),
+]
+
+
 def get_package_version() -> str:
     magic_line = "__version__ = '"
 
@@ -82,11 +98,10 @@ def get_setup_py_version() -> str:
 def get_versions() -> (bool, dict):
 
     versions_match = False
+    versions = {}
 
-    versions = {
-        'package': get_package_version(),
-        'setup.py': get_setup_py_version(),
-    }
+    for version_obj in new_paths:
+        versions[version_obj.key_name] = version_obj.scrape_version()
 
     return versions_match, versions
 
