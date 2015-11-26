@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from argparse import ArgumentParser
+from collections import Counter
 from os.path import (
     dirname,
     join,
@@ -59,11 +60,17 @@ version_objects = [
 
 def get_versions() -> (bool, dict):
 
+    version_counter = Counter()
     versions_match = False
     versions = {}
 
     for version_obj in version_objects:
-        versions[version_obj.key_name] = version_obj.get_version()
+        discovered = version_obj.get_version()
+        versions[version_obj.key_name] = discovered
+        version_counter.update([version_counter])
+
+    if len(version_counter) == 1:
+        versions_match = True
 
     return versions_match, versions
 
