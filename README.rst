@@ -6,6 +6,29 @@ Python NIST Randomness Beacon
 **WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC
 KEYS.**
 
+Usage
+=====
+
+Start by importing the beacon into your project:
+::
+    from py_nist_beacon import NistRandomnessBeacon
+
+Then simply use the various methods on the beacon to get values back out:
+::
+    # In the examples below I will be using 1447873020 as my <timestamp> when required
+
+    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
+    record = NistRandomnessBeacon.get_record(1447873020)
+
+    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
+    record = NistRandomnessBeacon.get_previous(1447873020)
+
+    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
+    record = NistRandomnessBeacon.get_next(1447873020)
+
+    # Last Record - https://beacon.nist.gov/rest/record/last
+    record = NistRandomnessBeacon.get_last_record()
+
 References
 ----------
 
