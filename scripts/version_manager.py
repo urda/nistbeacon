@@ -17,12 +17,37 @@ class FileVersionInfo(object):
             magic_line: str,
             strip_end_chars: int = 0,
     ):
+        """
+        A simple python object that is used to extract and
+        (eventually) update version values across the project
+
+        The 'magic_line' is the first part of a file line that
+        is before the version number. So for example, if the version
+        is stored on a line such as '__version__=1' your magic line
+        will be '__version__='. If you need to remove any extra characters
+        at the end of the version line, increase the 'strip_end_chars'
+        property on this object.
+
+        :param key_name: The key name, or reference name, for this file
+        :param file_path: The path to the file
+        :param magic_line: The "magic line" to search for
+        :param strip_end_chars: The number of characters to strip off the end
+        """
+
         self.key_name = key_name
         self.file_path = file_path
         self.magic_line = magic_line
         self.strip_end_chars = strip_end_chars
 
     def get_version(self) -> str:
+        """
+        Open the file referenced in this object, and scrape the version.
+
+        :return:
+            The version as a string, an empty string if there is no match
+            to the magic_line, or any file exception messages encountered.
+        """
+
         try:
             f = open(self.file_path, 'r')
             lines = f.readlines()
@@ -49,6 +74,14 @@ class FileVersionResult(object):
             version_details: dict,
             version_result: str
     ):
+        """
+        Object to contain results about the project's version
+
+        :param uniform: True if versions are the same, False otherwise
+        :param version_details: Full details on each file and reported version
+        :param version_result: The project's version as a single string.
+        """
+
         self.uniform = uniform
         self.version_details = version_details
         self.version_result = version_result
@@ -72,6 +105,11 @@ version_objects = [
 
 
 def get_versions() -> FileVersionResult:
+    """
+    Search specific project files and extract versions to check.
+
+    :return: A FileVersionResult object for reporting.
+    """
 
     version_counter = Counter()
     versions_match = False
@@ -95,7 +133,6 @@ def get_versions() -> FileVersionResult:
 
 
 if __name__ == '__main__':
-
     parser = ArgumentParser()
 
     understood_commands = [
