@@ -7,7 +7,7 @@ from os.path import (
 )
 
 
-class VersionScrapper(object):
+class FileVersionInfo(object):
     def __init__(
             self,
             key_name: str,
@@ -20,7 +20,7 @@ class VersionScrapper(object):
         self.magic_line = magic_line
         self.strip_end_chars = strip_end_chars
 
-    def scrape_version(self) -> str:
+    def get_version(self) -> str:
         try:
             f = open(self.file_path, 'r')
             lines = f.readlines()
@@ -42,13 +42,13 @@ class VersionScrapper(object):
 
 curr_location = dirname(__file__)
 version_objects = [
-    VersionScrapper(
+    FileVersionInfo(
         key_name='package',
         file_path=join(curr_location, '../py_nist_beacon/__init__.py'),
         magic_line="__version__ = '",
         strip_end_chars=2,
     ),
-    VersionScrapper(
+    FileVersionInfo(
         key_name='setup.py',
         file_path=join(curr_location, '../setup.py'),
         magic_line="    version='",
@@ -63,7 +63,7 @@ def get_versions() -> (bool, dict):
     versions = {}
 
     for version_obj in version_objects:
-        versions[version_obj.key_name] = version_obj.scrape_version()
+        versions[version_obj.key_name] = version_obj.get_version()
 
     return versions_match, versions
 
