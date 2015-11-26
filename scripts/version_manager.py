@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 from argparse import ArgumentParser
 from collections import Counter
 from os.path import (
@@ -58,11 +59,12 @@ version_objects = [
 ]
 
 
-def get_versions() -> (bool, dict):
+def get_versions() -> (bool, dict, str):
 
     version_counter = Counter()
     versions_match = False
-    versions = {}
+    version_str = None
+    versions_discovered = {}
 
     for version_obj in version_objects:
         discovered = version_obj.get_version()
@@ -71,8 +73,9 @@ def get_versions() -> (bool, dict):
 
     if len(version_counter) == 1:
         versions_match = True
+        version_str = list(version_counter.keys())[0]
 
-    return versions_match, versions
+    return versions_match, versions_discovered, version_str
 
 
 if __name__ == '__main__':
@@ -90,6 +93,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.command == "check":
-        _, data = get_versions()
+        versions_ok, versions, version = get_versions()
 
-        print(data)
+        if versions_ok:
+            print("Versions look OK across the project")
+            print("Version: '{}'".format(version))
+        else:
+            print("Versions DO NOT MATCH across the project!")
+            print(versions)
+            sys.exit(1)
+
+    sys.exit(0)
