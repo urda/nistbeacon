@@ -68,8 +68,8 @@ def get_versions() -> (bool, dict, str):
 
     for version_obj in version_objects:
         discovered = version_obj.get_version()
-        versions[version_obj.key_name] = discovered
-        version_counter.update([version_counter])
+        versions_discovered[version_obj.key_name] = discovered
+        version_counter.update([discovered])
 
     if len(version_counter) == 1:
         versions_match = True
