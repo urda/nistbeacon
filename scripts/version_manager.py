@@ -42,6 +42,18 @@ class FileVersionInfo(object):
         return result
 
 
+class FileVersionResult(object):
+    def __init__(
+            self,
+            uniform: bool,
+            version_details: dict,
+            version_result: str
+    ):
+        self.uniform = uniform
+        self.version_details = version_details
+        self.version_result = version_result
+
+
 curr_location = dirname(__file__)
 version_objects = [
     FileVersionInfo(
@@ -59,7 +71,7 @@ version_objects = [
 ]
 
 
-def get_versions() -> (bool, dict, str):
+def get_versions() -> FileVersionResult:
 
     version_counter = Counter()
     versions_match = False
@@ -75,7 +87,11 @@ def get_versions() -> (bool, dict, str):
         versions_match = True
         version_str = list(version_counter.keys())[0]
 
-    return versions_match, versions_discovered, version_str
+    return FileVersionResult(
+        uniform=versions_match,
+        version_details=versions_discovered,
+        version_result=version_str,
+    )
 
 
 if __name__ == '__main__':
@@ -93,15 +109,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.command == "check":
-        versions_ok, versions, version = get_versions()
+        version_data = get_versions()
 
-        if versions_ok:
+        if version_data.uniform:
             print("Versions look OK across the project")
-            print("Version: '{}'".format(version))
+            print("Version: '{}'".format(version_data.version_result))
         else:
             print("Versions DO NOT MATCH across the project!")
             print()
-            for key, version_val in versions.items():
+            for key, version_val in version_data.version_details.items():
                 print("{0: <10}: {1}".format(key, version_val))
 
             sys.exit(1)
