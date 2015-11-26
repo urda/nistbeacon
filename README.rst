@@ -10,11 +10,11 @@ Usage
 =====
 
 Start by importing the beacon into your project:
-::
+.. code:: python
     from py_nist_beacon import NistRandomnessBeacon
 
 Then simply use the various methods on the beacon to get values back out:
-::
+.. code:: python
     # In the examples below I will be using 1447873020 as my <timestamp> when required
 
     # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
