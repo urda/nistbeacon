@@ -1,13 +1,79 @@
 #!/usr/bin/env python
 
+from argparse import ArgumentParser
+from os.path import (
+    dirname,
+    join,
+)
 
-def update_package(new_version: str):
-    pass
+curr_location = dirname(__file__)
+
+paths = {
+    'package': join(curr_location, '../py_nist_beacon/__init__.py'),
+    'setup.py': join(curr_location, '../setup.py'),
+}
 
 
-def update_setup_py(new_version: str):
-    pass
+def get_package_version() -> str:
+    magic_line = "__version__ = '"
+
+    try:
+        f = open(paths['package'], 'r')
+        lines = f.readlines()
+        f.close()
+
+        for line in lines:
+            if magic_line in line:
+                return line[len(magic_line):len(line)-1]
+
+    except Exception as e:
+        return str(e)
+
+
+def get_setup_py_version() -> str:
+    magic_line = "    version='"
+
+    # noinspection PyBroadException
+    try:
+        f = open(paths['setup.py'], 'r')
+        lines = f.readlines()
+        f.close()
+
+        for line in lines:
+            if magic_line in line:
+                return line[len(magic_line):len(line)-3]
+
+    except Exception as e:
+        return str(e)
+
+
+def get_versions() -> (bool, dict):
+
+    versions_match = False
+
+    versions = {
+        'package': get_package_version(),
+        'setup.py': get_setup_py_version(),
+    }
+
+    return versions_match, versions
 
 
 if __name__ == '__main__':
-    user_version = input('Version to set > ')
+
+    parser = ArgumentParser()
+
+    understood_commands = [
+        'check',
+    ]
+
+    sp = parser.add_subparsers(dest="command")
+    for command in understood_commands:
+        sp.add_parser(command)
+
+    args = parser.parse_args()
+
+    if args.command == "check":
+        _, data = get_versions()
+
+        print(data)
