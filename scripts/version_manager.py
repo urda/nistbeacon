@@ -28,7 +28,23 @@ class VersionScrapper(object):
         self.strip_end_chars = strip_end_chars
 
     def scrape_version(self) -> str:
-        pass
+        try:
+            f = open(self.file_path, 'r')
+            lines = f.readlines()
+            f.close()
+        except Exception as e:
+            return str(e)
+
+        result = ''
+
+        for line in lines:
+            if self.magic_line in line:
+                start = len(self.magic_line)
+                end = len(line) - self.strip_end_chars
+                result = line[start:end]
+                break
+
+        return result
 
 
 def get_package_version() -> str:
