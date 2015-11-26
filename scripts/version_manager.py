@@ -14,6 +14,23 @@ paths = {
 }
 
 
+class VersionScrapper(object):
+    def __init__(
+            self,
+            key_name: str,
+            file_path: str,
+            magic_line: str,
+            offset_end: int = 0,
+    ):
+        self.key_name = key_name,
+        self.file_path = file_path,
+        self.magic_line = magic_line,
+        self.offset_end = offset_end
+
+    def scrape_version(self) -> str:
+        pass
+
+
 def get_package_version() -> str:
     magic_line = "__version__ = '"
 
