@@ -22,9 +22,9 @@ class VersionScrapper(object):
             magic_line: str,
             offset_end: int = 0,
     ):
-        self.key_name = key_name,
-        self.file_path = file_path,
-        self.magic_line = magic_line,
+        self.key_name = key_name
+        self.file_path = file_path
+        self.magic_line = magic_line
         self.offset_end = offset_end
 
     def scrape_version(self) -> str:
