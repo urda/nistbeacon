@@ -11,6 +11,7 @@ install:
 script:
   - make test
   - make pep8
+  - make version-check
 
 after_success:
   - coveralls

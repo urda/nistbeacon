@@ -1,4 +1,4 @@
-.PHONY: register upload prod-register prod-upload clean pep8 test
+.PHONY: register upload prod-register prod-upload clean pep8 test version-check
 
 all: pep8 test clean
 
@@ -22,3 +22,6 @@ pep8:
 
 test:
 	py.test -r fEsxXw --verbose --cov py_nist_beacon --cov-report html
+
+version-check:
+	./scripts/version_manager.py check
