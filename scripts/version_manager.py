@@ -100,7 +100,10 @@ if __name__ == '__main__':
             print("Version: '{}'".format(version))
         else:
             print("Versions DO NOT MATCH across the project!")
-            print(versions)
+            print()
+            for key, version_val in versions.items():
+                print("{0: <10}: {1}".format(key, version_val))
+
             sys.exit(1)
 
     sys.exit(0)
