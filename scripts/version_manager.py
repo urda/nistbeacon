@@ -52,7 +52,7 @@ new_paths = [
         key_name='package',
         file_path=join(curr_location, '../py_nist_beacon/__init__.py'),
         magic_line="__version__ = '",
-        strip_end_chars=1,
+        strip_end_chars=2,
     ),
     VersionScrapper(
         key_name='setup.py',
