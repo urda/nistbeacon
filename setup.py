@@ -14,8 +14,7 @@ setup(
     url='https://github.com/urda/py_nist_beacon',
 
     install_requires=[
-        # 'requests>=2.8.1'
-        'requests>=2.5.4.1',
+        'requests>=2.8.1',
     ],
 
     classifiers=[
