@@ -141,7 +141,7 @@ class NistRandomnessBeaconValue(object):
         """
         Convert the given NIST randomness beacon value back to XML
 
-        :return: The XML version of the beacon, as a string
+        :return: The XML representation of the beacon, as a string
         """
 
         return cn.NIST_XML_TEMPLATE.format(
