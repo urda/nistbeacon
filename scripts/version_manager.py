@@ -200,4 +200,11 @@ if __name__ == '__main__':
         new_version_str = input('New version string > ')
         set_versions(new_version_str)
 
+    else:
+        print("You need to specific a command for the manager!")
+        print("Available commands are:")
+
+        for command in understood_commands:
+            print("    {}".format(command))
+
     sys.exit(0)
