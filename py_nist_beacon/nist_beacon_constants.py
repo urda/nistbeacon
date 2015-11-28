@@ -6,3 +6,17 @@ NIST_KEY_SIGNATURE_VALUE = 'signatureValue'
 NIST_KEY_STATUS_CODE = 'statusCode'
 NIST_KEY_TIMESTAMP = 'timeStamp'
 NIST_KEY_VERSION = 'version'
+
+NIST_XML_TEMPLATE = (
+    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+    '<record>'
+    '<version>{0}</version>'
+    '<frequency>{1}</frequency>'
+    '<timeStamp>{2}</timeStamp>'
+    '<seedValue>{3}</seedValue>'
+    '<previousOutputValue>{4}</previousOutputValue>'
+    '<signatureValue>{5}</signatureValue>'
+    '<outputValue>{6}</outputValue>'
+    '<statusCode>{7}</statusCode>'
+    '</record>'
+)
