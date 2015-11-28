@@ -93,7 +93,7 @@ class NistRandomnessBeaconValue(object):
 
         try:
             data_dict = json.loads(input_json)
-        except json.JSONDecodeError:
+        except ValueError:
             return None
 
         # Our required values are "must haves". This makes it simple
