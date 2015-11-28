@@ -66,14 +66,20 @@ class FileVersionInfo(object):
 
         return result
 
-    def set_version(self, new_version: str) -> bool:
+    def set_version(self, new_version: str):
+        """
+        Set the version for this given file.
+
+        :param new_version: The new version string to set.
+        """
+
         try:
             f = open(self.file_path, 'r')
             lines = f.readlines()
             f.close()
         except Exception as e:
             print(str(e))
-            return False
+            return
 
         for idx, line in enumerate(lines):
             if self.magic_line in line:
@@ -90,9 +96,7 @@ class FileVersionInfo(object):
             f.close()
         except Exception as e:
             print(str(e))
-            return False
-
-        return True
+            return
 
 
 class FileVersionResult(object):
