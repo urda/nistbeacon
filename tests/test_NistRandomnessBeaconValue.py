@@ -159,6 +159,29 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertFalse(from_props == '')
         self.assertTrue(from_props != '')
 
+    def test_to_xml(self):
+        """
+        Test that the value object produces the correct XML string.
+        """
+
+        base_value = NistRandomnessBeaconValue.from_xml(
+            self.sample_nist_xml
+        )
+
+        value_using_from_xml = NistRandomnessBeaconValue.from_xml(
+            base_value.to_xml()
+        )
+
+        self.assertEqual(
+            base_value.to_xml(),
+            self.sample_nist_xml,
+        )
+
+        self.assertEqual(
+            base_value,
+            value_using_from_xml,
+        )
+
     def test_from_xml(self):
         """
         Test construction from XML
