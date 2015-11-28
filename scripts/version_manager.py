@@ -66,6 +66,34 @@ class FileVersionInfo(object):
 
         return result
 
+    def set_version(self, new_version: str) -> bool:
+        try:
+            f = open(self.file_path, 'r')
+            lines = f.readlines()
+            f.close()
+        except Exception as e:
+            print(str(e))
+            return False
+
+        for idx, line in enumerate(lines):
+            if self.magic_line in line:
+                start = len(self.magic_line)
+                end = len(line) - self.strip_end_chars
+
+                start_str = line[0:start]
+                end_str = line[end:]
+                lines[idx] = start_str + new_version + end_str
+
+        try:
+            f = open(self.file_path, 'w')
+            f.writelines(lines)
+            f.close()
+        except Exception as e:
+            print(str(e))
+            return False
+
+        return True
+
 
 class FileVersionResult(object):
     def __init__(
@@ -132,11 +160,17 @@ def get_versions() -> FileVersionResult:
     )
 
 
+def set_versions(new_version: str):
+    for version_obj in version_objects:
+        version_obj.set_version(new_version)
+
+
 if __name__ == '__main__':
     parser = ArgumentParser()
 
     understood_commands = [
         'check',
+        'update',
     ]
 
     sp = parser.add_subparsers(dest="command")
@@ -158,5 +192,8 @@ if __name__ == '__main__':
                 print("{0: <10}: {1}".format(key, version_val))
 
             sys.exit(1)
+    elif args.command == "update":
+        new_version_str = input('New version string > ')
+        set_versions(new_version_str)
 
     sys.exit(0)
