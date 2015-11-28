@@ -136,3 +136,21 @@ class NistRandomnessBeaconValue(object):
             output_value=required_values[cn.NIST_KEY_OUTPUT_VALUE],
             status_code=required_values[cn.NIST_KEY_STATUS_CODE],
         )
+
+    def to_xml(self) -> str:
+        """
+        Convert the given NIST randomness beacon value back to XML
+
+        :return: The XML version of the beacon, as a string
+        """
+
+        return cn.NIST_XML_TEMPLATE.format(
+            self.version,
+            self.frequency,
+            self.timestamp,
+            self.seed_value,
+            self.previous_output_value,
+            self.signature_value,
+            self.output_value,
+            self.status_code,
+        )
