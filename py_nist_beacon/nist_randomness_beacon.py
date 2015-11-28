@@ -27,17 +27,17 @@ class NistRandomnessBeacon(object):
             return None
 
     @classmethod
-    def get_last_record(cls):
+    def get_last_record(cls) -> NistRandomnessBeaconValue:
         return cls._query_nist("last")
 
     @classmethod
-    def get_next(cls, timestamp: int):
+    def get_next(cls, timestamp: int) -> NistRandomnessBeaconValue:
         return cls._query_nist("next/{}".format(timestamp))
 
     @classmethod
-    def get_previous(cls, timestamp: int):
+    def get_previous(cls, timestamp: int) -> NistRandomnessBeaconValue:
         return cls._query_nist("previous/{}".format(timestamp))
 
     @classmethod
-    def get_record(cls, timestamp: int):
+    def get_record(cls, timestamp: int) -> NistRandomnessBeaconValue:
         return cls._query_nist(str(timestamp))
