@@ -37,7 +37,7 @@ out:
 Beacon Value
 ============
 
-The :python:`NistRandomnessBeaconValue` objects act as basic python objects.
+The `NistRandomnessBeaconValue` objects act as basic python objects.
 As one would expect, there are a number of properties and methods available
 on it.
 
@@ -100,12 +100,16 @@ Beacon Value Methods
         :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
         """
 
+.. code:: python
+
     def to_json(self) -> str:
         """
         Convert the given NIST randomness beacon value to JSON
 
         :return: The JSON representation of the beacon, as a string
         """
+
+.. code:: python
 
     @classmethod
     def from_xml(cls, input_xml: str):
@@ -116,6 +120,8 @@ Beacon Value Methods
         :param input_xml: XML to build a 'NistRandomnessBeaconValue' from
         :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
         """
+
+.. code:: python
 
     def to_xml(self) -> str:
         """
