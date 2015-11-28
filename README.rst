@@ -37,7 +37,7 @@ out:
 Beacon Value
 ============
 
-The `NistRandomnessBeaconValue` objects act as basic python objects.
+The :code:`NistRandomnessBeaconValue` objects act as basic python objects.
 As one would expect, there are a number of properties and methods available
 on it.
 
