@@ -1,6 +1,6 @@
-.PHONY: all clean pep8 test travis version-check
+.PHONY: travis clean pep8 test version-check
 
-all: pep8 test clean
+travis: test pep8 version-check
 
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
@@ -10,8 +10,6 @@ pep8:
 
 test:
 	py.test -r fEsxXw --verbose --cov py_nist_beacon --cov-report html
-
-travis: test pep8 version-check
 
 version-check:
 	./scripts/version_manager.py check
