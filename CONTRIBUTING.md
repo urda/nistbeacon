@@ -42,7 +42,7 @@ make
 ```
 
 Which will run the same testing steps that [Travis CI](https://travis-ci.org/urda/py_nist_beacon)
-will run. You can also just run ```make test``` if you would like to just run the python tests.
+will run. You can also just run `make test` if you would like to just run the python tests.
 
 ## How Can I Contribute?
 
