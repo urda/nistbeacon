@@ -19,6 +19,7 @@ Then simply use the various methods on the beacon to get values back
 out:
 
 .. code:: python
+
     # In the examples below I will be using 1447873020 as my <timestamp> when required
 
     # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
