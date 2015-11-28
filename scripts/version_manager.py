@@ -165,6 +165,12 @@ def get_versions() -> FileVersionResult:
 
 
 def set_versions(new_version: str):
+    """
+    Update all known version objects with a new version string.
+
+    :param new_version: The new version string to set in the project.
+    """
+
     for version_obj in version_objects:
         version_obj.set_version(new_version)
 
