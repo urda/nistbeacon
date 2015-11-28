@@ -196,6 +196,7 @@ if __name__ == '__main__':
                 print("{0: <10}: {1}".format(key, version_val))
 
             sys.exit(1)
+
     elif args.command == "update":
         new_version_str = input('New version string > ')
         set_versions(new_version_str)
