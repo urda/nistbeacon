@@ -1,3 +1,4 @@
+import json
 from unittest import TestCase
 
 from py_nist_beacon.nist_randomness_beacon_value import (
@@ -42,6 +43,18 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.expected_timestamp = int(1447873020)
         self.expected_version = 'Version 1.0'
 
+        # Invalid JSON snippets for error testing
+        self.sample_nist_json_parse_error = (
+            'foobarfoobar'
+        )
+
+        self.sample_nist_json_missing_content = (
+            '{"previousOutputValue": "F4F571DFBA7DA2D3872AF1696B6A32B5039EB9CA'
+            'BF03CBB17EAB095D83B1483A12CE2D0347BEAF2709CA0BAC0EB78C330D20CD3BE'
+            '2FBEC2F7816AB2BB953AA3D", '
+            '"version": "Version 1.0"}'
+        )
+
         # Invalid XML snippets for error testing
         self.sample_nist_parse_error = ('<?xml version="1.0" '
                                         'encoding="UTF-8" standalone="yes"?>'
@@ -55,6 +68,32 @@ class TestNistRandomnessBeaconValue(TestCase):
                                             '<record>'
                                             '</record>'
                                             )
+
+        # A full JSON sample of a beacon
+        self.sample_nist_json = (
+            '{"previousOutputValue": "F4F571DFBA7DA2D3872AF1696B6A32B5039EB9CA'
+            'BF03CBB17EAB095D83B1483A12CE2D0347BEAF2709CA0BAC0EB78C330D20CD3BE'
+            '2FBEC2F7816AB2BB953AA3D", '
+            '"version": "Version 1.0", '
+            '"seedValue": "6189C4FF1F17ED41F9FF017CEB82DB2579193FBBB867B95E7FE'
+            'BA52E74C937377626C522454C6223B25C007BF09C4B3AB55D24CFE1EB8F67C306'
+            'FA75147E1CD2", '
+            '"timeStamp": 1447873020, '
+            '"frequency": 60, '
+            '"statusCode": "0", '
+            '"outputValue": "2BE1468DF2E4081306002B9F9E344C7826DDC225583ED7FAC'
+            'C8804086867457DD4F4BD2DF9F5CE4B88DF6E30E4838F15168946BE18DFF596E6'
+            '67EC543AC08F54", '
+            '"signatureValue": "F029F1A167DDBC17C041B9EB0A6AF2BC417D42C75001E3'
+            '9C2F9E2281AB9533B34ACBB584414AC10C20322F72C53D6425F3C595ECA31A0B2'
+            '6A23D0573DCA6DEADE09D02214A7F9AF7EC0424D69B26EAF7269C648349AD189D'
+            '90A43D67576BF4B00035118F1AD939D228489A37EF822FEB04C2B4D1676B1041E'
+            'C92883101150AAF7747EC88FE176BCA1B289E608E04CAF4CF47BE16A1B6243F83'
+            '30E539740B9F6EB70A7A8E06777932B98617745AA2B545EFFA0DAA8DE016D00B5'
+            '5B01AEC91000508ACC4908D17A17311C68D156D63A03110250CB959A023BA75C7'
+            '00FE4EB43543DC1AC35781FF91D72AA7FE467F83569318C83D316801CC7159E83'
+            'E2C306ADC2D"}'
+        )
 
         # A full XML sample from the service
         self.sample_nist_xml = ('<?xml version="1.0" '
@@ -159,6 +198,42 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertFalse(from_props == '')
         self.assertTrue(from_props != '')
 
+    def test_from_json(self):
+        """
+        Test construction from JSON
+        """
+
+        self.object_value_test(
+            NistRandomnessBeaconValue.from_json(
+                self.sample_nist_json,
+            )
+        )
+
+    def test_to_json(self):
+        """
+        Test that the value object produces correct JSON.
+        """
+
+        nist_beacon = NistRandomnessBeaconValue.from_xml(
+            self.sample_nist_xml
+        )
+
+        actual_json = nist_beacon.to_json()
+
+        actual_json_as_dict = json.loads(actual_json)
+        expected_json_as_dict = json.loads(self.sample_nist_json)
+
+        self.assertCountEqual(
+            expected_json_as_dict,
+            actual_json_as_dict,
+        )
+
+        for actual_key, actual_value in actual_json_as_dict.items():
+            self.assertEqual(
+                expected_json_as_dict[actual_key],
+                actual_value,
+            )
+
     def test_to_xml(self):
         """
         Test that the value object produces the correct XML string.
@@ -208,6 +283,23 @@ class TestNistRandomnessBeaconValue(TestCase):
             output_value=self.expected_output_value,
             status_code=self.expected_status_code,
         ))
+
+    def test_json_error_handling(self):
+        """
+        Verify that 'None' is generated correctly with invalid JSON data
+        """
+
+        self.assertIsNone(
+            NistRandomnessBeaconValue.from_json(
+                self.sample_nist_json_parse_error
+            )
+        )
+
+        self.assertIsNone(
+            NistRandomnessBeaconValue.from_json(
+                self.sample_nist_json_missing_content
+            )
+        )
 
     def test_xml_error_handling(self):
         """

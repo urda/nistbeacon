@@ -1,4 +1,6 @@
+import json
 from xml.etree import ElementTree
+
 import py_nist_beacon.nist_beacon_constants as cn
 
 
@@ -78,6 +80,74 @@ class NistRandomnessBeaconValue(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    @classmethod
+    def from_json(cls, input_json: str):
+        """
+        Convert a string of JSON which represents a NIST randomness beacon
+        value into a 'NistRandomnessBeaconValue' object.
+
+        :param input_json: JSON to build a 'Nist RandomnessBeaconValue' from
+        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
+        """
+
+        try:
+            data_dict = json.loads(input_json)
+        except json.JSONDecodeError:
+            return None
+
+        # Our required values are "must haves". This makes it simple
+        # to verify we loaded everything out of JSON correctly.
+        required_values = {
+            cn.NIST_KEY_FREQUENCY: None,
+            cn.NIST_KEY_OUTPUT_VALUE: None,
+            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
+            cn.NIST_KEY_SEED_VALUE: None,
+            cn.NIST_KEY_SIGNATURE_VALUE: None,
+            cn.NIST_KEY_STATUS_CODE: None,
+            cn.NIST_KEY_TIMESTAMP: None,
+            cn.NIST_KEY_VERSION: None,
+        }
+
+        for key in required_values:
+            if key in data_dict:
+                required_values[key] = data_dict[key]
+
+        # Confirm that the required values are set, and not 'None'
+        if None in required_values.values():
+            return None
+
+        # We have all the required values, return a node object
+        return cls(
+            version=required_values[cn.NIST_KEY_VERSION],
+            frequency=int(required_values[cn.NIST_KEY_FREQUENCY]),
+            timestamp=int(required_values[cn.NIST_KEY_TIMESTAMP]),
+            seed_value=required_values[cn.NIST_KEY_SEED_VALUE],
+            previous_output_value=required_values[
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE
+            ],
+            signature_value=required_values[cn.NIST_KEY_SIGNATURE_VALUE],
+            output_value=required_values[cn.NIST_KEY_OUTPUT_VALUE],
+            status_code=required_values[cn.NIST_KEY_STATUS_CODE],
+        )
+
+    def to_json(self) -> str:
+        """
+        Convert the given NIST randomness beacon value to JSON
+
+        :return: The JSON representation of the beacon, as a string
+        """
+
+        return json.dumps({
+            cn.NIST_KEY_VERSION: self.version,
+            cn.NIST_KEY_FREQUENCY: self.frequency,
+            cn.NIST_KEY_TIMESTAMP: self.timestamp,
+            cn.NIST_KEY_SEED_VALUE: self.seed_value,
+            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
+            cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+            cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
+            cn.NIST_KEY_STATUS_CODE: self.status_code,
+        })
 
     @classmethod
     def from_xml(cls, input_xml: str):
