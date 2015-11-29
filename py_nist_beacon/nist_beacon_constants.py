@@ -20,3 +20,16 @@ NIST_XML_TEMPLATE = (
     '<statusCode>{7}</statusCode>'
     '</record>'
 )
+
+# noinspection SpellCheckingInspection
+NIST_RSA_KEY = (
+    '-----BEGIN PUBLIC KEY-----\n'
+    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5tsXHJGkmM7bev+mHs2\n'
+    'lJqiKmOQi763ztnrBCCchYPnL+0u3sS94RmHgwp0C1bVCBlYgJzvcglwwtispnp/\n'
+    'gnpFO1hLUgfesc/8Rq2N5m8I0uOkEjjQ/cUkTK6BfcW4Kl8cye6y/9ETFJJLt7rq\n'
+    'xm/3MVKcyreq2u4lJ85JNwQZO95K9jlxcmGG7aze9bNAfaiiiWbj0KpgOZ/NF3Nx\n'
+    'NmG2qAFuP4HrJ3BTS+0nccPTSANS+H3rv6PMadxTT6b9ntuQtNdd8fsmoL29VtJs\n'
+    'OiEsACoSfuhuLeIRXo5e0bo7og3zkYMyIRzEeAslrT2RVZ9qsWblaKI9fpnbiyF4\n'
+    'QwIDAQAB\n'
+    '-----END PUBLIC KEY-----\n'
+)

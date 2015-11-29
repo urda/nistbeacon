@@ -1,7 +1,12 @@
 import binascii
 import hashlib
 import json
+import struct
 from xml.etree import ElementTree
+
+from Crypto.Hash import SHA512
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
 
 import py_nist_beacon.nist_beacon_constants as cn
 
@@ -99,17 +104,25 @@ class NistRandomnessBeaconValue(object):
             binascii.a2b_hex(self.signature_value)
         ).hexdigest().upper()
 
-        # Fleshing out sig code
-        # Should produce the proper signature string / file
-        # _ = binascii.a2b_hex(self.signature_value)[::-1]
+        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
+        verifier = PKCS1_v1_5.new(rsa_key)
 
-        # _ = self.version.encode() + struct.pack(
-        #     '>1I1Q64s64s1I',
-        #     self.frequency,
-        #     self.timestamp,
-        #     binascii.a2b_hex(self.seed_value),
-        #     binascii.a2b_hex(self.previous_output_value),
-        #     int(self.status_code))
+        signature = binascii.a2b_hex(self.signature_value)[::-1]
+
+        h = self.version.encode() + struct.pack(
+            '>1I1Q64s64s1I',
+            self.frequency,
+            self.timestamp,
+            binascii.a2b_hex(self.seed_value),
+            binascii.a2b_hex(self.previous_output_value),
+            int(self.status_code))
+
+        h = SHA512.new(h)
+
+        if verifier.verify(h, signature):
+            x = True
+        else:
+            x = False
 
         return expected_signature == self.output_value
 
