@@ -41,8 +41,8 @@ The :code:`NistRandomnessBeaconValue` objects act as basic python objects.
 As one would expect, there are a number of properties and methods available
 on it.
 
-Beacon Value Properties
------------------------
+Beacon Value Instance
+---------------------
 
 .. code:: python
 
@@ -85,14 +85,75 @@ Beacon Value Properties
                 the chain is still intact
     """
 
-Beacon Value Methods
---------------------
+Beacon Value Properties
+-----------------------
 
 .. code:: python
 
-    def verify_signature(self) -> bool:
+    @property
+    def frequency(self) -> int:
         """
-        Verify the signature of this record with a two step process.
+        :return: The time interval, in seconds, between expected records
+        """
+
+    @property
+    def output_value(self) -> str:
+        """
+        :return: The SHA-512 hash of the signatureValue as a 64 byte hex string
+        """
+
+    @property
+    def previous_output_value(self) -> str:
+        """
+        :return:
+            The SHA-512 hash value for the previous record - 64 byte hex
+            string
+        """
+
+    @property
+    def seed_value(self) -> str:
+        """
+        :return:
+            A seed value represented as a 64 byte (512-bit) hex string
+            value
+        """
+
+    @property
+    def signature_value(self) -> str:
+        """
+        :return:
+            A digital signature (RSA) computed over (in order): version,
+            frequency, timeStamp, seedValue, previousHashValue, statusCode
+
+            Note: Except for version, the hash is on the byte
+            representations and not the string representations of the data
+            values
+        """
+
+    @property
+    def status_code(self) -> str:
+        """
+        :return:
+            The status code value:
+                0 - Chain intact, values all good
+                1 - Start of a new chain of values, previous hash value
+                    will be all zeroes
+                2 - Time between values is greater than the frequency, but
+                    the chain is still intact
+        """
+
+    @property
+    def timestamp(self) -> int:
+        """
+        :return:
+            The time the seed value was generated as the number of
+            seconds since January 1, 1970
+        """
+
+    @property
+    def valid_signature(self) -> bool:
+        """
+        Shows the result of signature verification
 
         First, required records (version, frequency, timestamp,
         seed_value, previous_output_value) are packed together to form
@@ -108,6 +169,15 @@ Beacon Value Methods
 
         :return: 'True' if this record is valid. 'False' otherwise
         """
+
+    @property
+    def version(self) -> str:
+        """
+        :return: Reported NIST randomness beacon version
+        """
+
+Beacon Value Methods
+--------------------
 
 .. code:: python
 
