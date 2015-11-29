@@ -2,6 +2,7 @@
 
 
 import sys
+from argparse import ArgumentParser
 from os.path import (
     abspath,
     dirname,
@@ -16,6 +17,18 @@ except ImportError:
 
 
 if __name__ == '__main__':
+    # Parse arguments
+    parser = ArgumentParser()
+
+    parser.add_argument(
+        "--debug",
+        help="show 'DEBUG' statements",
+        action="store_true",
+    )
+
+    args = parser.parse_args()
+    debug = args.debug
+
     print("Downloading records ...")
 
     target_timestamp = 1447873020
@@ -25,6 +38,12 @@ if __name__ == '__main__':
         'next_record': NistRandomnessBeacon.get_next(target_timestamp),
         'previous_record': NistRandomnessBeacon.get_previous(target_timestamp),
     }
+
+    if debug:
+        for method_name, record in records.items():
+            print(method_name)
+            print(record.to_json())
+            print("")
 
     for method_name, record in records.items():
         print("{0:.<30} ".format(method_name + " "), end="")
