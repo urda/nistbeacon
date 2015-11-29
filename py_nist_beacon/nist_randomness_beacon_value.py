@@ -115,7 +115,8 @@ class NistRandomnessBeaconValue(object):
                    other.previous_output_value \
                    and self.signature_value == other.signature_value \
                    and self.output_value == other.output_value \
-                   and self.status_code == other.status_code
+                   and self.status_code == other.status_code \
+                   and self.valid_signature == other.valid_signature
         except (AttributeError, TypeError):
             return False
 
