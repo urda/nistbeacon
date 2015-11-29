@@ -1,2 +1,3 @@
+include beacon.cer
 include LICENSE
 include README.rst
