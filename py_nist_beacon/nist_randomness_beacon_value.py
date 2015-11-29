@@ -71,6 +71,40 @@ class NistRandomnessBeaconValue(object):
         self.output_value = output_value
         self.status_code = status_code
 
+        # Internal properties
+        self._rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
+
+        self._rsa_message = SHA512.new(
+            self.version.encode() +
+            struct.pack(
+                '>1I1Q64s64s1I',
+                self.frequency,
+                self.timestamp,
+                binascii.a2b_hex(self.seed_value),
+                binascii.a2b_hex(self.previous_output_value),
+                int(self.status_code)
+            )
+        )
+
+        # Get the RSA key, and build a verifier with it
+        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
+        verifier = PKCS1_v1_5.new(rsa_key)
+
+        # Check the message against the signature
+        if verifier.verify(self._rsa_message, self._rsa_signature):
+            sig_check_result = True
+        else:
+            sig_check_result = False
+
+        # The signature sha512'd again should equal the output value
+        expected_signature = hashlib.sha512(
+            binascii.a2b_hex(self.signature_value)
+        ).hexdigest().upper()
+
+        sig_hash_check = (expected_signature == self.output_value)
+
+        self._valid_signature = sig_check_result and sig_hash_check
+
     def __eq__(self, other):
         try:
             return self.version == other.version \
@@ -107,40 +141,7 @@ class NistRandomnessBeaconValue(object):
         :return: 'True' if this record is valid. 'False' otherwise
         """
 
-        # Get the RSA key, and build a verifier with it
-        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
-        verifier = PKCS1_v1_5.new(rsa_key)
-
-        # Prepare the signature from the current record
-        signature = binascii.a2b_hex(self.signature_value)[::-1]
-
-        # Prepare the signed message data
-        signed_message = SHA512.new(
-            self.version.encode() +
-            struct.pack(
-                '>1I1Q64s64s1I',
-                self.frequency,
-                self.timestamp,
-                binascii.a2b_hex(self.seed_value),
-                binascii.a2b_hex(self.previous_output_value),
-                int(self.status_code)
-            )
-        )
-
-        # Check the message against the signature
-        if verifier.verify(signed_message, signature):
-            sig_check_result = True
-        else:
-            sig_check_result = False
-
-        # The signature sha512'd again should equal the output value
-        expected_signature = hashlib.sha512(
-            binascii.a2b_hex(self.signature_value)
-        ).hexdigest().upper()
-
-        sig_hash_check = (expected_signature == self.output_value)
-
-        return sig_check_result and sig_hash_check
+        return self._valid_signature
 
     @classmethod
     def from_json(cls, input_json: str):
