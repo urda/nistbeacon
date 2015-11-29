@@ -81,6 +81,8 @@ class NistRandomnessBeaconValue(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    # region JSON
+
     @classmethod
     def from_json(cls, input_json: str):
         """
@@ -148,6 +150,10 @@ class NistRandomnessBeaconValue(object):
             cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
             cn.NIST_KEY_STATUS_CODE: self.status_code,
         })
+
+    # endregion
+
+    # region XML
 
     @classmethod
     def from_xml(cls, input_xml: str):
@@ -224,3 +230,5 @@ class NistRandomnessBeaconValue(object):
             self.output_value,
             self.status_code,
         )
+
+    # endregion
