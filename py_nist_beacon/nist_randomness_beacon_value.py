@@ -1,3 +1,5 @@
+import binascii
+import hashlib
 import json
 from xml.etree import ElementTree
 
@@ -80,6 +82,24 @@ class NistRandomnessBeaconValue(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def verify_signature(self) -> bool:
+        """
+        Verify the signature of this record.
+
+        At this time, this only checks [sig value] -> [output]
+
+        (Hopefully) this will compute the signature value with the given NIST
+        certificate in the future.
+
+        :return: 'True' if this record is valid. 'False' otherwise
+        """
+
+        expected_signature = hashlib.sha512(
+            binascii.a2b_hex(self.signature_value)
+        ).hexdigest().upper()
+
+        return expected_signature == self.output_value
 
     @classmethod
     def from_json(cls, input_json: str):

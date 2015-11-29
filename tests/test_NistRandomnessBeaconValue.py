@@ -214,6 +214,17 @@ class TestNistRandomnessBeaconValue(TestCase):
             status_code=self.expected_status_code,
         ))
 
+    def test_verify_signature(self):
+        """
+        Verify the record has proper signature verification
+        """
+
+        self.assertTrue(
+            NistRandomnessBeaconValue.from_xml(
+                self.sample_nist_xml
+            ).verify_signature()
+        )
+
     def test_from_json(self):
         """
         Test construction from JSON
