@@ -100,31 +100,40 @@ class NistRandomnessBeaconValue(object):
         :return: 'True' if this record is valid. 'False' otherwise
         """
 
+        # Get the RSA key, and build a verifier with it
+        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
+        verifier = PKCS1_v1_5.new(rsa_key)
+
+        # Prepare the signature from the current record
+        signature = binascii.a2b_hex(self.signature_value)[::-1]
+
+        # Prepare the signed message data
+        signed_message = SHA512.new(
+            self.version.encode() +
+            struct.pack(
+                '>1I1Q64s64s1I',
+                self.frequency,
+                self.timestamp,
+                binascii.a2b_hex(self.seed_value),
+                binascii.a2b_hex(self.previous_output_value),
+                int(self.status_code)
+            )
+        )
+
+        # Check the message against the signature
+        if verifier.verify(signed_message, signature):
+            sig_check_result = True
+        else:
+            sig_check_result = False
+
+        # The signature sha512'd again should equal the output value
         expected_signature = hashlib.sha512(
             binascii.a2b_hex(self.signature_value)
         ).hexdigest().upper()
 
-        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
-        verifier = PKCS1_v1_5.new(rsa_key)
+        sig_hash_check = (expected_signature == self.output_value)
 
-        signature = binascii.a2b_hex(self.signature_value)[::-1]
-
-        h = self.version.encode() + struct.pack(
-            '>1I1Q64s64s1I',
-            self.frequency,
-            self.timestamp,
-            binascii.a2b_hex(self.seed_value),
-            binascii.a2b_hex(self.previous_output_value),
-            int(self.status_code))
-
-        h = SHA512.new(h)
-
-        if verifier.verify(h, signature):
-            x = True
-        else:
-            x = False
-
-        return expected_signature == self.output_value
+        return sig_check_result and sig_hash_check
 
     @classmethod
     def from_json(cls, input_json: str):
