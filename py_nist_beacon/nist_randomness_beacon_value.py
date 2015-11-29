@@ -90,12 +90,19 @@ class NistRandomnessBeaconValue(object):
 
     def verify_signature(self) -> bool:
         """
-        Verify the signature of this record.
+        Verify the signature of this record with a two step process.
 
-        At this time, this only checks [sig value] -> [output]
+        First, required records (version, frequency, timestamp,
+        seed_value, previous_output_value) are packed together to form
+        a message. This message is then checked against the record's reported
+        signature field WITH the known NIST public key.
 
-        (Hopefully) this will compute the signature value with the given NIST
-        certificate in the future.
+        Second, the signature value is independently ran through a SHA512
+        hash. The result of this operation SHOULD equal the record's reported
+        output_value field.
+
+        As long as the result of the 'First' step and'ed with the 'Second'
+        step, the record is considered valid.
 
         :return: 'True' if this record is valid. 'False' otherwise
         """
