@@ -13,6 +13,9 @@ branches:
   except:
     - /^v[0-9]/
 
+before_install:
+  - echo $TRAVIS_OS_NAME
+
 install:
   - pip install -U -r requirements-test.txt
 
