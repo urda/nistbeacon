@@ -21,6 +21,7 @@ NIST_XML_TEMPLATE = (
     '</record>'
 )
 
+# https://beacon.nist.gov/certificate/beacon.cer
 # noinspection SpellCheckingInspection
 NIST_CER_FILE = (
     '-----BEGIN CERTIFICATE-----\n'
@@ -67,6 +68,7 @@ NIST_CER_FILE = (
     '-----END CERTIFICATE-----\n'
 )
 
+# https://beacon.nist.gov/certificate/beacon.cer
 # noinspection SpellCheckingInspection
 NIST_RSA_KEY = (
     '-----BEGIN PUBLIC KEY-----\n'
