@@ -24,3 +24,7 @@ script:
 
 after_success:
   - coveralls
+
+matrix:
+  allow_failures:
+    - os: osx
