@@ -96,11 +96,15 @@ Beacon Value Properties
         :return: The time interval, in seconds, between expected records
         """
 
+.. code:: python
+
     @property
     def output_value(self) -> str:
         """
         :return: The SHA-512 hash of the signatureValue as a 64 byte hex string
         """
+
+.. code:: python
 
     @property
     def previous_output_value(self) -> str:
@@ -110,6 +114,8 @@ Beacon Value Properties
             string
         """
 
+.. code:: python
+
     @property
     def seed_value(self) -> str:
         """
@@ -117,6 +123,8 @@ Beacon Value Properties
             A seed value represented as a 64 byte (512-bit) hex string
             value
         """
+
+.. code:: python
 
     @property
     def signature_value(self) -> str:
@@ -130,6 +138,8 @@ Beacon Value Properties
             values
         """
 
+.. code:: python
+
     @property
     def status_code(self) -> str:
         """
@@ -142,6 +152,8 @@ Beacon Value Properties
                     the chain is still intact
         """
 
+.. code:: python
+
     @property
     def timestamp(self) -> int:
         """
@@ -149,6 +161,8 @@ Beacon Value Properties
             The time the seed value was generated as the number of
             seconds since January 1, 1970
         """
+
+.. code:: python
 
     @property
     def valid_signature(self) -> bool:
@@ -169,6 +183,8 @@ Beacon Value Properties
 
         :return: 'True' if this record is valid. 'False' otherwise
         """
+
+.. code:: python
 
     @property
     def version(self) -> str:
