@@ -125,7 +125,7 @@ class NistRandomnessBeaconValue(object):
     @property
     def valid_signature(self) -> bool:
         """
-        Shows the result of signature verificaiton
+        Shows the result of signature verification
 
         First, required records (version, frequency, timestamp,
         seed_value, previous_output_value) are packed together to form
