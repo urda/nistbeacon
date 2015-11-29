@@ -14,15 +14,11 @@ branches:
     - /^v[0-9]/
 
 before_install:
-  - echo $TRAVIS_OS_NAME
-  - echo $TRAVIS_PYTHON_VERSION
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
+  - echo Travis OS Name ... ${TRAVIS_OS_NAME}
+  - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
 
 install:
   - pip install -U -r requirements-test.txt
-
-before_script:
-  - if [ "$TRAVIS_PYTHON_VERSION" == "pypy3" ]; then pip install mock; fi
 
 script:
   - make travis
