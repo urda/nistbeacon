@@ -62,14 +62,14 @@ class NistRandomnessBeaconValue(object):
                     the chain is still intact
         """
 
-        self.version = version
-        self.frequency = frequency
-        self.timestamp = timestamp
-        self.seed_value = seed_value
-        self.previous_output_value = previous_output_value
-        self.signature_value = signature_value
-        self.output_value = output_value
-        self.status_code = status_code
+        self._version = version
+        self._frequency = frequency
+        self._timestamp = timestamp
+        self._seed_value = seed_value
+        self._previous_output_value = previous_output_value
+        self._signature_value = signature_value
+        self._output_value = output_value
+        self._status_code = status_code
 
         # Internal properties
         self._rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
@@ -123,6 +123,34 @@ class NistRandomnessBeaconValue(object):
         return not self.__eq__(other)
 
     @property
+    def frequency(self) -> int:
+        return self._frequency
+
+    @property
+    def output_value(self) -> str:
+        return self._output_value
+
+    @property
+    def previous_output_value(self) -> str:
+        return self._previous_output_value
+
+    @property
+    def seed_value(self) -> str:
+        return self._seed_value
+
+    @property
+    def signature_value(self) -> str:
+        return self._signature_value
+
+    @property
+    def status_code(self) -> str:
+        return self._status_code
+
+    @property
+    def timestamp(self) -> int:
+        return self._timestamp
+
+    @property
     def valid_signature(self) -> bool:
         """
         Shows the result of signature verification
@@ -143,6 +171,10 @@ class NistRandomnessBeaconValue(object):
         """
 
         return self._valid_signature
+
+    @property
+    def version(self) -> str:
+        return self._version
 
     @classmethod
     def from_json(cls, input_json: str):
