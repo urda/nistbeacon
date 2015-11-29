@@ -271,7 +271,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertTrue(
             NistRandomnessBeaconValue.from_xml(
                 self.sample_nist_xml
-            ).verify_signature()
+            ).valid_signature
         )
 
     def test_verify_signature_invalid(self):
@@ -283,14 +283,14 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertFalse(
             NistRandomnessBeaconValue.from_xml(
                 self.sample_nist_xml_invalid_sig,
-            ).verify_signature()
+            ).valid_signature
         )
 
         # This should check when the output doesn't match the hashed signature
         self.assertFalse(
             NistRandomnessBeaconValue.from_xml(
                 self.sample_nist_xml_invalid_sig_output,
-            ).verify_signature()
+            ).valid_signature
         )
 
     def test_from_json(self):

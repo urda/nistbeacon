@@ -122,9 +122,10 @@ class NistRandomnessBeaconValue(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def verify_signature(self) -> bool:
+    @property
+    def valid_signature(self) -> bool:
         """
-        Verify the signature of this record with a two step process.
+        Shows the result of signature verificaiton
 
         First, required records (version, frequency, timestamp,
         seed_value, previous_output_value) are packed together to form
