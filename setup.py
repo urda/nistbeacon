@@ -14,6 +14,7 @@ setup(
     url='https://github.com/urda/py_nist_beacon',
 
     install_requires=[
+        'pycrypto>=2.6.1',
         'requests>=2.8.1',
     ],
 
