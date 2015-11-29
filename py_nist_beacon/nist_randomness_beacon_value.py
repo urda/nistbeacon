@@ -125,30 +125,76 @@ class NistRandomnessBeaconValue(object):
 
     @property
     def frequency(self) -> int:
+        """
+        :return: The time interval, in seconds, between expected records
+        """
+
         return self._frequency
 
     @property
     def output_value(self) -> str:
+        """
+        :return: The SHA-512 hash of the signatureValue as a 64 byte hex string
+        """
+
         return self._output_value
 
     @property
     def previous_output_value(self) -> str:
+        """
+        :return:
+            The SHA-512 hash value for the previous record - 64 byte hex
+            string
+        """
+
         return self._previous_output_value
 
     @property
     def seed_value(self) -> str:
+        """
+        :return:
+            A seed value represented as a 64 byte (512-bit) hex string
+            value
+        """
+
         return self._seed_value
 
     @property
     def signature_value(self) -> str:
+        """
+        :return:
+            A digital signature (RSA) computed over (in order): version,
+            frequency, timeStamp, seedValue, previousHashValue, statusCode
+
+            Note: Except for version, the hash is on the byte
+            representations and not the string representations of the data
+            values
+        """
+
         return self._signature_value
 
     @property
     def status_code(self) -> str:
+        """
+        :return:
+            The status code value:
+                0 - Chain intact, values all good
+                1 - Start of a new chain of values, previous hash value
+                    will be all zeroes
+                2 - Time between values is greater than the frequency, but
+                    the chain is still intact
+        """
+
         return self._status_code
 
     @property
     def timestamp(self) -> int:
+        """
+        :return:
+            The time the seed value was generated as the number of
+            seconds since January 1, 1970
+        """
+
         return self._timestamp
 
     @property
@@ -175,6 +221,10 @@ class NistRandomnessBeaconValue(object):
 
     @property
     def version(self) -> str:
+        """
+        :return: Reported NIST randomness beacon version
+        """
+
         return self._version
 
     @classmethod
