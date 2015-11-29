@@ -67,7 +67,7 @@ Beacon Value Properties
 
     :param signature_value:
         A digital signature (RSA) computed over (in order): version,
-        frequency, timeStamp, seedValue, previousHashValue, errorCode
+        frequency, timeStamp, seedValue, previousHashValue, statusCode
 
         Note: Except for version, the hash is on the byte
         representations and not the string representations of the data
