@@ -99,6 +99,10 @@ class NistRandomnessBeaconValue(object):
             binascii.a2b_hex(self.signature_value)
         ).hexdigest().upper()
 
+        # Fleshing out sig code
+        # Should produce the proper signature string / file
+        # _ = binascii.a2b_hex(self.signature_value)[::-1]
+
         return expected_signature == self.output_value
 
     @classmethod
