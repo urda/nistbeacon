@@ -234,16 +234,19 @@ class NistRandomnessBeaconValue(object):
         :return: The JSON representation of the beacon, as a string
         """
 
-        return json.dumps({
-            cn.NIST_KEY_VERSION: self.version,
-            cn.NIST_KEY_FREQUENCY: self.frequency,
-            cn.NIST_KEY_TIMESTAMP: self.timestamp,
-            cn.NIST_KEY_SEED_VALUE: self.seed_value,
-            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
-            cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
-            cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
-            cn.NIST_KEY_STATUS_CODE: self.status_code,
-        })
+        return json.dumps(
+            {
+                cn.NIST_KEY_VERSION: self.version,
+                cn.NIST_KEY_FREQUENCY: self.frequency,
+                cn.NIST_KEY_TIMESTAMP: self.timestamp,
+                cn.NIST_KEY_SEED_VALUE: self.seed_value,
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
+                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
+                cn.NIST_KEY_STATUS_CODE: self.status_code,
+            },
+            sort_keys=True,
+        )
 
     @classmethod
     def from_xml(cls, input_xml: str):
