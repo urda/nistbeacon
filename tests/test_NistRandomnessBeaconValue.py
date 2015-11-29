@@ -198,6 +198,22 @@ class TestNistRandomnessBeaconValue(TestCase):
         self.assertFalse(from_props == '')
         self.assertTrue(from_props != '')
 
+    def test_init(self):
+        """
+        Test the object's init method
+        """
+
+        self.object_value_test(NistRandomnessBeaconValue(
+            version=self.expected_version,
+            frequency=self.expected_frequency,
+            timestamp=self.expected_timestamp,
+            seed_value=self.expected_seed_value,
+            previous_output_value=self.expected_previous_output_value,
+            signature_value=self.expected_signature_value,
+            output_value=self.expected_output_value,
+            status_code=self.expected_status_code,
+        ))
+
     def test_from_json(self):
         """
         Test construction from JSON
@@ -234,6 +250,17 @@ class TestNistRandomnessBeaconValue(TestCase):
                 actual_value,
             )
 
+    def test_from_xml(self):
+        """
+        Test construction from XML
+        """
+
+        self.object_value_test(
+            NistRandomnessBeaconValue.from_xml(
+                self.sample_nist_xml
+            )
+        )
+
     def test_to_xml(self):
         """
         Test that the value object produces the correct XML string.
@@ -256,33 +283,6 @@ class TestNistRandomnessBeaconValue(TestCase):
             base_value,
             value_using_from_xml,
         )
-
-    def test_from_xml(self):
-        """
-        Test construction from XML
-        """
-
-        self.object_value_test(
-            NistRandomnessBeaconValue.from_xml(
-                self.sample_nist_xml
-            )
-        )
-
-    def test_init(self):
-        """
-        Test the object's init method
-        """
-
-        self.object_value_test(NistRandomnessBeaconValue(
-            version=self.expected_version,
-            frequency=self.expected_frequency,
-            timestamp=self.expected_timestamp,
-            seed_value=self.expected_seed_value,
-            previous_output_value=self.expected_previous_output_value,
-            signature_value=self.expected_signature_value,
-            output_value=self.expected_output_value,
-            status_code=self.expected_status_code,
-        ))
 
     def test_json_error_handling(self):
         """
