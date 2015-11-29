@@ -56,18 +56,17 @@ class TestNistRandomnessBeaconValue(TestCase):
         )
 
         # Invalid XML snippets for error testing
-        self.sample_nist_parse_error = ('<?xml version="1.0" '
-                                        'encoding="UTF-8" standalone="yes"?>'
-                                        '<record>'
-                                        'bad stuff ok'
-                                        )
+        self.sample_nist_parse_error = (
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<record>'
+            'bad stuff ok'
+        )
 
-        self.sample_nist_missing_content = ('<?xml version="1.0" '
-                                            'encoding="UTF-8" '
-                                            'standalone="yes"?>'
-                                            '<record>'
-                                            '</record>'
-                                            )
+        self.sample_nist_missing_content = (
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<record>'
+            '</record>'
+        )
 
         # A full JSON sample of a beacon
         self.sample_nist_json = (
