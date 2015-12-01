@@ -84,14 +84,23 @@ class NistRandomnessBeacon(object):
                 cn.NIST_INIT_RECORD,
             )
 
-            return False
+            return (
+                record.valid_signature and
+                next_record.valid_signature and
+                init_ref == record and
+                next_record.previous_output_value == record.output_value
+            )
 
         if (
             isinstance(prev_record, NistRandomnessBeaconValue) and
             next_record is None
         ):
             # Edge case, this was potentially the latest and greatest
-            return False
+            return (
+                record.valid_signature and
+                prev_record.valid_signature and
+                record.previous_output_value == prev_record.output_value
+            )
 
     @classmethod
     def get_last_record(cls) -> NistRandomnessBeaconValue:
