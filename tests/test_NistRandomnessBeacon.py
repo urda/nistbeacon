@@ -6,6 +6,7 @@ from unittest.mock import (
 
 import requests.exceptions
 
+import py_nist_beacon.nist_beacon_constants as cn
 from py_nist_beacon import NistRandomnessBeacon
 from py_nist_beacon.nist_randomness_beacon_value import (
     NistRandomnessBeaconValue
@@ -148,5 +149,16 @@ class TestNistRandomnessBeacon(TestCase):
         self.assertTrue(
             NistRandomnessBeacon.chain_check(
                 self.expected_current
+            )
+        )
+
+    def test_chain_check_init(self):
+        test_init = NistRandomnessBeaconValue.from_json(
+            cn.NIST_INIT_RECORD,
+        )
+
+        self.assertTrue(
+            NistRandomnessBeacon.chain_check(
+                test_init
             )
         )
