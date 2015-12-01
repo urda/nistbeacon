@@ -31,20 +31,7 @@ class NistRandomnessBeacon(object):
     def chain_check(cls, record: NistRandomnessBeaconValue) -> bool:
         # Creation is messy.
         # You want genius, you get madness; two sides of the same coin.
-
-        # Lots of things to check ...
-        #
-        # prev_record.output_value == record.previous_output_value
-        # record.output_value == next_record.previous_output_value
-        #
-        # Verify all signatures
-        # Most cases? Will have a next and prev
-        # Edge cases?
-        #
-        # IF it's the FIRST record of all time (1378395540)
-        # ... then things happen differently
-        # IF It's the LATEST record
-        # ... you guessed it, things happen differently
+        # ... I'm sure this can be cleaned up. However, let's test it first.
 
         if isinstance(record, NistRandomnessBeaconValue) is False:
             # Don't you dare try to play me
