@@ -139,3 +139,7 @@ class TestNistRandomnessBeacon(TestCase):
             with patch('requests.get') as patched_requests:
                 patched_requests.side_effect = exception_to_test
                 self.assertIsNone(NistRandomnessBeacon.get_last_record())
+
+    def test_chain_check_none(self):
+        # noinspection PyTypeChecker
+        self.assertFalse(NistRandomnessBeacon.chain_check(None))
