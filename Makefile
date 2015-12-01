@@ -1,6 +1,7 @@
-.PHONY: travis clean dogfood dogfood-debug pep8 test version-check
+.PHONY: travis travis-nightly clean dogfood dogfood-debug pep8 test version-check
 
 travis: test pep8 dogfood-debug version-check
+travis-nightly: test dogfood-debug version-check
 
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage

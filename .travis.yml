@@ -4,10 +4,12 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.5-dev"
+  - "nightly"
 
 os:
   - linux
-  - osx
+#  - osx
 
 branches:
   except:
@@ -22,7 +24,11 @@ install:
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - make travis
+  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then
+      make travis-nightly;
+    else
+      make travis;
+    fi
 
 after_success:
   - coveralls
@@ -31,3 +37,4 @@ matrix:
   fast_finish: true
   allow_failures:
     - os: osx
+    - python: "nightly"
