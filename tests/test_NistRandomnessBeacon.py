@@ -174,3 +174,16 @@ class TestNistRandomnessBeacon(TestCase):
                 NistRandomnessBeacon.get_last_record(),
             )
         )
+
+    def test_chain_check_wat(self):
+        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
+
+        with patch("{}.get_previous".format(patch_base)) as prev_call, \
+                patch("{}.get_next".format(patch_base)) as next_call:
+            prev_call.return_value = None
+            next_call.return_value = None
+            self.assertFalse(
+                NistRandomnessBeacon.chain_check(
+                    self.expected_current
+                )
+            )
