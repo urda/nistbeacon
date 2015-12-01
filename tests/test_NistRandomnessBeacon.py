@@ -148,7 +148,7 @@ class TestNistRandomnessBeacon(TestCase):
     def test_chain_check_majority(self):
         self.assertTrue(
             NistRandomnessBeacon.chain_check(
-                self.expected_current
+                self.expected_current.timestamp
             )
         )
 
@@ -159,7 +159,7 @@ class TestNistRandomnessBeacon(TestCase):
 
         self.assertTrue(
             NistRandomnessBeacon.chain_check(
-                test_init
+                test_init.timestamp
             )
         )
 
@@ -170,7 +170,7 @@ class TestNistRandomnessBeacon(TestCase):
             next_call.return_value = None
             self.assertTrue(
                 NistRandomnessBeacon.chain_check(
-                    NistRandomnessBeacon.get_last_record(),
+                    NistRandomnessBeacon.get_last_record().timestamp,
                 )
             )
 
@@ -183,6 +183,6 @@ class TestNistRandomnessBeacon(TestCase):
             next_call.return_value = None
             self.assertFalse(
                 NistRandomnessBeacon.chain_check(
-                    self.expected_current
+                    self.expected_current.timestamp
                 )
             )

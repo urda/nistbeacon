@@ -28,10 +28,12 @@ class NistRandomnessBeacon(object):
             return None
 
     @classmethod
-    def chain_check(cls, record: NistRandomnessBeaconValue) -> bool:
+    def chain_check(cls, timestamp: int) -> bool:
         # Creation is messy.
         # You want genius, you get madness; two sides of the same coin.
         # ... I'm sure this can be cleaned up. However, let's test it first.
+
+        record = cls.get_record(timestamp)
 
         if isinstance(record, NistRandomnessBeaconValue) is False:
             # Don't you dare try to play me

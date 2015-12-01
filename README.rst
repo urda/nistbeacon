@@ -35,7 +35,7 @@ out:
     record = NistRandomnessBeacon.get_last_record()
 
     # Verify the record and the record chain
-    record_chain_result = NistRandomnessBeacon.chain_check(record)
+    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
 
 Beacon Value
 ============
