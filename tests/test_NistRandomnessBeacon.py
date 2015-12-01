@@ -143,3 +143,10 @@ class TestNistRandomnessBeacon(TestCase):
     def test_chain_check_none(self):
         # noinspection PyTypeChecker
         self.assertFalse(NistRandomnessBeacon.chain_check(None))
+
+    def test_chain_check_majority(self):
+        self.assertTrue(
+            NistRandomnessBeacon.chain_check(
+                self.expected_current
+            )
+        )
