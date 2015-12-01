@@ -6,19 +6,72 @@ Python NIST Randomness Beacon
 **WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC
 KEYS.**
 
-Usage
-=====
+Beacon Usage
+============
 
-Start by importing the beacon into your project:
+Beacon Methods
+--------------
+
+.. code:: python
+
+    @classmethod
+    def chain_check(cls, timestamp: int) -> bool:
+        """
+        Given a record timestamp, verify the chain integrity.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: 'True' if the timestamp fits the chain. 'False' otherwise.
+        """
+
+.. code:: python
+
+    @classmethod
+    def get_last_record(cls) -> NistRandomnessBeaconValue:
+        """
+        Get the last (newest) record available.
+
+        :return: The last beacon value. 'None' otherwise.
+        """
+
+.. code:: python
+
+    @classmethod
+    def get_next(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Given a record timestamp, get the next record available.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The next beacon value if available. 'None' otherwise.
+        """
+
+.. code:: python
+
+    @classmethod
+    def get_previous(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Given a record timestamp, get the previous record available.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The previous beacon value if available. 'None; otherwise
+        """
+
+.. code:: python
+
+    @classmethod
+    def get_record(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Get a specific record (or next closest)
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The requested beacon value if available. 'None' otherwise.
+        """
+
+Beacon Sample Code
+------------------
 
 .. code:: python
 
     from py_nist_beacon import NistRandomnessBeacon
-
-Then simply use the various methods on the beacon to get values back
-out:
-
-.. code:: python
 
     # In the examples below I will be using 1447873020 as my <timestamp> when required
 
