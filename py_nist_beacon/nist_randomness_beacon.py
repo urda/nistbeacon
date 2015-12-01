@@ -63,7 +63,17 @@ class NistRandomnessBeacon(object):
             isinstance(next_record, NistRandomnessBeaconValue)
         ):
             # Majority case, somewhere in the middle of the chain
-            return False
+            # True if:
+            #   - All three records have proper signatures
+            #   - The requested record's previous output equals previous
+            #   - The next possible record's previosu output equals the record
+            return (
+                record.valid_signature and
+                prev_record.valid_signature and
+                next_record.valid_signature and
+                record.previous_output_value == prev_record.output_value and
+                next_record.previous_output_value == record.output_value
+            )
 
         if (
             isinstance(prev_record, NistRandomnessBeaconValue) and
