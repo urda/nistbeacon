@@ -29,6 +29,13 @@ class NistRandomnessBeacon(object):
 
     @classmethod
     def chain_check(cls, timestamp: int) -> bool:
+        """
+        Given a record timestamp, verify the chain integrity.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: 'True' if the timestamp fits the chain. 'False' otherwise.
+        """
+
         # Creation is messy.
         # You want genius, you get madness; two sides of the same coin.
         # ... I'm sure this can be cleaned up. However, let's test it first.
@@ -93,16 +100,43 @@ class NistRandomnessBeacon(object):
 
     @classmethod
     def get_last_record(cls) -> NistRandomnessBeaconValue:
+        """
+        Get the last (newest) record available.
+
+        :return: The last beacon value. 'None' otherwise.
+        """
+
         return cls._query_nist("last")
 
     @classmethod
     def get_next(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Given a record timestamp, get the next record available.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The next beacon value if available. 'None' otherwise.
+        """
+
         return cls._query_nist("next/{}".format(timestamp))
 
     @classmethod
     def get_previous(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Given a record timestamp, get the previous record available.
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The previous beacon value if available. 'None; otherwise
+        """
+
         return cls._query_nist("previous/{}".format(timestamp))
 
     @classmethod
     def get_record(cls, timestamp: int) -> NistRandomnessBeaconValue:
+        """
+        Get a specific record (or next closest)
+
+        :param timestamp: UNIX time / POSIX time / Epoch time
+        :return: The requested beacon value if available. 'None' otherwise.
+        """
+
         return cls._query_nist(str(timestamp))
