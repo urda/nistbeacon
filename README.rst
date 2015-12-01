@@ -34,6 +34,9 @@ out:
     # Last Record - https://beacon.nist.gov/rest/record/last
     record = NistRandomnessBeacon.get_last_record()
 
+    # Verify the record and the record chain
+    record_chain_result = NistRandomnessBeacon.chain_check(record)
+
 Beacon Value
 ============
 
