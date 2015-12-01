@@ -76,13 +76,6 @@ class NistRandomnessBeacon(object):
             )
 
         if (
-            isinstance(prev_record, NistRandomnessBeaconValue) and
-            next_record is None
-        ):
-            # Edge case, this was potentially the latest and greatest
-            return False
-
-        if (
             prev_record is None and
             isinstance(next_record, NistRandomnessBeaconValue)
         ):
@@ -91,6 +84,13 @@ class NistRandomnessBeacon(object):
                 cn.NIST_INIT_RECORD,
             )
 
+            return False
+
+        if (
+            isinstance(prev_record, NistRandomnessBeaconValue) and
+            next_record is None
+        ):
+            # Edge case, this was potentially the latest and greatest
             return False
 
     @classmethod
