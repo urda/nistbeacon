@@ -46,6 +46,10 @@ class NistRandomnessBeacon(object):
         # IF It's the LATEST record
         # ... you guessed it, things happen differently
 
+        if isinstance(record, NistRandomnessBeaconValue) is False:
+            # Don't you dare try to play me
+            return False
+
         prev_record = cls.get_previous(record.timestamp)
         next_record = cls.get_next(record.timestamp)
 
