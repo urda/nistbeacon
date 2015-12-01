@@ -164,16 +164,15 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_chain_check_last(self):
-        # POTENTIAL RACE CONDITION!
-        # Get last record -> pass to method ->
-        # no longer last before chain check complete
-        # Should this be patched?
+        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
 
-        self.assertTrue(
-            NistRandomnessBeacon.chain_check(
-                NistRandomnessBeacon.get_last_record(),
+        with patch("{}.get_next".format(patch_base)) as next_call:
+            next_call.return_value = None
+            self.assertTrue(
+                NistRandomnessBeacon.chain_check(
+                    NistRandomnessBeacon.get_last_record(),
+                )
             )
-        )
 
     def test_chain_check_wat(self):
         patch_base = 'py_nist_beacon.NistRandomnessBeacon'
