@@ -25,11 +25,8 @@ install:
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then
-      make travis-nightly;
-    else
-      make travis;
-    fi
+  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make travis; fi
+  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then make travis-nightly; fi
 
 after_success:
   - coveralls
@@ -38,4 +35,3 @@ matrix:
   fast_finish: true
   allow_failures:
     - os: osx
-    - python: "nightly"
