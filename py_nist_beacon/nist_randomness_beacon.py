@@ -99,6 +99,27 @@ class NistRandomnessBeacon(object):
             )
 
     @classmethod
+    def get_first_record(
+            cls,
+            download: bool=False
+    ) -> NistRandomnessBeaconValue:
+        """
+        Get the first (oldest) record available. Since the first record
+        IS a known value in the system we can load it from constants.
+
+        :param download: 'True' will always reach out to NIST to get the
+                         first record. 'False' returns a local copy.
+        :return: The first beacon value. 'None' otherwise.
+        """
+
+        if download:
+            return NistRandomnessBeacon.get_record(
+                cn.NIST_INIT_RECORD_TIMESTAMP
+            )
+        else:
+            return NistRandomnessBeaconValue.from_json(cn.NIST_INIT_RECORD)
+
+    @classmethod
     def get_last_record(cls) -> NistRandomnessBeaconValue:
         """
         Get the last (newest) record available.

@@ -7,6 +7,9 @@ NIST_KEY_STATUS_CODE = 'statusCode'
 NIST_KEY_TIMESTAMP = 'timeStamp'
 NIST_KEY_VERSION = 'version'
 
+NIST_INIT_RECORD_TIMESTAMP = 1378395540
+
+# noinspection SpellCheckingInspection
 NIST_INIT_RECORD = (
     '{'
     '"frequency": 60, '
