@@ -4,14 +4,22 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.5-dev"
+  - "nightly"
 
 os:
   - linux
-  - osx
+#  - osx
+
+addons:
+  apt:
+    packages:
+    - python3-dev
 
 branches:
-  except:
-    - /^v[0-9]/
+  only:
+    - master
+    - release
 
 before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
@@ -22,7 +30,8 @@ install:
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - make travis
+  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make travis; fi
+  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then make travis-nightly; fi
 
 after_success:
   - coveralls

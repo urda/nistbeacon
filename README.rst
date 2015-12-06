@@ -1,4 +1,9 @@
-|Build Status| |Coverage Status|
+|BuildStatus|_ |CoverageStatus|_
+
+.. |BuildStatus| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=release
+.. _BuildStatus: https://travis-ci.org/urda/py_nist_beacon
+.. |CoverageStatus| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=release&service=github
+.. _CoverageStatus: https://coveralls.io/github/urda/py_nist_beacon?branch=release
 
 Python NIST Randomness Beacon
 =============================
@@ -6,8 +11,58 @@ Python NIST Randomness Beacon
 **WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC
 KEYS.**
 
+Installation
+============
+
+Prerequisites
+-------------
+
+A required library :code:`pycrypto` is used with :code:`py_nist_beacon`.
+
+Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
+
+.. code:: bash
+
+    apt-get install python3-dev
+
+Installing :code:`py_nist_beacon`
+---------------------------------
+
+To install the beacon library, simply use :code:`pip`:
+
+.. code:: bash
+
+    pip install py_nist_beacon
+
 Beacon Usage
 ============
+
+It is easy to use the beacon. Most queries are performed through :code:`NistRandomnessBeacon`
+which produces :code:`NistRandomnessBeaconValue` objects.
+
+Beacon Sample Code
+------------------
+
+.. code:: python
+
+    from py_nist_beacon import NistRandomnessBeacon
+
+    # In the examples below I will be using 1447873020 as my <timestamp> when required
+
+    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
+    record = NistRandomnessBeacon.get_record(1447873020)
+
+    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
+    record = NistRandomnessBeacon.get_previous(1447873020)
+
+    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
+    record = NistRandomnessBeacon.get_next(1447873020)
+
+    # Last Record - https://beacon.nist.gov/rest/record/last
+    record = NistRandomnessBeacon.get_last_record()
+
+    # Verify the record and the record chain
+    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
 
 Beacon Methods
 --------------
@@ -65,30 +120,6 @@ Beacon Methods
         :param timestamp: UNIX time / POSIX time / Epoch time
         :return: The requested beacon value if available. 'None' otherwise.
         """
-
-Beacon Sample Code
-------------------
-
-.. code:: python
-
-    from py_nist_beacon import NistRandomnessBeacon
-
-    # In the examples below I will be using 1447873020 as my <timestamp> when required
-
-    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
-    record = NistRandomnessBeacon.get_record(1447873020)
-
-    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
-    record = NistRandomnessBeacon.get_previous(1447873020)
-
-    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
-    record = NistRandomnessBeacon.get_next(1447873020)
-
-    # Last Record - https://beacon.nist.gov/rest/record/last
-    record = NistRandomnessBeacon.get_last_record()
-
-    # Verify the record and the record chain
-    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
 
 Beacon Value
 ============
@@ -293,16 +324,15 @@ Beacon Value Methods
         :return: The XML representation of the beacon, as a string
         """
 
+Contributing
+============
+
+Please refer to the
+`CONTRIBUTING <https://github.com/urda/py_nist_beacon/blob/master/CONTRIBUTING.md>`_
+document on GitHub
+
 References
 ==========
 
--  `NIST Randomness Beacon Homepage`_
--  `NIST Beacon REST API`_
-
-.. _NIST Randomness Beacon Homepage: https://beacon.nist.gov/home
-.. _NIST Beacon REST API: https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd
-
-.. |Build Status| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=release
-   :target: https://travis-ci.org/urda/py_nist_beacon
-.. |Coverage Status| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=release&service=github
-   :target: https://coveralls.io/github/urda/py_nist_beacon?branch=release
+-  `NIST Randomness Beacon Homepage <https://beacon.nist.gov/home>`_
+-  `NIST Beacon REST API <https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd>`_
