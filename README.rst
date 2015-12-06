@@ -324,6 +324,13 @@ Beacon Value Methods
         :return: The XML representation of the beacon, as a string
         """
 
+Contributing
+============
+
+Please refer to the must up-to-date
+`CONTRIBUTING <https://github.com/urda/py_nist_beacon/blob/master/CONTRIBUTING.md>`_
+document on GitHub
+
 References
 ==========
 
