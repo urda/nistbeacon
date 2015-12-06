@@ -6,7 +6,6 @@
 
 - [What should I know before I get started?](#what-should-i-know-before-i-get-started)
   - [Configuring Your Environment](#configuring-your-environment)
-
 - [How Can I Contribute?](#how-can-i-contribute)
   - [Reporting Bugs](#reporting-bugs)
   
@@ -22,9 +21,6 @@ You should become familiar with the following:
   - [NIST Randomness Beacon API XSD](https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd)
 
 ### Configuring Your Environment
-
-:heavy_exclamation_mark: **Important Note!** You will need an internet connection to
-execute the full test suite.
 
 Setting up your local environment can be a tough with some projects. This project aims
 to have a simple and quick environment setup process.
@@ -47,6 +43,9 @@ If you would like to verify your local environment, you can try testing the proj
 ```bash
 make
 ```
+
+:heavy_exclamation_mark: **Important Note!** You will need an internet connection to
+execute the full test suite.
 
 Which will run the same testing steps that [Travis CI](https://travis-ci.org/urda/py_nist_beacon)
 will run. You can also just run `make test` if you would like to just run the python tests.
