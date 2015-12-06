@@ -1,4 +1,4 @@
-|Build Status| |Coverage Status|
+|BuildStatus|_ |CoverageStatus|_
 
 Python NIST Randomness Beacon
 =============================
@@ -325,7 +325,7 @@ References
 .. _NIST Randomness Beacon Homepage: https://beacon.nist.gov/home
 .. _NIST Beacon REST API: https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd
 
-.. |Build Status| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=master
-   :target: https://travis-ci.org/urda/py_nist_beacon
-.. |Coverage Status| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=master&service=github
-   :target: https://coveralls.io/github/urda/py_nist_beacon?branch=master
+.. |BuildStatus| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=master
+.. _BuildStatus: https://travis-ci.org/urda/py_nist_beacon
+.. |CoverageStatus| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=master&service=github
+.. _CoverageStatus: https://coveralls.io/github/urda/py_nist_beacon?branch=master
