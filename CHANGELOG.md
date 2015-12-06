@@ -9,7 +9,8 @@ project to get started.
 ## v0.6.0 (Alpha Release)
 
 - Features
-  -
+  - `NistRandomnessBeacon`
+    - Added a `get_first_record` method.
 
 ## v0.5.2 (Alpha Release)
 
