@@ -81,11 +81,16 @@ Beacon Methods
 .. code:: python
 
     @classmethod
-    def get_first_record(cls) -> NistRandomnessBeaconValue:
+    def get_first_record(
+            cls,
+            download: bool=False
+    ) -> NistRandomnessBeaconValue:
         """
         Get the first (oldest) record available. Since the first record
         IS a known value in the system we can load it from constants.
 
+        :param download: 'True' will always reach out to NIST to get the
+                         first record. 'False' returns a local copy.
         :return: The first beacon value. 'None' otherwise.
         """
 

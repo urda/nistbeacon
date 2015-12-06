@@ -100,15 +100,43 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_get_first_record(self):
-        expected = NistRandomnessBeacon.get_first_record()
+        expected = NistRandomnessBeacon.get_first_record(download=False)
+        downloaded = NistRandomnessBeacon.get_first_record(download=True)
         actual = NistRandomnessBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
+
+        download_error_msg = (
+            "Failed to confirm the first record! "
+            "Check the remote NIST service."
+        )
+
+        same_object_error_msg = (
+            "These should have been two unique objects regardless of equality."
+        )
 
         self.assertEqual(
             expected,
             actual,
-            msg="Failed to confirm the first record! "
-                "Check the remote NIST service"
+            msg=download_error_msg,
         )
+
+        self.assertEqual(
+            expected,
+            downloaded,
+            msg=download_error_msg,
+        )
+
+        test_pairs = [
+            (expected, actual),
+            (expected, downloaded),
+            (actual, downloaded),
+        ]
+
+        for pair in test_pairs:
+            self.assertIsNot(
+                pair[0],
+                pair[1],
+                msg=same_object_error_msg,
+            )
 
     def test_get_next(self):
         next_record = NistRandomnessBeacon.get_next(self.reference_timestamp)
