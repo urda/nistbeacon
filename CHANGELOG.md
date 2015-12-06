@@ -6,6 +6,11 @@ project to get started.
 
 - [PyPI - py_nist_beacon](https://pypi.python.org/pypi/py_nist_beacon/)
 
+## v0.6.0 (Alpha Release)
+
+- Features
+  -
+
 ## v0.5.2 (Alpha Release)
 
 - Added a section on installation.
