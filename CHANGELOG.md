@@ -10,7 +10,9 @@ project to get started.
 
 - Features
   - `NistRandomnessBeacon`
-    - Added a `get_first_record` method.
+    - Added a `get_first_record` method. An optional boolean flag named
+      `download` allows the caller to either use the local first record
+      object, or to download the first record directly from the NIST beacon.
 
 ## v0.5.2 (Alpha Release)
 
