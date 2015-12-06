@@ -6,6 +6,29 @@ Python NIST Randomness Beacon
 **WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC
 KEYS.**
 
+Installation
+============
+
+Prerequisites
+-------------
+
+A required library :code:`pycrypto` is used with :code:`py_nist_beacon`.
+
+Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
+
+.. code:: bash
+
+    apt-get install python3-dev
+
+Installing :code:`py_nist_beacon`
+---------------------------------
+
+To install the beacon library, simply use :code:`pip`:
+
+.. code:: bash
+
+    pip install py_nist_beacon
+
 Beacon Usage
 ============
 
