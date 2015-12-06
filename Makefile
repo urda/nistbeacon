@@ -24,6 +24,6 @@ pep8:
 test:
 	py.test -r fEsxXw --verbose --cov py_nist_beacon --cov-report html
 
-.PHONY version-check
+.PHONY: version-check
 version-check:
 	./scripts/version_manager.py check
