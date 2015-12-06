@@ -1,3 +1,5 @@
 include beacon.cer
+include CHANGELOG.md
+include CONTRIBUTING.md
 include LICENSE
 include README.rst
