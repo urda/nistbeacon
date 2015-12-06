@@ -4,11 +4,11 @@
 
 #### Table Of Contents
 
-[What should I know before I get started?](#what-should-i-know-before-i-get-started)
-  * [Configuring Your Environment](#configuring-your-environment)
+- [What should I know before I get started?](#what-should-i-know-before-i-get-started)
+  - [Configuring Your Environment](#configuring-your-environment)
 
-[How Can I Contribute?](#how-can-i-contribute)
-  * [Reporting Bugs](#reporting-bugs)
+- [How Can I Contribute?](#how-can-i-contribute)
+  - [Reporting Bugs](#reporting-bugs)
   
 ## What should I know before I get started?
 
