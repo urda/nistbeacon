@@ -81,6 +81,17 @@ Beacon Methods
 .. code:: python
 
     @classmethod
+    def get_first_record(cls) -> NistRandomnessBeaconValue:
+        """
+        Get the first (oldest) record available. Since the first record
+        IS a known value in the system we can load it from constants.
+
+        :return: The first beacon value. 'None' otherwise.
+        """
+
+.. code:: python
+
+    @classmethod
     def get_last_record(cls) -> NistRandomnessBeaconValue:
         """
         Get the last (newest) record available.

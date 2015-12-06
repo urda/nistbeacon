@@ -99,6 +99,17 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
+    def test_get_first_record(self):
+        expected = NistRandomnessBeacon.get_first_record()
+        actual = NistRandomnessBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
+
+        self.assertEqual(
+            expected,
+            actual,
+            msg="Failed to confirm the first record! "
+                "Check the remote NIST service"
+        )
+
     def test_get_next(self):
         next_record = NistRandomnessBeacon.get_next(self.reference_timestamp)
         self.assertEqual(self.expected_next, next_record)
