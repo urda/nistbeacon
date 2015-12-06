@@ -27,13 +27,20 @@ You should become familiar with the following:
 execute the full test suite.
 
 Setting up your local environment can be a tough with some projects. This project aims
-to have a simple and quick environment setup process. You should already have configured
-a local `virtualenv` with `python 3` as the interpreter. Once you have your local `virtualenv`
-ready to go, simply install the full dev tool package using `pip`:
+to have a simple and quick environment setup process.
+
+You should already have configured a local `virtualenv` with `python 3` as the interpreter.
+Once you have your local `virtualenv` ready to go, simply install the full dev tool package using `pip`:
 
 ```bash
 pip install -r requirements-dev.txt
 ```
+
+If you have have problems installing `pycrypto`, you may need `python3-dev` or a similar library on your
+machine. For Ubuntu and other linux systems `apt-get install python3-dev` will usually set you straight.
+Once you have it installed try running your `pip install` command again. **If this still does not work**
+please add a note in this [GitHub Issue](https://github.com/urda/py_nist_beacon/issues/4) and then open
+a new issue!
 
 If you would like to verify your local environment, you can try testing the project with:
 
