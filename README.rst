@@ -32,6 +32,33 @@ To install the beacon library, simply use :code:`pip`:
 Beacon Usage
 ============
 
+It is easy to use the beacon. Most queries are performed through :code:`NistRandomnessBeacon`
+which produces :code:`NistRandomnessBeaconValue` objects.
+
+Beacon Sample Code
+------------------
+
+.. code:: python
+
+    from py_nist_beacon import NistRandomnessBeacon
+
+    # In the examples below I will be using 1447873020 as my <timestamp> when required
+
+    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
+    record = NistRandomnessBeacon.get_record(1447873020)
+
+    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
+    record = NistRandomnessBeacon.get_previous(1447873020)
+
+    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
+    record = NistRandomnessBeacon.get_next(1447873020)
+
+    # Last Record - https://beacon.nist.gov/rest/record/last
+    record = NistRandomnessBeacon.get_last_record()
+
+    # Verify the record and the record chain
+    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
+
 Beacon Methods
 --------------
 
@@ -88,30 +115,6 @@ Beacon Methods
         :param timestamp: UNIX time / POSIX time / Epoch time
         :return: The requested beacon value if available. 'None' otherwise.
         """
-
-Beacon Sample Code
-------------------
-
-.. code:: python
-
-    from py_nist_beacon import NistRandomnessBeacon
-
-    # In the examples below I will be using 1447873020 as my <timestamp> when required
-
-    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
-    record = NistRandomnessBeacon.get_record(1447873020)
-
-    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
-    record = NistRandomnessBeacon.get_previous(1447873020)
-
-    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
-    record = NistRandomnessBeacon.get_next(1447873020)
-
-    # Last Record - https://beacon.nist.gov/rest/record/last
-    record = NistRandomnessBeacon.get_last_record()
-
-    # Verify the record and the record chain
-    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
 
 Beacon Value
 ============
