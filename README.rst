@@ -327,7 +327,7 @@ Beacon Value Methods
 Contributing
 ============
 
-Please refer to the must up-to-date
+Please refer to the
 `CONTRIBUTING <https://github.com/urda/py_nist_beacon/blob/master/CONTRIBUTING.md>`_
 document on GitHub
 
