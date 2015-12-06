@@ -54,6 +54,37 @@ will run. You can also just run `make test` if you would like to just run the py
 
 ### Reporting Bugs
 
-Coming soon!
+To err is human, and bugs do happen in projects! We might see bugs from missing documentation,
+installation problems, and of course bugs in the actual project itself. Reporting these bugs
+will make it easier for future users to enjoy `py_nist_beacon`. Please feel free to open a bug
+report when you run across problems.
+
+#### Template For Submitting Bug Reports
+
+```markdown
+[Short description of problem here]
+
+**Reproduction Steps:**
+
+1. [First Step]
+2. [Second Step]
+3. [Other Steps...]
+
+**Expected behavior:**
+
+[Describe expected behavior here]
+
+**Observed behavior:**
+
+[Describe observed behavior here]
+
+**py_nist_beacon version:** [Enter version here]
+**OS and version:** [Enter OS name and version here]
+
+**Installed packages:**
+
+[List your `pip freeze` output here]
+
+```
 
 
