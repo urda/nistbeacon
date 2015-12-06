@@ -189,7 +189,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.command == "check":
+    if args.command == "check" or args.command is None:
         version_data = get_versions()
 
         if version_data.uniform:
