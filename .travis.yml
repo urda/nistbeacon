@@ -24,6 +24,7 @@ branches:
 before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
   - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
+  - echo Python Version ... $(python --version)
 
 install:
   - pip install --upgrade pip
