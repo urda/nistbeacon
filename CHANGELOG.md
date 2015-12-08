@@ -6,6 +6,10 @@ project to get started.
 
 - [PyPI - py_nist_beacon](https://pypi.python.org/pypi/py_nist_beacon/)
 
+## v0.7.0 (Alpha Release)
+
+Name change due to _ vs - ? Maybe.
+
 ## v0.6.0 (Alpha Release)
 
 - Features
