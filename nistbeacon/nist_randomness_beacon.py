@@ -7,7 +7,7 @@ from nistbeacon.nist_randomness_beacon_value import (
 )
 
 
-class NistRandomnessBeacon(object):
+class NistBeacon(object):
     NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
     @classmethod
@@ -113,7 +113,7 @@ class NistRandomnessBeacon(object):
         """
 
         if download:
-            return NistRandomnessBeacon.get_record(
+            return NistBeacon.get_record(
                 cn.NIST_INIT_RECORD_TIMESTAMP
             )
         else:
