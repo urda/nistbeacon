@@ -271,7 +271,7 @@ class NistBeaconValue(object):
         return self._xml
 
     @classmethod
-    def from_json(cls, input_json: str):
+    def from_json(cls, input_json: str) -> 'NistBeaconValue':
         """
         Convert a string of JSON which represents a NIST randomness beacon
         value into a 'NistBeaconValue' object.
@@ -321,7 +321,7 @@ class NistBeaconValue(object):
         )
 
     @classmethod
-    def from_xml(cls, input_xml: str):
+    def from_xml(cls, input_xml: str) -> 'NistBeaconValue':
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
         into a 'NistBeaconValue' object.
