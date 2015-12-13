@@ -1,8 +1,8 @@
 import requests
 from requests.exceptions import RequestException
 
-import py_nist_beacon.nist_beacon_constants as cn
-from py_nist_beacon.nist_randomness_beacon_value import (
+import nistbeacon.nist_beacon_constants as cn
+from nistbeacon.nist_randomness_beacon_value import (
     NistRandomnessBeaconValue
 )
 
@@ -62,7 +62,7 @@ class NistRandomnessBeacon(object):
             # True if:
             #   - All three records have proper signatures
             #   - The requested record's previous output equals previous
-            #   - The next possible record's previosu output equals the record
+            #   - The next possible record's previous output equals the record
             return (
                 record.valid_signature and
                 prev_record.valid_signature and

@@ -8,7 +8,7 @@ from Crypto.Hash import SHA512
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
-import py_nist_beacon.nist_beacon_constants as cn
+import nistbeacon.nist_beacon_constants as cn
 
 
 class NistRandomnessBeaconValue(object):

@@ -6,9 +6,9 @@ from unittest.mock import (
 
 import requests.exceptions
 
-import py_nist_beacon.nist_beacon_constants as cn
-from py_nist_beacon import NistRandomnessBeacon
-from py_nist_beacon.nist_randomness_beacon_value import (
+import nistbeacon.nist_beacon_constants as cn
+from nistbeacon import NistRandomnessBeacon
+from nistbeacon.nist_randomness_beacon_value import (
     NistRandomnessBeaconValue
 )
 
@@ -203,7 +203,7 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_chain_check_last(self):
-        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistRandomnessBeacon'
 
         with patch("{}.get_next".format(patch_base)) as next_call:
             next_call.return_value = None
@@ -214,7 +214,7 @@ class TestNistRandomnessBeacon(TestCase):
             )
 
     def test_chain_check_wat(self):
-        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistRandomnessBeacon'
 
         with patch("{}.get_previous".format(patch_base)) as prev_call, \
                 patch("{}.get_next".format(patch_base)) as next_call:

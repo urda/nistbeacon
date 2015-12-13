@@ -18,11 +18,11 @@ dogfood-debug:
 
 .PHONY: pep8
 pep8:
-	pep8 ./py_nist_beacon/*.py ./scripts/*.py ./tests/*.py
+	pep8 ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
 
 .PHONY: test
 test:
-	py.test -r fEsxXw --verbose --cov py_nist_beacon --cov-report html
+	py.test -r fEsxXw --verbose --cov nistbeacon --cov-report html
 
 .PHONY: version-check
 version-check:

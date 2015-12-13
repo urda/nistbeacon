@@ -123,7 +123,7 @@ curr_location = dirname(__file__)
 version_objects = [
     FileVersionInfo(
         key_name='package',
-        file_path=join(curr_location, '../py_nist_beacon/__init__.py'),
+        file_path=join(curr_location, '../nistbeacon/__init__.py'),
         magic_line="__version__ = '",
         strip_end_chars=2,
     ),

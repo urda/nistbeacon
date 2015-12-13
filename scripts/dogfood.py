@@ -10,10 +10,10 @@ from os.path import (
 )
 
 try:
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistRandomnessBeacon
 except ImportError:
     sys.path.insert(0, abspath(join(dirname(__file__), '..')))
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistRandomnessBeacon
 
 
 if __name__ == '__main__':
