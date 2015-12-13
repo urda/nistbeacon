@@ -6,6 +6,12 @@ project to get started.
 
 - [PyPI - nistbeacon](https://pypi.python.org/pypi/nistbeacon/)
 
+## v0.8.0 (Alpha Release)
+
+- Features
+  - `NistBeaconValue`
+    - Add RNG function to convert output?
+
 ## v0.7.0 (Alpha Release)
 
 - Name changes
