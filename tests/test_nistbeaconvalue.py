@@ -313,7 +313,7 @@ class TestNistBeaconValue(TestCase):
             self.sample_nist_xml
         )
 
-        actual_json = nist_beacon.to_json()
+        actual_json = nist_beacon.json
 
         actual_json_as_dict = json.loads(actual_json)
         expected_json_as_dict = json.loads(self.sample_nist_json)
@@ -350,11 +350,11 @@ class TestNistBeaconValue(TestCase):
         )
 
         value_using_from_xml = NistBeaconValue.from_xml(
-            base_value.to_xml()
+            base_value.xml
         )
 
         self.assertEqual(
-            base_value.to_xml(),
+            base_value.xml,
             self.sample_nist_xml,
         )
 
