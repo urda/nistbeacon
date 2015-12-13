@@ -8,7 +8,7 @@ import requests.exceptions
 
 import nistbeacon.constants as cn
 from nistbeacon import NistBeacon
-from nistbeacon.nist_randomness_beacon_value import (
+from nistbeacon.nistbeaconvalue import (
     NistRandomnessBeaconValue
 )
 

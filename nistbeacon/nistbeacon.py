@@ -2,7 +2,7 @@ import requests
 from requests.exceptions import RequestException
 
 import nistbeacon.constants as cn
-from nistbeacon.nist_randomness_beacon_value import (
+from nistbeacon.nistbeaconvalue import (
     NistRandomnessBeaconValue
 )
 

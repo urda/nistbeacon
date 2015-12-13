@@ -1,7 +1,7 @@
 import json
 from unittest import TestCase
 
-from nistbeacon.nist_randomness_beacon_value import (
+from nistbeacon.nistbeaconvalue import (
     NistRandomnessBeaconValue
 )
 
