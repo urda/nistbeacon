@@ -26,7 +26,7 @@ Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
     apt-get install python3-dev
 
 Installing :code:`nistbeacon`
----------------------------------
+-----------------------------
 
 To install the beacon library, simply use :code:`pip`:
 
