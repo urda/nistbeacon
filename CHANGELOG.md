@@ -12,6 +12,10 @@ project to get started.
   - `NistBeaconValue`
     - Add RNG function to convert output?
 
+## v0.8.1 (Alpha Release)
+
+- Minor documentation changes
+
 ## v0.8.0 (Alpha Release)
 
 - Features
