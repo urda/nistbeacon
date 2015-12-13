@@ -6,7 +6,7 @@ from unittest.mock import (
 
 import requests.exceptions
 
-import nistbeacon.nist_beacon_constants as cn
+import nistbeacon.constants as cn
 from nistbeacon import NistRandomnessBeacon
 from nistbeacon.nist_randomness_beacon_value import (
     NistRandomnessBeaconValue
