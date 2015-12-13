@@ -9,7 +9,7 @@ import requests.exceptions
 import nistbeacon.constants as cn
 from nistbeacon import NistBeacon
 from nistbeacon.nistbeaconvalue import (
-    NistRandomnessBeaconValue
+    NistBeaconValue
 )
 
 
@@ -18,7 +18,7 @@ class TestNistRandomnessBeacon(TestCase):
     def setUp(self):
         self.reference_timestamp = int(1447873020)
 
-        self.expected_current = NistRandomnessBeaconValue(
+        self.expected_current = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447873020),
@@ -45,7 +45,7 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
-        self.expected_next = NistRandomnessBeaconValue(
+        self.expected_next = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447873080),
@@ -72,7 +72,7 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
-        self.expected_previous = NistRandomnessBeaconValue(
+        self.expected_previous = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447872960),
@@ -155,7 +155,7 @@ class TestNistRandomnessBeacon(TestCase):
     def test_get_last_record(self):
         last_record = NistBeacon.get_last_record()
 
-        self.assertIsInstance(last_record, NistRandomnessBeaconValue)
+        self.assertIsInstance(last_record, NistBeaconValue)
 
     def test_get_last_record_404(self):
         with patch('requests.get') as patched_requests:
@@ -192,7 +192,7 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_chain_check_init(self):
-        test_init = NistRandomnessBeaconValue.from_json(
+        test_init = NistBeaconValue.from_json(
             cn.NIST_INIT_RECORD,
         )
 

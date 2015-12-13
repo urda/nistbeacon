@@ -11,7 +11,7 @@ from Crypto.Signature import PKCS1_v1_5
 import nistbeacon.constants as cn
 
 
-class NistRandomnessBeaconValue(object):
+class NistBeaconValue(object):
     def __init__(
             self,
             version: str,

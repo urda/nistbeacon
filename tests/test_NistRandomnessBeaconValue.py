@@ -2,7 +2,7 @@ import json
 from unittest import TestCase
 
 from nistbeacon.nistbeaconvalue import (
-    NistRandomnessBeaconValue
+    NistBeaconValue
 )
 
 
@@ -188,7 +188,7 @@ class TestNistRandomnessBeaconValue(TestCase):
             '</record>'
         )
 
-    def object_value_test(self, nist_beacon: NistRandomnessBeaconValue):
+    def object_value_test(self, nist_beacon: NistBeaconValue):
         """
         Given a NIST Random Value Beacon,
         verify the object properties are correct
@@ -197,7 +197,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         # Verify a value was actually created
-        self.assertIsInstance(nist_beacon, NistRandomnessBeaconValue)
+        self.assertIsInstance(nist_beacon, NistBeaconValue)
 
         # Verify values
         self.assertEqual(nist_beacon.frequency, self.expected_frequency)
@@ -221,9 +221,9 @@ class TestNistRandomnessBeaconValue(TestCase):
         are working correctly
         """
 
-        from_xml = NistRandomnessBeaconValue.from_xml(self.sample_nist_xml)
+        from_xml = NistBeaconValue.from_xml(self.sample_nist_xml)
 
-        from_props = NistRandomnessBeaconValue(
+        from_props = NistBeaconValue(
             version=from_xml.version,
             frequency=from_xml.frequency,
             timestamp=from_xml.timestamp,
@@ -252,7 +252,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         Test the object's init method
         """
 
-        self.object_value_test(NistRandomnessBeaconValue(
+        self.object_value_test(NistBeaconValue(
             version=self.expected_version,
             frequency=self.expected_frequency,
             timestamp=self.expected_timestamp,
@@ -269,7 +269,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         self.assertTrue(
-            NistRandomnessBeaconValue.from_xml(
+            NistBeaconValue.from_xml(
                 self.sample_nist_xml
             ).valid_signature
         )
@@ -281,14 +281,14 @@ class TestNistRandomnessBeaconValue(TestCase):
 
         # This should check when the data does not equal the signature
         self.assertFalse(
-            NistRandomnessBeaconValue.from_xml(
+            NistBeaconValue.from_xml(
                 self.sample_nist_xml_invalid_sig,
             ).valid_signature
         )
 
         # This should check when the output doesn't match the hashed signature
         self.assertFalse(
-            NistRandomnessBeaconValue.from_xml(
+            NistBeaconValue.from_xml(
                 self.sample_nist_xml_invalid_sig_output,
             ).valid_signature
         )
@@ -299,7 +299,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         self.object_value_test(
-            NistRandomnessBeaconValue.from_json(
+            NistBeaconValue.from_json(
                 self.sample_nist_json,
             )
         )
@@ -309,7 +309,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         Test that the value object produces correct JSON.
         """
 
-        nist_beacon = NistRandomnessBeaconValue.from_xml(
+        nist_beacon = NistBeaconValue.from_xml(
             self.sample_nist_xml
         )
 
@@ -335,7 +335,7 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         self.object_value_test(
-            NistRandomnessBeaconValue.from_xml(
+            NistBeaconValue.from_xml(
                 self.sample_nist_xml
             )
         )
@@ -345,11 +345,11 @@ class TestNistRandomnessBeaconValue(TestCase):
         Test that the value object produces the correct XML string.
         """
 
-        base_value = NistRandomnessBeaconValue.from_xml(
+        base_value = NistBeaconValue.from_xml(
             self.sample_nist_xml
         )
 
-        value_using_from_xml = NistRandomnessBeaconValue.from_xml(
+        value_using_from_xml = NistBeaconValue.from_xml(
             base_value.to_xml()
         )
 
@@ -369,13 +369,13 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         self.assertIsNone(
-            NistRandomnessBeaconValue.from_json(
+            NistBeaconValue.from_json(
                 self.sample_nist_json_parse_error
             )
         )
 
         self.assertIsNone(
-            NistRandomnessBeaconValue.from_json(
+            NistBeaconValue.from_json(
                 self.sample_nist_json_missing_content
             )
         )
@@ -386,11 +386,11 @@ class TestNistRandomnessBeaconValue(TestCase):
         """
 
         self.assertIsNone(
-            NistRandomnessBeaconValue.from_xml(self.sample_nist_parse_error)
+            NistBeaconValue.from_xml(self.sample_nist_parse_error)
         )
 
         self.assertIsNone(
-            NistRandomnessBeaconValue.from_xml(
+            NistBeaconValue.from_xml(
                 self.sample_nist_missing_content
             )
         )
