@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(
-    name='py_nist_beacon',
-    packages=['py_nist_beacon'],
+    name='nistbeacon',
+    packages=['nistbeacon'],
     version='0.6.0',
 
     description='Python 3 Library to access the NIST Randomness Beacon',
@@ -11,7 +11,7 @@ setup(
 
     author='Peter Urda',
     author_email='noreply@urda.cc',
-    url='https://github.com/urda/py_nist_beacon',
+    url='https://github.com/urda/nistbeacon',
 
     install_requires=[
         'pycrypto>=2.6.1',

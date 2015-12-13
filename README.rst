@@ -1,9 +1,9 @@
 |BuildStatus|_ |CoverageStatus|_
 
-.. |BuildStatus| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=master
-.. _BuildStatus: https://travis-ci.org/urda/py_nist_beacon
-.. |CoverageStatus| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=master&service=github
-.. _CoverageStatus: https://coveralls.io/github/urda/py_nist_beacon?branch=master
+.. |BuildStatus| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
+.. _BuildStatus: https://travis-ci.org/urda/nistbeacon
+.. |CoverageStatus| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
+.. _CoverageStatus: https://coveralls.io/github/urda/nistbeacon?branch=master
 
 Python NIST Randomness Beacon
 =============================
@@ -17,7 +17,7 @@ Installation
 Prerequisites
 -------------
 
-A required library :code:`pycrypto` is used with :code:`py_nist_beacon`.
+A required library :code:`pycrypto` is used with :code:`nistbeacon`.
 
 Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
 
@@ -25,14 +25,14 @@ Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
 
     apt-get install python3-dev
 
-Installing :code:`py_nist_beacon`
+Installing :code:`nistbeacon`
 ---------------------------------
 
 To install the beacon library, simply use :code:`pip`:
 
 .. code:: bash
 
-    pip install py_nist_beacon
+    pip install nistbeacon
 
 Beacon Usage
 ============
@@ -45,7 +45,7 @@ Beacon Sample Code
 
 .. code:: python
 
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistRandomnessBeacon
 
     # In the examples below I will be using 1447873020 as my <timestamp> when required
 
@@ -344,7 +344,7 @@ Contributing
 ============
 
 Please refer to the
-`CONTRIBUTING <https://github.com/urda/py_nist_beacon/blob/master/CONTRIBUTING.md>`_
+`CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/CONTRIBUTING.md>`_
 document on GitHub
 
 References
