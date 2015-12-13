@@ -13,7 +13,7 @@ from nistbeacon.nistbeaconvalue import (
 )
 
 
-class TestNistRandomnessBeacon(TestCase):
+class TestNistBeacon(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
         self.reference_timestamp = int(1447873020)

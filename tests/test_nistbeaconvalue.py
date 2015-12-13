@@ -6,7 +6,7 @@ from nistbeacon.nistbeaconvalue import (
 )
 
 
-class TestNistRandomnessBeaconValue(TestCase):
+class TestNistBeaconValue(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
         # Configure the expected properties
