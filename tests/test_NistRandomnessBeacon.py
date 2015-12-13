@@ -203,7 +203,7 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_chain_check_last(self):
-        patch_base = 'nistbeacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistBeacon'
 
         with patch("{}.get_next".format(patch_base)) as next_call:
             next_call.return_value = None
@@ -214,7 +214,7 @@ class TestNistRandomnessBeacon(TestCase):
             )
 
     def test_chain_check_wat(self):
-        patch_base = 'nistbeacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistBeacon'
 
         with patch("{}.get_previous".format(patch_base)) as prev_call, \
                 patch("{}.get_next".format(patch_base)) as next_call:
