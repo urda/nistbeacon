@@ -1,4 +1,4 @@
-# Contributing to py_nist_beacon
+# Contributing to nistbeacon
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
@@ -35,7 +35,7 @@ pip install -r requirements-dev.txt
 If you have have problems installing `pycrypto`, you may need `python3-dev` or a similar library on your
 machine. For Ubuntu and other linux systems `apt-get install python3-dev` will usually set you straight.
 Once you have it installed try running your `pip install` command again. **If this still does not work**
-please add a note in this [GitHub Issue](https://github.com/urda/py_nist_beacon/issues/4) and then open
+please add a note in this [GitHub Issue](https://github.com/urda/nistbeacon/issues/4) and then open
 a new issue!
 
 If you would like to verify your local environment, you can try testing the project with:
@@ -47,7 +47,7 @@ make
 :heavy_exclamation_mark: **Important Note!** You will need an internet connection to
 execute the full test suite.
 
-Which will run the same testing steps that [Travis CI](https://travis-ci.org/urda/py_nist_beacon)
+Which will run the same testing steps that [Travis CI](https://travis-ci.org/urda/nistbeacon)
 will run. You can also just run `make test` if you would like to just run the python tests.
 
 ## How Can I Contribute?
@@ -56,7 +56,7 @@ will run. You can also just run `make test` if you would like to just run the py
 
 To err is human, and bugs do happen in projects! We might see bugs from missing documentation,
 installation problems, and of course bugs in the actual project itself. Reporting these bugs
-will make it easier for future users to enjoy `py_nist_beacon`. Please feel free to open a bug
+will make it easier for future users to enjoy `nistbeacon`. Please feel free to open a bug
 report when you run across problems.
 
 #### Template For Submitting Bug Reports
@@ -78,7 +78,7 @@ report when you run across problems.
 
 [Describe observed behavior here]
 
-**py_nist_beacon version:** [Enter version here]
+**nistbeacon version:** [Enter version here]
 **OS and version:** [Enter OS name and version here]
 
 **Installed packages:**

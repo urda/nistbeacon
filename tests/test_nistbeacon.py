@@ -6,19 +6,19 @@ from unittest.mock import (
 
 import requests.exceptions
 
-import py_nist_beacon.nist_beacon_constants as cn
-from py_nist_beacon import NistRandomnessBeacon
-from py_nist_beacon.nist_randomness_beacon_value import (
-    NistRandomnessBeaconValue
+import nistbeacon.constants as cn
+from nistbeacon import NistBeacon
+from nistbeacon.nistbeaconvalue import (
+    NistBeaconValue
 )
 
 
-class TestNistRandomnessBeacon(TestCase):
+class TestNistBeacon(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
         self.reference_timestamp = int(1447873020)
 
-        self.expected_current = NistRandomnessBeaconValue(
+        self.expected_current = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447873020),
@@ -45,7 +45,7 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
-        self.expected_next = NistRandomnessBeaconValue(
+        self.expected_next = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447873080),
@@ -72,7 +72,7 @@ class TestNistRandomnessBeacon(TestCase):
             status_code='0',
         )
 
-        self.expected_previous = NistRandomnessBeaconValue(
+        self.expected_previous = NistBeaconValue(
             version='Version 1.0',
             frequency=int(60),
             timestamp=int(1447872960),
@@ -100,9 +100,9 @@ class TestNistRandomnessBeacon(TestCase):
         )
 
     def test_get_first_record(self):
-        expected = NistRandomnessBeacon.get_first_record(download=False)
-        downloaded = NistRandomnessBeacon.get_first_record(download=True)
-        actual = NistRandomnessBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
+        expected = NistBeacon.get_first_record(download=False)
+        downloaded = NistBeacon.get_first_record(download=True)
+        actual = NistBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
 
         download_error_msg = (
             "Failed to confirm the first record! "
@@ -139,23 +139,23 @@ class TestNistRandomnessBeacon(TestCase):
             )
 
     def test_get_next(self):
-        next_record = NistRandomnessBeacon.get_next(self.reference_timestamp)
+        next_record = NistBeacon.get_next(self.reference_timestamp)
         self.assertEqual(self.expected_next, next_record)
 
     def test_get_previous(self):
-        previous_record = NistRandomnessBeacon.get_previous(
+        previous_record = NistBeacon.get_previous(
             self.reference_timestamp
         )
         self.assertEqual(self.expected_previous, previous_record)
 
     def test_get_record(self):
-        record = NistRandomnessBeacon.get_record(self.reference_timestamp)
+        record = NistBeacon.get_record(self.reference_timestamp)
         self.assertEqual(self.expected_current, record)
 
     def test_get_last_record(self):
-        last_record = NistRandomnessBeacon.get_last_record()
+        last_record = NistBeacon.get_last_record()
 
-        self.assertIsInstance(last_record, NistRandomnessBeaconValue)
+        self.assertIsInstance(last_record, NistBeaconValue)
 
     def test_get_last_record_404(self):
         with patch('requests.get') as patched_requests:
@@ -163,7 +163,7 @@ class TestNistRandomnessBeacon(TestCase):
             mock_response.status_code = 404
             patched_requests.return_value = mock_response
 
-            self.assertIsNone(NistRandomnessBeacon.get_last_record())
+            self.assertIsNone(NistBeacon.get_last_record())
 
     def test_get_last_record_exceptions(self):
         exceptions_to_test = [
@@ -178,50 +178,50 @@ class TestNistRandomnessBeacon(TestCase):
         for exception_to_test in exceptions_to_test:
             with patch('requests.get') as patched_requests:
                 patched_requests.side_effect = exception_to_test
-                self.assertIsNone(NistRandomnessBeacon.get_last_record())
+                self.assertIsNone(NistBeacon.get_last_record())
 
     def test_chain_check_none(self):
         # noinspection PyTypeChecker
-        self.assertFalse(NistRandomnessBeacon.chain_check(None))
+        self.assertFalse(NistBeacon.chain_check(None))
 
     def test_chain_check_majority(self):
         self.assertTrue(
-            NistRandomnessBeacon.chain_check(
+            NistBeacon.chain_check(
                 self.expected_current.timestamp
             )
         )
 
     def test_chain_check_init(self):
-        test_init = NistRandomnessBeaconValue.from_json(
+        test_init = NistBeaconValue.from_json(
             cn.NIST_INIT_RECORD,
         )
 
         self.assertTrue(
-            NistRandomnessBeacon.chain_check(
+            NistBeacon.chain_check(
                 test_init.timestamp
             )
         )
 
     def test_chain_check_last(self):
-        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistBeacon'
 
         with patch("{}.get_next".format(patch_base)) as next_call:
             next_call.return_value = None
             self.assertTrue(
-                NistRandomnessBeacon.chain_check(
-                    NistRandomnessBeacon.get_last_record().timestamp,
+                NistBeacon.chain_check(
+                    NistBeacon.get_last_record().timestamp,
                 )
             )
 
     def test_chain_check_wat(self):
-        patch_base = 'py_nist_beacon.NistRandomnessBeacon'
+        patch_base = 'nistbeacon.NistBeacon'
 
         with patch("{}.get_previous".format(patch_base)) as prev_call, \
                 patch("{}.get_next".format(patch_base)) as next_call:
             prev_call.return_value = None
             next_call.return_value = None
             self.assertFalse(
-                NistRandomnessBeacon.chain_check(
+                NistBeacon.chain_check(
                     self.expected_current.timestamp
                 )
             )

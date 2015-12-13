@@ -24,13 +24,14 @@ branches:
 before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
   - echo Travis Python .... ${TRAVIS_PYTHON_VERSION}
+  - echo Python Version ... $(python --version)
 
 install:
   - pip install --upgrade pip
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make travis; fi
+  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make; fi
   - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then make travis-nightly; fi
 
 after_success:

@@ -10,10 +10,10 @@ from os.path import (
 )
 
 try:
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistBeacon
 except ImportError:
     sys.path.insert(0, abspath(join(dirname(__file__), '..')))
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistBeacon
 
 
 if __name__ == '__main__':
@@ -33,10 +33,10 @@ if __name__ == '__main__':
 
     target_timestamp = 1447873020
     records = {
-        'get_record': NistRandomnessBeacon.get_record(target_timestamp),
-        'last_record': NistRandomnessBeacon.get_last_record(),
-        'next_record': NistRandomnessBeacon.get_next(target_timestamp),
-        'previous_record': NistRandomnessBeacon.get_previous(target_timestamp),
+        'get_record': NistBeacon.get_record(target_timestamp),
+        'last_record': NistBeacon.get_last_record(),
+        'next_record': NistBeacon.get_next(target_timestamp),
+        'previous_record': NistBeacon.get_previous(target_timestamp),
     }
 
     if debug:

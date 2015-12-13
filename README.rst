@@ -1,9 +1,9 @@
 |BuildStatus|_ |CoverageStatus|_
 
-.. |BuildStatus| image:: https://travis-ci.org/urda/py_nist_beacon.svg?branch=release
-.. _BuildStatus: https://travis-ci.org/urda/py_nist_beacon
-.. |CoverageStatus| image:: https://coveralls.io/repos/urda/py_nist_beacon/badge.svg?branch=release&service=github
-.. _CoverageStatus: https://coveralls.io/github/urda/py_nist_beacon?branch=release
+.. |BuildStatus| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
+.. _BuildStatus: https://travis-ci.org/urda/nistbeacon
+.. |CoverageStatus| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
+.. _CoverageStatus: https://coveralls.io/github/urda/nistbeacon?branch=release
 
 Python NIST Randomness Beacon
 =============================
@@ -17,7 +17,7 @@ Installation
 Prerequisites
 -------------
 
-A required library :code:`pycrypto` is used with :code:`py_nist_beacon`.
+A required library :code:`pycrypto` is used with :code:`nistbeacon`.
 
 Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
 
@@ -25,44 +25,44 @@ Ubuntu, and other Linux-based users should have :code:`python3-dev` installed.
 
     apt-get install python3-dev
 
-Installing :code:`py_nist_beacon`
----------------------------------
+Installing :code:`nistbeacon`
+-----------------------------
 
 To install the beacon library, simply use :code:`pip`:
 
 .. code:: bash
 
-    pip install py_nist_beacon
+    pip install nistbeacon
 
 Beacon Usage
 ============
 
-It is easy to use the beacon. Most queries are performed through :code:`NistRandomnessBeacon`
-which produces :code:`NistRandomnessBeaconValue` objects.
+It is easy to use the beacon. Most queries are performed through :code:`NistBeacon`
+which produces :code:`NistBeaconValue` objects.
 
 Beacon Sample Code
 ------------------
 
 .. code:: python
 
-    from py_nist_beacon import NistRandomnessBeacon
+    from nistbeacon import NistBeacon
 
     # In the examples below I will be using 1447873020 as my <timestamp> when required
 
     # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
-    record = NistRandomnessBeacon.get_record(1447873020)
+    record = NistBeacon.get_record(1447873020)
 
     # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
-    record = NistRandomnessBeacon.get_previous(1447873020)
+    record = NistBeacon.get_previous(1447873020)
 
     # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
-    record = NistRandomnessBeacon.get_next(1447873020)
+    record = NistBeacon.get_next(1447873020)
 
     # Last Record - https://beacon.nist.gov/rest/record/last
-    record = NistRandomnessBeacon.get_last_record()
+    record = NistBeacon.get_last_record()
 
     # Verify the record and the record chain
-    record_chain_result = NistRandomnessBeacon.chain_check(1447873020)
+    record_chain_result = NistBeacon.chain_check(1447873020)
 
 Beacon Methods
 --------------
@@ -84,7 +84,7 @@ Beacon Methods
     def get_first_record(
             cls,
             download: bool=False
-    ) -> NistRandomnessBeaconValue:
+    ) -> NistBeaconValue:
         """
         Get the first (oldest) record available. Since the first record
         IS a known value in the system we can load it from constants.
@@ -97,7 +97,7 @@ Beacon Methods
 .. code:: python
 
     @classmethod
-    def get_last_record(cls) -> NistRandomnessBeaconValue:
+    def get_last_record(cls) -> NistBeaconValue:
         """
         Get the last (newest) record available.
 
@@ -107,7 +107,7 @@ Beacon Methods
 .. code:: python
 
     @classmethod
-    def get_next(cls, timestamp: int) -> NistRandomnessBeaconValue:
+    def get_next(cls, timestamp: int) -> NistBeaconValue:
         """
         Given a record timestamp, get the next record available.
 
@@ -118,7 +118,7 @@ Beacon Methods
 .. code:: python
 
     @classmethod
-    def get_previous(cls, timestamp: int) -> NistRandomnessBeaconValue:
+    def get_previous(cls, timestamp: int) -> NistBeaconValue:
         """
         Given a record timestamp, get the previous record available.
 
@@ -129,7 +129,7 @@ Beacon Methods
 .. code:: python
 
     @classmethod
-    def get_record(cls, timestamp: int) -> NistRandomnessBeaconValue:
+    def get_record(cls, timestamp: int) -> NistBeaconValue:
         """
         Get a specific record (or next closest)
 
@@ -140,7 +140,7 @@ Beacon Methods
 Beacon Value
 ============
 
-The :code:`NistRandomnessBeaconValue` objects act as basic python objects.
+The :code:`NistBeaconValue` objects act as basic python objects.
 As one would expect, there are a number of properties and methods available
 on it.
 
@@ -304,10 +304,10 @@ Beacon Value Methods
     def from_json(cls, input_json: str):
         """
         Convert a string of JSON which represents a NIST randomness beacon
-        value into a 'NistRandomnessBeaconValue' object.
+        value into a 'NistBeaconValue' object.
 
         :param input_json: JSON to build a 'Nist RandomnessBeaconValue' from
-        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
+        :return: A 'NistBeaconValue' object, 'None' otherwise
         """
 
 .. code:: python
@@ -325,10 +325,10 @@ Beacon Value Methods
     def from_xml(cls, input_xml: str):
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
-        into a 'NistRandomnessBeaconValue' object.
+        into a 'NistBeaconValue' object.
 
-        :param input_xml: XML to build a 'NistRandomnessBeaconValue' from
-        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
+        :param input_xml: XML to build a 'NistBeaconValue' from
+        :return: A 'NistBeaconValue' object, 'None' otherwise
         """
 
 .. code:: python
@@ -344,7 +344,7 @@ Contributing
 ============
 
 Please refer to the
-`CONTRIBUTING <https://github.com/urda/py_nist_beacon/blob/master/CONTRIBUTING.md>`_
+`CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/CONTRIBUTING.md>`_
 document on GitHub
 
 References

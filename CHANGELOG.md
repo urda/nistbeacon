@@ -4,7 +4,14 @@ This is an alpha (pre-release) package. It's still in development, but has
 basic functionality fleshed out. Please refer to the `README` of the
 project to get started.
 
-- [PyPI - py_nist_beacon](https://pypi.python.org/pypi/py_nist_beacon/)
+- [PyPI - nistbeacon](https://pypi.python.org/pypi/nistbeacon/)
+
+## v0.7.0 (Alpha Release)
+
+- Name changes
+  - Changed from `py_nist_beacon` to `nistbeacon`
+  - Changed from `NistRandomnessBeacon` to `NistBeacon`
+  - Changed from `NistRandomnessBeaconValue` to `NistBeaconValue`
 
 ## v0.6.0 (Alpha Release)
 
