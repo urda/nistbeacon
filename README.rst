@@ -202,6 +202,28 @@ Beacon Value Properties
 .. code:: python
 
     @property
+    def json(self) -> str:
+        """
+        :return: The JSON representation of the beacon, as a string
+        """
+
+        return json.dumps(
+            {
+                cn.NIST_KEY_VERSION: self.version,
+                cn.NIST_KEY_FREQUENCY: self.frequency,
+                cn.NIST_KEY_TIMESTAMP: self.timestamp,
+                cn.NIST_KEY_SEED_VALUE: self.seed_value,
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
+                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
+                cn.NIST_KEY_STATUS_CODE: self.status_code,
+            },
+            sort_keys=True,
+        )
+
+.. code:: python
+
+    @property
     def output_value(self) -> str:
         """
         :return: The SHA-512 hash of the signatureValue as a 64 byte hex string
@@ -295,6 +317,25 @@ Beacon Value Properties
         :return: Reported NIST randomness beacon version
         """
 
+.. code:: python
+
+    @property
+    def xml(self) -> str:
+        """
+        :return: The XML representation of the beacon, as a string
+        """
+
+        return cn.NIST_XML_TEMPLATE.format(
+            self.version,
+            self.frequency,
+            self.timestamp,
+            self.seed_value,
+            self.previous_output_value,
+            self.signature_value,
+            self.output_value,
+            self.status_code,
+        )
+
 Beacon Value Methods
 --------------------
 
@@ -312,15 +353,6 @@ Beacon Value Methods
 
 .. code:: python
 
-    def to_json(self) -> str:
-        """
-        Convert the given NIST randomness beacon value to JSON
-
-        :return: The JSON representation of the beacon, as a string
-        """
-
-.. code:: python
-
     @classmethod
     def from_xml(cls, input_xml: str):
         """
@@ -329,15 +361,6 @@ Beacon Value Methods
 
         :param input_xml: XML to build a 'NistBeaconValue' from
         :return: A 'NistBeaconValue' object, 'None' otherwise
-        """
-
-.. code:: python
-
-    def to_xml(self) -> str:
-        """
-        Convert the given NIST randomness beacon value back to XML
-
-        :return: The XML representation of the beacon, as a string
         """
 
 Contributing
