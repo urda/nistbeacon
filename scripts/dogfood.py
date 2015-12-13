@@ -42,7 +42,7 @@ if __name__ == '__main__':
     if debug:
         for method_name, record in records.items():
             print(method_name)
-            print(record.to_json())
+            print(record.json)
             print("")
 
     for method_name, record in records.items():

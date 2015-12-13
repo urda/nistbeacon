@@ -11,6 +11,7 @@ project to get started.
 - Features
   - `NistBeaconValue`
     - Add RNG function to convert output?
+    - Added `json` and `xml` as properties (replaces `to_json()` and `to_xml()`)
 
 ## v0.7.0 (Alpha Release)
 
