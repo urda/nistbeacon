@@ -1,11 +1,5 @@
 # Python NIST Randomness Beacon CHANGELOG
 
-This is an alpha (pre-release) package. It's still in development, but has
-basic functionality fleshed out. Please refer to the `README` of the
-project to get started.
-
-- [PyPI - nistbeacon](https://pypi.python.org/pypi/nistbeacon/)
-
 ## v0.9.0 (Alpha Release)
 
 - Features
@@ -13,7 +7,15 @@ project to get started.
     - Creating a beacon value will store the JSON, XML representations once.
       These values do not have to be computed on each `json` or `xml` property
       access now.
-    - Add RNG function to convert output?
+
+- DRAFT
+  - Function to convert output to ranged int?
+  - Maybe something like:
+
+      ```python
+      def my_rand(beacon.output, a, b):
+          return (beacon.output % ((b + 1) - a)) +a
+      ```
 
 ## v0.8.1 (Alpha Release)
 
