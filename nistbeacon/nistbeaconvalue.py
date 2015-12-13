@@ -231,10 +231,10 @@ class NistBeaconValue(object):
     def from_json(cls, input_json: str):
         """
         Convert a string of JSON which represents a NIST randomness beacon
-        value into a 'NistRandomnessBeaconValue' object.
+        value into a 'NistBeaconValue' object.
 
         :param input_json: JSON to build a 'Nist RandomnessBeaconValue' from
-        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
+        :return: A 'NistBeaconValue' object, 'None' otherwise
         """
 
         try:
@@ -302,10 +302,10 @@ class NistBeaconValue(object):
     def from_xml(cls, input_xml: str):
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
-        into a 'NistRandomnessBeaconValue' object.
+        into a 'NistBeaconValue' object.
 
-        :param input_xml: XML to build a 'NistRandomnessBeaconValue' from
-        :return: A 'NistRandomnessBeaconValue' object, 'None' otherwise
+        :param input_xml: XML to build a 'NistBeaconValue' from
+        :return: A 'NistBeaconValue' object, 'None' otherwise
         """
 
         invalid_result = None
