@@ -71,7 +71,33 @@ class NistBeaconValue(object):
         self._output_value = output_value
         self._status_code = status_code
 
-        # Internal properties
+        # Compute JSON, XML strings
+        self._json = json.dumps(
+            {
+                cn.NIST_KEY_VERSION: self.version,
+                cn.NIST_KEY_FREQUENCY: self.frequency,
+                cn.NIST_KEY_TIMESTAMP: self.timestamp,
+                cn.NIST_KEY_SEED_VALUE: self.seed_value,
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
+                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
+                cn.NIST_KEY_STATUS_CODE: self.status_code,
+            },
+            sort_keys=True,
+        )
+
+        self._xml = cn.NIST_XML_TEMPLATE.format(
+            self.version,
+            self.frequency,
+            self.timestamp,
+            self.seed_value,
+            self.previous_output_value,
+            self.signature_value,
+            self.output_value,
+            self.status_code,
+        )
+
+        # Signature checking
         self._rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
 
         self._rsa_message = SHA512.new(
@@ -103,6 +129,7 @@ class NistBeaconValue(object):
 
         sig_hash_check = (expected_signature == self.output_value)
 
+        # Store the valid signature state after computation
         self._valid_signature = sig_check_result and sig_hash_check
 
     def __eq__(self, other):
@@ -137,19 +164,7 @@ class NistBeaconValue(object):
         :return: The JSON representation of the beacon, as a string
         """
 
-        return json.dumps(
-            {
-                cn.NIST_KEY_VERSION: self.version,
-                cn.NIST_KEY_FREQUENCY: self.frequency,
-                cn.NIST_KEY_TIMESTAMP: self.timestamp,
-                cn.NIST_KEY_SEED_VALUE: self.seed_value,
-                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
-                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
-                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
-                cn.NIST_KEY_STATUS_CODE: self.status_code,
-            },
-            sort_keys=True,
-        )
+        return self._json
 
     @property
     def output_value(self) -> str:
@@ -253,16 +268,7 @@ class NistBeaconValue(object):
         :return: The XML representation of the beacon, as a string
         """
 
-        return cn.NIST_XML_TEMPLATE.format(
-            self.version,
-            self.frequency,
-            self.timestamp,
-            self.seed_value,
-            self.previous_output_value,
-            self.signature_value,
-            self.output_value,
-            self.status_code,
-        )
+        return self._xml
 
     @classmethod
     def from_json(cls, input_json: str):

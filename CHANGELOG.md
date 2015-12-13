@@ -10,6 +10,9 @@ project to get started.
 
 - Features
   - `NistBeaconValue`
+    - Creating a beacon value will store the JSON, XML representations once.
+      These values do not have to be computed on each `json` or `xml` property
+      access now.
     - Add RNG function to convert output?
 
 ## v0.8.1 (Alpha Release)
