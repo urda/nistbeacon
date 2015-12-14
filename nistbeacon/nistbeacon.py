@@ -35,20 +35,18 @@ class NistBeacon(object):
     @classmethod
     def _query_nist(cls, url_data: str) -> NistBeaconValue:
         try:
-            # pylint: disable=invalid-name
-            r = requests.get(
+            nist_response = requests.get(
                 "{0}/{1}".format(
                     cls.NIST_BASE_URL,
                     url_data,
                 )
             )
 
-            # pylint: disable=no-member
             if (
-                    isinstance(r, requests.Response) and
-                    r.status_code is requests.codes.OK
+                    isinstance(nist_response, requests.Response) and
+                    nist_response.status_code is requests.codes.OK
             ):
-                return NistBeaconValue.from_xml(r.text)
+                return NistBeaconValue.from_xml(nist_response.text)
             else:
                 return None
         except RequestException:
