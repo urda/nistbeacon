@@ -47,19 +47,28 @@ Beacon Sample Code
 
     from nistbeacon import NistBeacon
 
-    # In the examples below I will be using 1447873020 as my <timestamp> when required
+    # In the examples below I will be using 1447873020
+    # as my <timestamp> when required
 
-    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
+    # Current Record (or next closest)
+    # https://beacon.nist.gov/rest/record/<timestamp>
     record = NistBeacon.get_record(1447873020)
 
-    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
-    record = NistBeacon.get_previous(1447873020)
+    # Previous Record
+    # https://beacon.nist.gov/rest/record/previous/<timestamp>
+    prev_record = NistBeacon.get_previous(1447873020)
 
-    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
-    record = NistBeacon.get_next(1447873020)
+    # Next Record
+    # https://beacon.nist.gov/rest/record/next/<timestamp>
+    next_record = NistBeacon.get_next(1447873020)
 
-    # Last Record - https://beacon.nist.gov/rest/record/last
-    record = NistBeacon.get_last_record()
+    # First Record
+    # https://beacon.nist.gov/rest/record/1378395540
+    first_record = NistBeacon.get_first_record(download=True)
+
+    # Last Record
+    # https://beacon.nist.gov/rest/record/last
+    last_record = NistBeacon.get_last_record()
 
     # Verify the record and the record chain
     record_chain_result = NistBeacon.chain_check(1447873020)
