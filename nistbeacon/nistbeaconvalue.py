@@ -34,9 +34,6 @@ class NistBeaconValue(object):
     but stored as a python object
     """
 
-    # pylint: disable=too-many-arguments
-    # pylint: disable=too-many-instance-attributes
-    # pylint: disable=too-many-locals
     def __init__(
             self,
             version: str,
@@ -123,9 +120,7 @@ class NistBeaconValue(object):
         )
 
         # Signature checking
-        _rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
-
-        _rsa_message = SHA512.new(
+        rsa_message = SHA512.new(
             self.version.encode() +
             struct.pack(
                 '>1I1Q64s64s1I',
@@ -142,7 +137,10 @@ class NistBeaconValue(object):
         verifier = PKCS1_v1_5.new(rsa_key)
 
         # Check the message against the signature
-        sig_check_result = verifier.verify(_rsa_message, _rsa_signature)
+        sig_check_result = verifier.verify(
+            rsa_message,
+            binascii.a2b_hex(self.signature_value)[::-1]
+        )
 
         # The signature sha512'd again should equal the output value
         expected_signature = hashlib.sha512(
