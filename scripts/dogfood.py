@@ -10,10 +10,10 @@ from os.path import (
 )
 
 try:
-    from nistbeacon import NistBeacon
+    from nistbeacon import NistBeacon, NistBeaconValue
 except ImportError:
     sys.path.insert(0, abspath(join(dirname(__file__), '..')))
-    from nistbeacon import NistBeacon
+    from nistbeacon import NistBeacon, NistBeaconValue
 
 
 if __name__ == '__main__':
@@ -48,18 +48,23 @@ if __name__ == '__main__':
     for method_name, record in records.items():
         print("{0:.<30} ".format(method_name + " "), end="")
 
-        if record.valid_signature:
-            print("[PASS]")
+        if isinstance(record, NistBeaconValue):
+            if record.valid_signature:
+                print("[PASS]")
+            else:
+                print("[FAIL]")
+                print("")
+                print("Something is wonky with the signature verification!")
+                print("")
+                print("Please check:")
+                print("   - The certificate")
+                print("   - The certificate variables")
+                print("   - NIST Service")
+                print("   - NIST Documentation")
+                sys.exit(1)
         else:
             print("[FAIL]")
             print("")
-            print("Something is wonky with the signature verification!")
-            print("")
-            print("Please check:")
-            print("   - The certificate")
-            print("   - The certificate variables")
-            print("   - NIST Service")
-            print("   - NIST Documentation")
-            sys.exit(1)
+            print("That was NOT a 'NistBeaconValue'!")
 
     sys.exit(0)

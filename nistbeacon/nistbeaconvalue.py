@@ -1,3 +1,19 @@
+"""
+Copyright 2015 Peter Urda
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 import binascii
 import hashlib
 import json
@@ -12,6 +28,15 @@ import nistbeacon.constants as cn
 
 
 class NistBeaconValue(object):
+    """
+    A single NIST Beacon Value object represents one beacon value.
+    It has all the normal properties of a NIST beacon API call,
+    but stored as a python object
+    """
+
+    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-locals
     def __init__(
             self,
             version: str,
@@ -98,9 +123,9 @@ class NistBeaconValue(object):
         )
 
         # Signature checking
-        self._rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
+        _rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
 
-        self._rsa_message = SHA512.new(
+        _rsa_message = SHA512.new(
             self.version.encode() +
             struct.pack(
                 '>1I1Q64s64s1I',
@@ -117,10 +142,7 @@ class NistBeaconValue(object):
         verifier = PKCS1_v1_5.new(rsa_key)
 
         # Check the message against the signature
-        if verifier.verify(self._rsa_message, self._rsa_signature):
-            sig_check_result = True
-        else:
-            sig_check_result = False
+        sig_check_result = verifier.verify(_rsa_message, _rsa_signature)
 
         # The signature sha512'd again should equal the output value
         expected_signature = hashlib.sha512(

@@ -22,7 +22,7 @@ pep8:
 
 .PHONY: pylint
 pylint:
-	pylint --reports=y --output-format=text ./nistbeacon/ || true
+	pylint --reports=y --output-format=text ./nistbeacon/
 
 .PHONY: test
 test:

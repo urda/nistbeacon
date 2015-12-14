@@ -7,6 +7,8 @@
     - Creating a beacon value will store the JSON, XML representations once.
       These values do not have to be computed on each `json` or `xml` property
       access now.
+- Project Changes (for Developers)
+  - `pylint` has been added to the project and build process.
 
 - DRAFT
   - Function to convert output to ranged int?
