@@ -1,5 +1,5 @@
 .PHONY: travis
-travis: test pep8 dogfood-debug version-check
+travis: test pep8 pylint dogfood-debug version-check
 
 .PHONY: travis-nightly
 travis-nightly: test dogfood-debug version-check
@@ -19,6 +19,10 @@ dogfood-debug:
 .PHONY: pep8
 pep8:
 	pep8 ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
+
+.PHONY: pylint
+pylint:
+	pylint --reports=y --output-format=text ./nistbeacon/ || true
 
 .PHONY: test
 test:
