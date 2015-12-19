@@ -11,6 +11,7 @@
   - `pylint` has been added to the project and build process.
 
 - DRAFT
+  - Make tests pass locally instead? (NIST Downtime? No Internet?)
   - Function to convert output to ranged int?
   - Maybe something like:
 
