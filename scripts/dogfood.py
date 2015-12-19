@@ -43,7 +43,7 @@ if __name__ == '__main__':
                 print("   - NIST Documentation")
                 sys.exit(1)
         else:
-            print("[FAIL]")
-            print("That was NOT a 'NistBeaconValue'!")
+            print("[OFFLINE]")
+            print("Got 'None', Beacon is offline or network issues exist.")
 
     sys.exit(0)
