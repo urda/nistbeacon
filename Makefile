@@ -1,8 +1,8 @@
 .PHONY: travis
-travis: test pep8 pylint dogfood-debug version-check
+travis: test pep8 pylint dogfood version-check
 
 .PHONY: travis-nightly
-travis-nightly: test dogfood-debug version-check
+travis-nightly: test dogfood version-check
 
 .PHONY: clean
 clean:
@@ -11,10 +11,6 @@ clean:
 .PHONY: dogfood
 dogfood:
 	./scripts/dogfood.py
-
-.PHONY: dogfood-debug
-dogfood-debug:
-	./scripts/dogfood.py --debug
 
 .PHONY: pep8
 pep8:

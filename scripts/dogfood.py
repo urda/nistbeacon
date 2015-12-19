@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-
 import sys
-from argparse import ArgumentParser
 from os.path import (
     abspath,
     dirname,
@@ -17,18 +15,6 @@ except ImportError:
 
 
 if __name__ == '__main__':
-    # Parse arguments
-    parser = ArgumentParser()
-
-    parser.add_argument(
-        "--debug",
-        help="show 'DEBUG' statements",
-        action="store_true",
-    )
-
-    args = parser.parse_args()
-    debug = args.debug
-
     print("Downloading records ...")
 
     target_timestamp = 1447873020
@@ -38,12 +24,6 @@ if __name__ == '__main__':
         'next_record': NistBeacon.get_next(target_timestamp),
         'previous_record': NistBeacon.get_previous(target_timestamp),
     }
-
-    if debug:
-        for method_name, record in records.items():
-            print(method_name)
-            print(record.json)
-            print("")
 
     for method_name, record in records.items():
         print("{0:.<30} ".format(method_name + " "), end="")
@@ -64,7 +44,6 @@ if __name__ == '__main__':
                 sys.exit(1)
         else:
             print("[FAIL]")
-            print("")
             print("That was NOT a 'NistBeaconValue'!")
 
     sys.exit(0)
