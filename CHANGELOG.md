@@ -12,6 +12,11 @@
 
 - DRAFT
   - Make tests pass locally instead? (NIST Downtime? No Internet?)
+    - Note: On Saturday December 19th the Beacon will need to undergo
+      scheduled maintenance. At various points during the maintenance
+      period new values will be unavailable. **The existing values,
+      this page, and REST service will still be available during
+      the maintenance window.**
   - Function to convert output to ranged int?
   - Maybe something like:
 
