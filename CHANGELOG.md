@@ -19,6 +19,15 @@
           return (beacon.output % ((b + 1) - a)) +a
       ```
 
+## v0.8.2 (Alpha Release, Bug Fix)
+
+- Bug Fixes:
+  - `NistBeaconValue`
+    - Reported issue where a `xmlns` value on `record` ended up breaking XML loading.
+      Reported on [GitHub](https://github.com/urda/nistbeacon/issues/8). Since this
+      is just a bug fix release. This `xmlns` value will not show up if one was to
+      use the `xml` value from the `NistBeaconValue` object.
+
 ## v0.8.1 (Alpha Release)
 
 - Minor documentation changes

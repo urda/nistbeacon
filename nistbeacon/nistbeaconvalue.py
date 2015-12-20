@@ -376,7 +376,18 @@ class NistBeaconValue(object):
             discovered_element = tree.find(key)
 
             if discovered_element is None:
-                continue
+                # BUG FIX the namespace added by NIST
+                # Issue: https://github.com/urda/nistbeacon/issues/8
+
+                discovered_element = tree.find(
+                    "{0}{1}".format(
+                        '{http://beacon.nist.gov/record/0.1/}',
+                        key,
+                    )
+                )
+
+                if discovered_element is None:
+                    continue
 
             required_values[key] = discovered_element.text
 
