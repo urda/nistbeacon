@@ -6,11 +6,14 @@ project to get started.
 
 - [PyPI - nistbeacon](https://pypi.python.org/pypi/nistbeacon/)
 
-## v0.9.0 (Alpha Release)
+## v0.8.2 (Alpha Release, Bug Fix)
 
-- Features
+- Bug Fixes:
   - `NistBeaconValue`
-    - Add RNG function to convert output?
+    - Reported issue where a `xmlns` value on `record` ended up breaking XML loading.
+      Reported on [GitHub](https://github.com/urda/nistbeacon/issues/8). Since this
+      is just a bug fix release. This `xmlns` value will not show up if one was to
+      use the `xml` value from the `NistBeaconValue` object.
 
 ## v0.8.1 (Alpha Release)
 
