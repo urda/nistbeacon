@@ -371,7 +371,7 @@ class NistBeaconValue(object):
 
         # First attempt to load the xml, return 'None' on ParseError
         try:
-            tree = ElementTree.fromstring(input_xml)
+            tree = ElementTree.ElementTree(ElementTree.fromstring(input_xml))
         except ElementTree.ParseError:
             return invalid_result
 
