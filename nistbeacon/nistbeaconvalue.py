@@ -34,6 +34,10 @@ class NistBeaconValue(object):
     but stored as a python object
     """
 
+    _understood_namespaces = {
+        'nist-0.1': 'http://beacon.nist.gov/record/0.1/',
+    }
+
     def __init__(
             self,
             version: str,
