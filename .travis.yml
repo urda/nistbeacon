@@ -1,15 +1,16 @@
 language: python
 
-python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev"
-  - "nightly"
-
-os:
-  - linux
-#  - osx
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.3"
+    - python: "3.4"
+    - python: "3.5"
+    - python: "3.5-dev"
+    - python: "nightly"
+  allow_failures:
+    - os: osx
+    - python: "nightly"
 
 addons:
   apt:
@@ -31,16 +32,10 @@ install:
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make; fi
-  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then make travis-nightly; fi
+  - make
 
 after_success:
   - coveralls
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    - os: osx
 
 notifications:
   email: false

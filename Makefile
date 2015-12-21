@@ -1,9 +1,6 @@
 .PHONY: travis
 travis: test pep8 pylint dogfood version-check
 
-.PHONY: travis-nightly
-travis-nightly: test dogfood version-check
-
 .PHONY: clean
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
