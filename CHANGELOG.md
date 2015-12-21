@@ -1,6 +1,6 @@
 # Python NIST Randomness Beacon CHANGELOG
 
-## v0.8.3 (Alpha Release, Bug Fix)
+## v0.8.3 (Alpha Release)
 
 - Internal Changes
   - `NistBeaconValue`
