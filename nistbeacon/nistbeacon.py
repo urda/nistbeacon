@@ -18,9 +18,7 @@ import requests
 from requests.exceptions import RequestException
 
 import nistbeacon.constants as cn
-from nistbeacon.nistbeaconvalue import (
-    NistBeaconValue
-)
+from nistbeacon.nistbeaconvalue import NistBeaconValue
 
 
 class NistBeacon(object):
