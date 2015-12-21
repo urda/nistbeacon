@@ -1,9 +1,12 @@
-|BuildStatus|_ |CoverageStatus|_
-
-.. |BuildStatus| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
-.. _BuildStatus: https://travis-ci.org/urda/nistbeacon
-.. |CoverageStatus| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
-.. _CoverageStatus: https://coveralls.io/github/urda/nistbeacon?branch=master
++------------------------------------------------+
+| Project Health                                 |
++---------+-----------------+--------------------+
+| Branch  | Build Status    | Coverage Status    |
++=========+=================+====================+
+| Master  | |MasterBuild|_  | |MasterCoverage|_  |
++---------+-----------------+--------------------+
+| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
++---------+-----------------+--------------------+
 
 Python NIST Randomness Beacon
 =============================
@@ -359,3 +362,13 @@ References
 
 -  `NIST Randomness Beacon Homepage <https://beacon.nist.gov/home>`_
 -  `NIST Beacon REST API <https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd>`_
+
+.. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
+.. _MasterBuild: https://travis-ci.org/urda/nistbeacon
+.. |MasterCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
+.. _MasterCoverage: https://coveralls.io/github/urda/nistbeacon?branch=master
+
+.. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
+.. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
+.. |ReleaseCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
+.. _ReleaseCoverage: https://coveralls.io/github/urda/nistbeacon?branch=release
