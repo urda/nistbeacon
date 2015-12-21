@@ -1,10 +1,14 @@
 # Python NIST Randomness Beacon CHANGELOG
 
-This is an alpha (pre-release) package. It's still in development, but has
-basic functionality fleshed out. Please refer to the `README` of the
-project to get started.
+## v0.8.3 (Alpha Release)
 
-- [PyPI - nistbeacon](https://pypi.python.org/pypi/nistbeacon/)
+- Internal Changes
+  - `NistBeaconValue`
+    - Creating a beacon value will store the JSON, XML representations once.
+      These values do not have to be computed on each `json` or `xml` property
+      access now as before.
+- Project Changes (for Developers)
+  - `pylint` has been added to the project and build process.
 
 ## v0.8.2 (Alpha Release, Bug Fix)
 

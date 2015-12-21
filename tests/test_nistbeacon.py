@@ -7,9 +7,9 @@ from unittest.mock import (
 import requests.exceptions
 
 import nistbeacon.constants as cn
-from nistbeacon import NistBeacon
-from nistbeacon.nistbeaconvalue import (
-    NistBeaconValue
+from nistbeacon import (
+    NistBeacon,
+    NistBeaconValue,
 )
 
 

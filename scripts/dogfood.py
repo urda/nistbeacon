@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-
 import sys
-from argparse import ArgumentParser
 from os.path import (
     abspath,
     dirname,
@@ -10,25 +8,13 @@ from os.path import (
 )
 
 try:
-    from nistbeacon import NistBeacon
+    from nistbeacon import NistBeacon, NistBeaconValue
 except ImportError:
     sys.path.insert(0, abspath(join(dirname(__file__), '..')))
-    from nistbeacon import NistBeacon
+    from nistbeacon import NistBeacon, NistBeaconValue
 
 
 if __name__ == '__main__':
-    # Parse arguments
-    parser = ArgumentParser()
-
-    parser.add_argument(
-        "--debug",
-        help="show 'DEBUG' statements",
-        action="store_true",
-    )
-
-    args = parser.parse_args()
-    debug = args.debug
-
     print("Downloading records ...")
 
     target_timestamp = 1447873020
@@ -39,27 +25,25 @@ if __name__ == '__main__':
         'previous_record': NistBeacon.get_previous(target_timestamp),
     }
 
-    if debug:
-        for method_name, record in records.items():
-            print(method_name)
-            print(record.json)
-            print("")
-
     for method_name, record in records.items():
         print("{0:.<30} ".format(method_name + " "), end="")
 
-        if record.valid_signature:
-            print("[PASS]")
+        if isinstance(record, NistBeaconValue):
+            if record.valid_signature:
+                print("[PASS]")
+            else:
+                print("[FAIL]")
+                print("")
+                print("Something is wonky with the signature verification!")
+                print("")
+                print("Please check:")
+                print("   - The certificate")
+                print("   - The certificate variables")
+                print("   - NIST Service")
+                print("   - NIST Documentation")
+                sys.exit(1)
         else:
-            print("[FAIL]")
-            print("")
-            print("Something is wonky with the signature verification!")
-            print("")
-            print("Please check:")
-            print("   - The certificate")
-            print("   - The certificate variables")
-            print("   - NIST Service")
-            print("   - NIST Documentation")
-            sys.exit(1)
+            print("[OFFLINE]")
+            print("Got 'None', Beacon is offline or network issues exist.")
 
     sys.exit(0)

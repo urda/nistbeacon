@@ -1,3 +1,19 @@
+"""
+Copyright 2015 Peter Urda
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 import binascii
 import hashlib
 import json
@@ -12,6 +28,16 @@ import nistbeacon.constants as cn
 
 
 class NistBeaconValue(object):
+    """
+    A single NIST Beacon Value object represents one beacon value.
+    It has all the normal properties of a NIST beacon API call,
+    but stored as a python object
+    """
+
+    _understood_namespaces = {
+        'nist-0.1': 'http://beacon.nist.gov/record/0.1/',
+    }
+
     def __init__(
             self,
             version: str,
@@ -71,10 +97,34 @@ class NistBeaconValue(object):
         self._output_value = output_value
         self._status_code = status_code
 
-        # Internal properties
-        self._rsa_signature = binascii.a2b_hex(self.signature_value)[::-1]
+        # Compute JSON, XML strings
+        self._json = json.dumps(
+            {
+                cn.NIST_KEY_VERSION: self.version,
+                cn.NIST_KEY_FREQUENCY: self.frequency,
+                cn.NIST_KEY_TIMESTAMP: self.timestamp,
+                cn.NIST_KEY_SEED_VALUE: self.seed_value,
+                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
+                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
+                cn.NIST_KEY_STATUS_CODE: self.status_code,
+            },
+            sort_keys=True,
+        )
 
-        self._rsa_message = SHA512.new(
+        self._xml = cn.NIST_XML_TEMPLATE.format(
+            self.version,
+            self.frequency,
+            self.timestamp,
+            self.seed_value,
+            self.previous_output_value,
+            self.signature_value,
+            self.output_value,
+            self.status_code,
+        )
+
+        # Signature checking
+        rsa_message = SHA512.new(
             self.version.encode() +
             struct.pack(
                 '>1I1Q64s64s1I',
@@ -91,10 +141,10 @@ class NistBeaconValue(object):
         verifier = PKCS1_v1_5.new(rsa_key)
 
         # Check the message against the signature
-        if verifier.verify(self._rsa_message, self._rsa_signature):
-            sig_check_result = True
-        else:
-            sig_check_result = False
+        sig_check_result = verifier.verify(
+            rsa_message,
+            binascii.a2b_hex(self.signature_value)[::-1]
+        )
 
         # The signature sha512'd again should equal the output value
         expected_signature = hashlib.sha512(
@@ -103,6 +153,7 @@ class NistBeaconValue(object):
 
         sig_hash_check = (expected_signature == self.output_value)
 
+        # Store the valid signature state after computation
         self._valid_signature = sig_check_result and sig_hash_check
 
     def __eq__(self, other):
@@ -137,19 +188,7 @@ class NistBeaconValue(object):
         :return: The JSON representation of the beacon, as a string
         """
 
-        return json.dumps(
-            {
-                cn.NIST_KEY_VERSION: self.version,
-                cn.NIST_KEY_FREQUENCY: self.frequency,
-                cn.NIST_KEY_TIMESTAMP: self.timestamp,
-                cn.NIST_KEY_SEED_VALUE: self.seed_value,
-                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
-                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
-                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
-                cn.NIST_KEY_STATUS_CODE: self.status_code,
-            },
-            sort_keys=True,
-        )
+        return self._json
 
     @property
     def output_value(self) -> str:
@@ -253,19 +292,10 @@ class NistBeaconValue(object):
         :return: The XML representation of the beacon, as a string
         """
 
-        return cn.NIST_XML_TEMPLATE.format(
-            self.version,
-            self.frequency,
-            self.timestamp,
-            self.seed_value,
-            self.previous_output_value,
-            self.signature_value,
-            self.output_value,
-            self.status_code,
-        )
+        return self._xml
 
     @classmethod
-    def from_json(cls, input_json: str):
+    def from_json(cls, input_json: str) -> 'NistBeaconValue':
         """
         Convert a string of JSON which represents a NIST randomness beacon
         value into a 'NistBeaconValue' object.
@@ -315,7 +345,7 @@ class NistBeaconValue(object):
         )
 
     @classmethod
-    def from_xml(cls, input_xml: str):
+    def from_xml(cls, input_xml: str) -> 'NistBeaconValue':
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
         into a 'NistBeaconValue' object.
@@ -341,7 +371,7 @@ class NistBeaconValue(object):
 
         # First attempt to load the xml, return 'None' on ParseError
         try:
-            tree = ElementTree.fromstring(input_xml)
+            tree = ElementTree.ElementTree(ElementTree.fromstring(input_xml))
         except ElementTree.ParseError:
             return invalid_result
 

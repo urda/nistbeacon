@@ -1,0 +1,8 @@
+[DESIGN]
+
+max-args=10
+max-attributes=15
+
+[TYPECHECK]
+
+ignored-classes=requests.structures.LookupDict

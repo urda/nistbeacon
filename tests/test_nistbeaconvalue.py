@@ -1,9 +1,7 @@
 import json
 from unittest import TestCase
 
-from nistbeacon.nistbeaconvalue import (
-    NistBeaconValue
-)
+from nistbeacon import NistBeaconValue
 
 
 class TestNistBeaconValue(TestCase):

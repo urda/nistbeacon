@@ -1,9 +1,12 @@
-|BuildStatus|_ |CoverageStatus|_
-
-.. |BuildStatus| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
-.. _BuildStatus: https://travis-ci.org/urda/nistbeacon
-.. |CoverageStatus| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
-.. _CoverageStatus: https://coveralls.io/github/urda/nistbeacon?branch=release
++------------------------------------------------+
+| Project Health                                 |
++---------+-----------------+--------------------+
+| Branch  | Build Status    | Coverage Status    |
++=========+=================+====================+
+| Master  | |MasterBuild|_  | |MasterCoverage|_  |
++---------+-----------------+--------------------+
+| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
++---------+-----------------+--------------------+
 
 Python NIST Randomness Beacon
 =============================
@@ -47,19 +50,28 @@ Beacon Sample Code
 
     from nistbeacon import NistBeacon
 
-    # In the examples below I will be using 1447873020 as my <timestamp> when required
+    # In the examples below I will be using 1447873020
+    # as my <timestamp> when required
 
-    # Current Record (or next closest) - https://beacon.nist.gov/rest/record/<timestamp>
+    # Current Record (or next closest)
+    # https://beacon.nist.gov/rest/record/<timestamp>
     record = NistBeacon.get_record(1447873020)
 
-    # Previous Record - https://beacon.nist.gov/rest/record/previous/<timestamp>
-    record = NistBeacon.get_previous(1447873020)
+    # Previous Record
+    # https://beacon.nist.gov/rest/record/previous/<timestamp>
+    prev_record = NistBeacon.get_previous(1447873020)
 
-    # Next Record - https://beacon.nist.gov/rest/record/next/<timestamp>
-    record = NistBeacon.get_next(1447873020)
+    # Next Record
+    # https://beacon.nist.gov/rest/record/next/<timestamp>
+    next_record = NistBeacon.get_next(1447873020)
 
-    # Last Record - https://beacon.nist.gov/rest/record/last
-    record = NistBeacon.get_last_record()
+    # First Record
+    # https://beacon.nist.gov/rest/record/1378395540
+    first_record = NistBeacon.get_first_record(download=True)
+
+    # Last Record
+    # https://beacon.nist.gov/rest/record/last
+    last_record = NistBeacon.get_last_record()
 
     # Verify the record and the record chain
     record_chain_result = NistBeacon.chain_check(1447873020)
@@ -350,3 +362,13 @@ References
 
 -  `NIST Randomness Beacon Homepage <https://beacon.nist.gov/home>`_
 -  `NIST Beacon REST API <https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd>`_
+
+.. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
+.. _MasterBuild: https://travis-ci.org/urda/nistbeacon
+.. |MasterCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
+.. _MasterCoverage: https://coveralls.io/github/urda/nistbeacon?branch=master
+
+.. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
+.. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
+.. |ReleaseCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
+.. _ReleaseCoverage: https://coveralls.io/github/urda/nistbeacon?branch=release

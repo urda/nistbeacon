@@ -1,27 +1,50 @@
+"""
+Copyright 2015 Peter Urda
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 import requests
 from requests.exceptions import RequestException
 
 import nistbeacon.constants as cn
-from nistbeacon.nistbeaconvalue import (
-    NistBeaconValue
-)
+from nistbeacon.nistbeaconvalue import NistBeaconValue
 
 
 class NistBeacon(object):
+    """
+    The NistBeacon object is used to query the NIST Randomness Beacon.
+    For the most part, it returns actual NistBeaconValue objects for the
+    consumer to use as they please.
+    """
+
     NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
 
     @classmethod
     def _query_nist(cls, url_data: str) -> NistBeaconValue:
         try:
-            r = requests.get(
+            nist_response = requests.get(
                 "{0}/{1}".format(
                     cls.NIST_BASE_URL,
                     url_data,
                 )
             )
 
-            if r.status_code is requests.codes.OK:
-                return NistBeaconValue.from_xml(r.text)
+            if (
+                    isinstance(nist_response, requests.Response) and
+                    nist_response.status_code is requests.codes.OK
+            ):
+                return NistBeaconValue.from_xml(nist_response.text)
             else:
                 return None
         except RequestException:
@@ -55,8 +78,8 @@ class NistBeacon(object):
             return False
 
         if (
-            isinstance(prev_record, NistBeaconValue) and
-            isinstance(next_record, NistBeaconValue)
+                isinstance(prev_record, NistBeaconValue) and
+                isinstance(next_record, NistBeaconValue)
         ):
             # Majority case, somewhere in the middle of the chain
             # True if:
@@ -72,8 +95,8 @@ class NistBeacon(object):
             )
 
         if (
-            prev_record is None and
-            isinstance(next_record, NistBeaconValue)
+                prev_record is None and
+                isinstance(next_record, NistBeaconValue)
         ):
             # Edge case, this was potentially the first record of all time
             init_ref = NistBeaconValue.from_json(
@@ -88,8 +111,8 @@ class NistBeacon(object):
             )
 
         if (
-            isinstance(prev_record, NistBeaconValue) and
-            next_record is None
+                isinstance(prev_record, NistBeaconValue) and
+                next_record is None
         ):
             # Edge case, this was potentially the latest and greatest
             return (
