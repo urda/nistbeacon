@@ -1,29 +1,14 @@
 # Python NIST Randomness Beacon CHANGELOG
 
-## v0.9.0 (Alpha Release)
+## v0.8.3 (Alpha Release, Bug Fix)
 
-- Features
+- Internal Changes
   - `NistBeaconValue`
     - Creating a beacon value will store the JSON, XML representations once.
       These values do not have to be computed on each `json` or `xml` property
-      access now.
+      access now as before.
 - Project Changes (for Developers)
   - `pylint` has been added to the project and build process.
-
-- DRAFT
-  - Make tests pass locally instead? (NIST Downtime? No Internet?)
-    - Note: On Saturday December 19th the Beacon will need to undergo
-      scheduled maintenance. At various points during the maintenance
-      period new values will be unavailable. **The existing values,
-      this page, and REST service will still be available during
-      the maintenance window.**
-  - Function to convert output to ranged int?
-  - Maybe something like:
-
-      ```python
-      def my_rand(beacon.output, a, b):
-          return (beacon.output % ((b + 1) - a)) +a
-      ```
 
 ## v0.8.2 (Alpha Release, Bug Fix)
 
