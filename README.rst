@@ -1,13 +1,3 @@
-+------------------------------------------------+
-| Project Health                                 |
-+---------+-----------------+--------------------+
-| Branch  | Build Status    | Coverage Status    |
-+=========+=================+====================+
-| Master  | |MasterBuild|_  | |MasterCoverage|_  |
-+---------+-----------------+--------------------+
-| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
-+---------+-----------------+--------------------+
-
 Python NIST Randomness Beacon
 =============================
 
@@ -356,6 +346,17 @@ Contributing
 Please refer to the
 `CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/CONTRIBUTING.md>`_
 document on GitHub
+
+Project Health
+==============
+
++---------+-----------------+--------------------+
+| Branch  | Build Status    | Coverage Status    |
++=========+=================+====================+
+| Master  | |MasterBuild|_  | |MasterCoverage|_  |
++---------+-----------------+--------------------+
+| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
++---------+-----------------+--------------------+
 
 References
 ==========
