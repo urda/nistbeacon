@@ -18,6 +18,7 @@ import binascii
 import hashlib
 import json
 import struct
+from random import Random
 from xml.etree import ElementTree
 
 from Crypto.Hash import SHA512
@@ -156,6 +157,10 @@ class NistBeaconValue(object):
         # Store the valid signature state after computation
         self._valid_signature = sig_check_result and sig_hash_check
 
+        # Using the output value from the beacon, let's seed a personal
+        # python random.Random object
+        self._pseudo_random = Random(self.output_value)
+
     def __eq__(self, other):
         try:
             return self.version == other.version \
@@ -207,6 +212,17 @@ class NistBeaconValue(object):
         """
 
         return self._previous_output_value
+
+    @property
+    def pseudo_random(self) -> Random:
+        """
+        :return:
+            A python `random.Random` object that has been seeded with
+            the value's `output_value`. This is a pseudo-random
+            number generator
+        """
+
+        return self._pseudo_random
 
     @property
     def seed_value(self) -> str:
