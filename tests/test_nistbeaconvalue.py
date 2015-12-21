@@ -1,4 +1,5 @@
 import json
+from random import Random
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
@@ -84,6 +85,26 @@ class TestNistBeaconValue(TestCase):
             '5B01AEC91000508ACC4908D17A17311C68D156D63A03110250CB959A023BA75C7'
             '00FE4EB43543DC1AC35781FF91D72AA7FE467F83569318C83D316801CC7159E83'
             'E2C306ADC2D"}'
+        )
+
+        self.sample_nist_json_first = (
+            '{"frequency": 60, "outputValue": "17070B49DBF3BA12BEA427CB6651ECF'
+            '7860FDC3792268031B77711D63A8610F4CDA551B7FB331103889A62E2CB23C0F8'
+            '5362BBA49B9E0086D1DA0830E4389AB1", "previousOutputValue": "000000'
+            '00000000000000000000000000000000000000000000000000000000000000000'
+            '000000000000000000000000000000000000000000000000000000000", "seed'
+            'Value": "87F49DB997D2EED0B4FDD93BAA4CDFCA49095AF98E54B81F2C39B5C4'
+            '002EC04B8C9E31FA537E64AC35FA2F038AA80730B054CFCF371AB5584CFB4EFD2'
+            '93280EE", "signatureValue": "F93BBE5714944F31983AE8187D5D94F87FFE'
+            'C2F98185F9EB4FE5DB61A9E5119FB0756E9AF4B7112DEBF541E9E53D05346B735'
+            '8C12FA43A8E0D695BFFAF193B1C3FFC4AE7BCF6651812B6D60190DB8FF23C9364'
+            '374737F45F1A89F22E1E492B0F373E4DB523274E9D31C86987C64A26F50700882'
+            '8A358B0E166A197D433597480895E9298C60D079673879C3C1AEDA6306C320199'
+            '1D0A6778B21462BDEBB8D3776CD3D0FA0325AFE99B2D88A7C357E62170320EFB5'
+            '1F9749B5C7B9E7347178AB051BDD097B226664A2D64AF1557BB31540601849F0B'
+            'E3AAF31D7A25E2B358EEF5A346937ADE34A110722DA8C037F973350B3846DCAB1'
+            '6C9AA125F2027C246FDB3", "statusCode": "1", "timeStamp": 137839554'
+            '0, "version": "Version 1.0"}'
         )
 
         # A full XML sample from the service
@@ -391,4 +412,71 @@ class TestNistBeaconValue(TestCase):
             NistBeaconValue.from_xml(
                 self.sample_nist_missing_content
             )
+        )
+
+    def test_pseudo_random(self):
+        """
+        Check the seeding of NistBeaconValue's pseudo random property
+        """
+
+        init = NistBeaconValue.from_json(
+            self.sample_nist_json_first,
+        )
+
+        sample = NistBeaconValue.from_xml(
+            self.sample_nist_xml,
+        )
+
+        # Basic object checking
+        self.assertIsInstance(init, NistBeaconValue)
+        self.assertIsInstance(sample, NistBeaconValue)
+
+        self.assertIsInstance(init.pseudo_random, Random)
+        self.assertIsInstance(sample.pseudo_random, Random)
+        self.assertIsNot(
+            init.pseudo_random,
+            sample.pseudo_random,
+        )
+
+        # Verify that the pseudo random was seeded correctly
+        # Init record check
+        self.assertEqual(
+            init.pseudo_random.random(),
+            0.6461135178195806,
+        )
+
+        self.assertEqual(
+            init.pseudo_random.uniform(100, 1000),
+            973.057931801389,
+        )
+
+        self.assertEqual(
+            init.pseudo_random.randrange(53, 350),
+            230,
+        )
+
+        self.assertEqual(
+            init.pseudo_random.randint(1000, 9999),
+            4596,
+        )
+
+        # Sample value check
+        self.assertEqual(
+            sample.pseudo_random.random(),
+            0.9150597089635818,
+        )
+
+        self.assertEqual(
+            sample.pseudo_random.uniform(100, 1000),
+            416.46104853317524,
+        )
+
+        self.assertEqual(
+            sample.pseudo_random.randrange(53, 350),
+            118,
+        )
+
+        self.assertEqual(
+            sample.pseudo_random.randint(1000, 9999),
+            7526,
         )

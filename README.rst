@@ -1,13 +1,3 @@
-+------------------------------------------------+
-| Project Health                                 |
-+---------+-----------------+--------------------+
-| Branch  | Build Status    | Coverage Status    |
-+=========+=================+====================+
-| Master  | |MasterBuild|_  | |MasterCoverage|_  |
-+---------+-----------------+--------------------+
-| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
-+---------+-----------------+--------------------+
-
 Python NIST Randomness Beacon
 =============================
 
@@ -240,6 +230,17 @@ Beacon Value Properties
 .. code:: python
 
     @property
+    def pseudo_random(self) -> Random:
+        """
+        :return:
+            A python `random.Random` object that has been seeded with
+            the value's `output_value`. This is a pseudo-random
+            number generator
+        """
+
+.. code:: python
+
+    @property
     def seed_value(self) -> str:
         """
         :return:
@@ -356,6 +357,17 @@ Contributing
 Please refer to the
 `CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/CONTRIBUTING.md>`_
 document on GitHub
+
+Project Health
+==============
+
++---------+-----------------+--------------------+
+| Branch  | Build Status    | Coverage Status    |
++=========+=================+====================+
+| Master  | |MasterBuild|_  | |MasterCoverage|_  |
++---------+-----------------+--------------------+
+| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
++---------+-----------------+--------------------+
 
 References
 ==========

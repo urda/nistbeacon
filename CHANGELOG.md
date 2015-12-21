@@ -1,5 +1,13 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.0 (Beta Release)
+
+- Features
+  - `NistBeaconValue`
+    - Added a `pseudo_random` property.
+      Returns a `random.Random` object that has been seeded with
+      the `output_value` for a given `NistBeaconValue`.
+
 ## v0.8.3 (Alpha Release)
 
 - Internal Changes
