@@ -1,7 +1,15 @@
 # Python NIST Randomness Beacon CHANGELOG
 
 ## v0.9.1 (Beta Release)
-
+- Internal Changes
+  - `NistBeaconCrypto`
+    - New helper class for signature checking of `NistBeaconValue` objects.
+      This is **NOT** a class designed for general use!
+  - `NistBeaconValue`
+    - Added a helper class `NistBeaconCrypto` to handle SHA512 generation
+      and signature checking. This means that `NistBeaconCrypto` needs to
+      be the only reference for key import and signature checking. All
+      other `NistBeaconValue` do not have to generate the full RSA objects.
 
 ## v0.9.0 (Beta Release)
 

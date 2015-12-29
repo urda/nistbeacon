@@ -21,11 +21,8 @@ import struct
 from random import Random
 from xml.etree import ElementTree
 
-from Crypto.Hash import SHA512
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5
-
 import nistbeacon.constants as cn
+from nistbeacon.nistbeaconcrypto import NistBeaconCrypto
 
 
 class NistBeaconValue(object):
@@ -125,7 +122,7 @@ class NistBeaconValue(object):
         )
 
         # Signature checking
-        rsa_message = SHA512.new(
+        sha512_hash = NistBeaconCrypto.get_hash(
             self.version.encode() +
             struct.pack(
                 '>1I1Q64s64s1I',
@@ -137,13 +134,8 @@ class NistBeaconValue(object):
             )
         )
 
-        # Get the RSA key, and build a verifier with it
-        rsa_key = RSA.importKey(cn.NIST_RSA_KEY)
-        verifier = PKCS1_v1_5.new(rsa_key)
-
-        # Check the message against the signature
-        sig_check_result = verifier.verify(
-            rsa_message,
+        sig_check_result = NistBeaconCrypto.verify(
+            sha512_hash,
             binascii.a2b_hex(self.signature_value)[::-1]
         )
 
