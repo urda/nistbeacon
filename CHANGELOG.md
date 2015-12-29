@@ -1,5 +1,8 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.1 (Beta Release)
+
+
 ## v0.9.0 (Beta Release)
 
 - Features
