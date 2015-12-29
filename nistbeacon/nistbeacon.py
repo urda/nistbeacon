@@ -28,14 +28,14 @@ class NistBeacon(object):
     consumer to use as they please.
     """
 
-    NIST_BASE_URL = "https://beacon.nist.gov/rest/record"
+    _NIST_API_URL = "https://beacon.nist.gov/rest/record"
 
     @classmethod
     def _query_nist(cls, url_data: str) -> NistBeaconValue:
         try:
             nist_response = requests.get(
                 "{0}/{1}".format(
-                    cls.NIST_BASE_URL,
+                    cls._NIST_API_URL,
                     url_data,
                 )
             )

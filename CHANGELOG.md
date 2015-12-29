@@ -2,6 +2,9 @@
 
 ## v0.9.1 (Beta Release)
 - Internal Changes
+  - `NistBeacon`
+    - `NIST_BASE_URL` renamed to `_NIST_API_URL`, to clarify that the value
+      should **NOT** be altered under normal circumstances.
   - `NistBeaconCrypto`
     - New helper class for signature checking of `NistBeaconValue` objects.
       This is **NOT** a class designed for general use!
