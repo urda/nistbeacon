@@ -11,7 +11,7 @@ dogfood:
 
 .PHONY: pep8
 pep8:
-	pep8 ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
+	pep8 --verbose ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
 
 .PHONY: pylint
 pylint:
