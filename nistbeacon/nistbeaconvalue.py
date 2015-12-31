@@ -32,10 +32,6 @@ class NistBeaconValue(object):
     but stored as a python object
     """
 
-    _understood_namespaces = {
-        'nist-0.1': 'http://beacon.nist.gov/record/0.1/',
-    }
-
     def __init__(
             self,
             version: str,
@@ -364,6 +360,10 @@ class NistBeaconValue(object):
 
         invalid_result = None
 
+        understood_namespaces = {
+            'nist-0.1': 'http://beacon.nist.gov/record/0.1/',
+        }
+
         # Our required values are "must haves". This makes it simple
         # to verify we loaded everything out of XML correctly.
         required_values = {
@@ -385,22 +385,16 @@ class NistBeaconValue(object):
 
         # Using the required values, let's load the xml values in
         for key in required_values:
-            discovered_element = tree.find(key)
+            discovered_element = tree.find(
+                "{0}:{1}".format('nist-0.1', key),
+                namespaces=understood_namespaces,
+            )
 
-            if discovered_element is None:
-                # BUG FIX the namespace added by NIST
-                # Issue: https://github.com/urda/nistbeacon/issues/8
+            if not isinstance(discovered_element, ElementTree.Element):
+                continue
 
-                discovered_element = tree.find(
-                    "{0}{1}".format(
-                        '{http://beacon.nist.gov/record/0.1/}',
-                        key,
-                    )
-                )
-
-                if discovered_element is None:
-                    continue
-
+            # Bad pylint message - https://github.com/PyCQA/pylint/issues/476
+            # pylint: disable=no-member
             required_values[key] = discovered_element.text
 
         # Confirm that the required values are set, and not 'None'

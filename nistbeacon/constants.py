@@ -55,7 +55,7 @@ NIST_INIT_RECORD = (
 
 NIST_XML_TEMPLATE = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-    '<record>'
+    '<record xmlns="http://beacon.nist.gov/record/0.1/">'
     '<version>{0}</version>'
     '<frequency>{1}</frequency>'
     '<timeStamp>{2}</timeStamp>'
