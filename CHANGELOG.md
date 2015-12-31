@@ -1,5 +1,20 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.1 (Beta Release)
+- Internal Changes
+  - `NistBeacon`
+    - `NIST_BASE_URL` renamed to `_NIST_API_URL`, to clarify that the value
+      should **NOT** be altered under normal circumstances.
+  - `NistBeaconCrypto`
+    - New helper class for signature checking of `NistBeaconValue` objects.
+      This is **NOT** a class designed for general use!
+  - `NistBeaconValue`
+    - Added a helper class `NistBeaconCrypto` to handle SHA512 generation
+      and signature checking. This means that `NistBeaconCrypto` needs to
+      be the only reference for key import and signature checking. All
+      other `NistBeaconValue` do not have to generate the full RSA objects.
+    - Started using the now existing `xmlns` property directly from NIST.
+
 ## v0.9.0 (Beta Release)
 
 - Features

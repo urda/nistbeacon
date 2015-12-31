@@ -1,15 +1,16 @@
 language: python
 
-python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev"
-  - "nightly"
-
-os:
-  - linux
-#  - osx
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.3"
+    - python: "3.4"
+    - python: "3.5"
+    - python: "3.5-dev"
+    - python: "nightly"
+  allow_failures:
+    - os: osx
+    - python: "nightly"
 
 addons:
   apt:
@@ -31,13 +32,12 @@ install:
   - pip install --upgrade --requirement requirements-test.txt
 
 script:
-  - if [ ${TRAVIS_PYTHON_VERSION} != "nightly" ]; then make; fi
-  - if [ ${TRAVIS_PYTHON_VERSION} == "nightly" ]; then make travis-nightly; fi
+  - make
 
 after_success:
   - coveralls
 
-matrix:
-  fast_finish: true
-  allow_failures:
-    - os: osx
+notifications:
+  email: false
+  slack:
+    secure: VCS7dHeluFzEE+1vuHi/H3CEvDrknqIpxDANxor8tyB2Iu2ZrLHH/s6n7hwnaU6uxiq7oOo1s/cSiXw0UfSlY9CkjxKdP8U/RhYF200ngEBpm3vvfFynEZ5otnJNznQs3Vga9AxZKezTT8btkbO0pUj4YoswTl2OEl+i1esOk3iWPXA9vZdPFmO1XchmnFC+IzyMeA3V7uxfNwh8d0cvlTsFKDB3M+Wx5GpsSaVJbH09oRzDXN3Lsoe9Q+PYQ2dkIP0JkeMMMBi8/D0Zqrjy9m1i/VhW45hA9+h2qKsOC2TPjp3Oi6coeCyNaZWPjA8Wf/I6PiGs5LM8PoT7u7+irtRqIRSI9/yerPOzultl/Di/kHDF0Dr73Zn7tisBGEeAQuqsFYBiwaRJzWoWuzd1tXNARkeF6x9t3lRSf/UMGG3rJSyqWsxvzgzPHtEhDhcKo4ZBCeliBlwwJlNpCGhOII687HqI859VOAAfpXyuQsAaAD+gBgFr11SijIiMv6wCgyFyJ0MNYFr2jCs+ziqtPunKT85hI4S/hCNiE+SN5IcbjCjFawmxXMHE2tdrOQJHyQbmEIeIfrFJUYWcLbSf8avF1iidrrBtQlQ0LqwnvdwzlOfdjaXJoPNeeXa1DwHcGlHQ+g1JENbqXYnFgCSp4LHzXNqZdaWaEQbXHRjHqX0=

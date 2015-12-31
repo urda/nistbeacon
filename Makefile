@@ -1,9 +1,6 @@
 .PHONY: travis
 travis: test pep8 pylint dogfood version-check
 
-.PHONY: travis-nightly
-travis-nightly: test dogfood version-check
-
 .PHONY: clean
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
@@ -14,11 +11,11 @@ dogfood:
 
 .PHONY: pep8
 pep8:
-	pep8 ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
+	pep8 --verbose ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
 
 .PHONY: pylint
 pylint:
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text ./nistbeacon/
+	pylint --rcfile=./.pylintrc --reports=y --output-format=text nistbeacon
 
 .PHONY: test
 test:

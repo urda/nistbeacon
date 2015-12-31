@@ -110,7 +110,7 @@ class TestNistBeaconValue(TestCase):
         # A full XML sample from the service
         self.sample_nist_xml = (
             '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            '<record>'
+            '<record xmlns="http://beacon.nist.gov/record/0.1/">'
             '<version>Version 1.0</version>'
             '<frequency>60</frequency>'
             '<timeStamp>1447873020</timeStamp>'
@@ -143,7 +143,7 @@ class TestNistBeaconValue(TestCase):
 
         self.sample_nist_xml_invalid_sig = (
             '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            '<record>'
+            '<record xmlns="http://beacon.nist.gov/record/0.1/">'
             '<version>Version 1.0</version>'
             '<frequency>60</frequency>'
             '<timeStamp>1447873020</timeStamp>'
@@ -176,7 +176,7 @@ class TestNistBeaconValue(TestCase):
 
         self.sample_nist_xml_invalid_sig_output = (
             '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            '<record>'
+            '<record xmlns="http://beacon.nist.gov/record/0.1/">'
             '<version>Version 1.0</version>'
             '<frequency>60</frequency>'
             '<timeStamp>1447873020</timeStamp>'
