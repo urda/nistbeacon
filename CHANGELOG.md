@@ -13,6 +13,7 @@
       and signature checking. This means that `NistBeaconCrypto` needs to
       be the only reference for key import and signature checking. All
       other `NistBeaconValue` do not have to generate the full RSA objects.
+    - Started using the now existing `xmlns` property directly from NIST.
 
 ## v0.9.0 (Beta Release)
 
