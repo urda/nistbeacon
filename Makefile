@@ -15,7 +15,7 @@ pep8:
 
 .PHONY: pylint
 pylint:
-	pylint --rcfile=./.pylintrc --reports=y --output-format=text ./nistbeacon/
+	pylint --rcfile=./.pylintrc --reports=y --output-format=text nistbeacon
 
 .PHONY: test
 test:
