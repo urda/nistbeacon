@@ -1,6 +1,13 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.2 (Beta Release)
+
+- Internal Changes
+  - LICENSE
+    - Updated for 2016.
+
 ## v0.9.1 (Beta Release)
+
 - Internal Changes
   - `NistBeacon`
     - `NIST_BASE_URL` renamed to `_NIST_API_URL`, to clarify that the value
