@@ -180,7 +180,7 @@ class TestNistBeacon(TestCase):
                 patched_requests.side_effect = exception_to_test
                 self.assertIsNone(NistBeacon.get_last_record())
 
-    def test_chain_check_none(self):
+    def test_chain_check_empty_input(self):
         # noinspection PyTypeChecker
         self.assertFalse(NistBeacon.chain_check(None))
 
@@ -213,7 +213,7 @@ class TestNistBeacon(TestCase):
                 )
             )
 
-    def test_chain_check_wat(self):
+    def test_chain_check_no_records_around(self):
         patch_base = 'nistbeacon.NistBeacon'
 
         with patch("{}.get_previous".format(patch_base)) as prev_call, \
