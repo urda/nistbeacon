@@ -12,6 +12,10 @@ matrix:
     - os: osx
     - python: "nightly"
 
+# `travis lint` is marking this section as a false positive!
+# References:
+#  - https://github.com/travis-ci/travis-ci/issues/3663
+#  - https://github.com/travis-ci/travis-ci/issues/5396
 addons:
   apt:
     packages:
