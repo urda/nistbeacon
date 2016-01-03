@@ -44,7 +44,7 @@ class NistBeaconCrypto(object):
             status_code: str,
     ) -> SHA512Hash:
         """
-        Given the byte string from a NistBeaconValue,
+        Given required properties from a NistBeaconValue,
         compute the SHA512Hash object.
 
         :param version: NistBeaconValue.version
