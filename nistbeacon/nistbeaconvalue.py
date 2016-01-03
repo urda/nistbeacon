@@ -31,6 +31,20 @@ class NistBeaconValue(object):
     but stored as a python object
     """
 
+    _xml_template = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<record xmlns="http://beacon.nist.gov/record/0.1/">'
+        '<version>{0}</version>'
+        '<frequency>{1}</frequency>'
+        '<timeStamp>{2}</timeStamp>'
+        '<seedValue>{3}</seedValue>'
+        '<previousOutputValue>{4}</previousOutputValue>'
+        '<signatureValue>{5}</signatureValue>'
+        '<outputValue>{6}</outputValue>'
+        '<statusCode>{7}</statusCode>'
+        '</record>'
+    )
+
     def __init__(
             self,
             version: str,
@@ -105,7 +119,7 @@ class NistBeaconValue(object):
             sort_keys=True,
         )
 
-        self._xml = cn.NIST_XML_TEMPLATE.format(
+        self._xml = self._xml_template.format(
             self.version,
             self.frequency,
             self.timestamp,

@@ -52,17 +52,3 @@ NIST_INIT_RECORD = (
     '"version": "Version 1.0"'
     '}'
 )
-
-NIST_XML_TEMPLATE = (
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-    '<record xmlns="http://beacon.nist.gov/record/0.1/">'
-    '<version>{0}</version>'
-    '<frequency>{1}</frequency>'
-    '<timeStamp>{2}</timeStamp>'
-    '<seedValue>{3}</seedValue>'
-    '<previousOutputValue>{4}</previousOutputValue>'
-    '<signatureValue>{5}</signatureValue>'
-    '<outputValue>{6}</outputValue>'
-    '<statusCode>{7}</statusCode>'
-    '</record>'
-)
