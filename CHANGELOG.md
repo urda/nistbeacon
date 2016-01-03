@@ -5,6 +5,10 @@
 - Internal Changes
   - LICENSE
     - Updated for 2016.
+  - `NistBeaconCrypto`
+    - Now computes the `struct` and other values for the `SHA512Hash`.
+  - `NistBeaconValue`
+    - Pushed `struct` and signature hash building into `NistBeaconCrypto`.
 
 ## v0.9.1 (Beta Release)
 

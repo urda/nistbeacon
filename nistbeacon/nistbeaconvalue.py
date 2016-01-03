@@ -17,7 +17,6 @@ limitations under the License.
 import binascii
 import hashlib
 import json
-import struct
 from random import Random
 from xml.etree import ElementTree
 
@@ -119,15 +118,12 @@ class NistBeaconValue(object):
 
         # Signature checking
         sha512_hash = NistBeaconCrypto.get_hash(
-            self.version.encode() +
-            struct.pack(
-                '>1I1Q64s64s1I',
-                self.frequency,
-                self.timestamp,
-                binascii.a2b_hex(self.seed_value),
-                binascii.a2b_hex(self.previous_output_value),
-                int(self.status_code)
-            )
+            self.version,
+            self.frequency,
+            self.timestamp,
+            self.seed_value,
+            self.previous_output_value,
+            self.status_code,
         )
 
         sig_check_result = NistBeaconCrypto.verify(

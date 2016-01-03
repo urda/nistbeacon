@@ -14,6 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import binascii
+import struct
+
 from Crypto.Hash import SHA512
 from Crypto.Hash.SHA512 import SHA512Hash
 from Crypto.PublicKey import RSA
@@ -31,29 +34,38 @@ class NistBeaconCrypto(object):
     _verifier = PKCS1_v1_5.new(_rsa_key)
 
     @classmethod
-    def get_hash(cls, byte_string: bytes) -> SHA512Hash:
+    def get_hash(
+            cls,
+            version: str,
+            frequency: int,
+            timestamp: int,
+            seed_value: str,
+            prev_output: str,
+            status_code: str,
+    ) -> SHA512Hash:
         """
         Given the byte string from a NistBeaconValue,
         compute the SHA512Hash object.
 
-        The bytes should look like:
+        :param version: NistBeaconValue.version
+        :param frequency: NistBeaconValue.frequency
+        :param timestamp: NistBeaconValue.timestamp
+        :param seed_value: NistBeaconValue.seed_value
+        :param prev_output: NistBeaconValue.previous_output_value
+        :param status_code: NistBeaconValue.status_code
 
-        version.encode() +
-        struct.pack(
-            '>1I1Q64s64s1I',
-            frequency,
-            timestamp,
-            binascii.a2b_hex(seed_value),
-            binascii.a2b_hex(previous_output_value),
-            int(status_code)
-        )
-
-        :param byte_string:
-        :return: SHA512 Hash Class
+        :return: SHA512 Hash for NistBeaconValue signature verification
         """
-
         return SHA512.new(
-            byte_string
+            version.encode() +
+            struct.pack(
+                '>1I1Q64s64s1I',
+                frequency,
+                timestamp,
+                binascii.a2b_hex(seed_value),
+                binascii.a2b_hex(prev_output),
+                int(status_code),
+            )
         )
 
     @classmethod
