@@ -5,6 +5,7 @@ from unittest.mock import (
 )
 
 import requests.exceptions
+from requests import Response
 
 import nistbeacon.constants as cn
 from nistbeacon import (
@@ -148,7 +149,15 @@ class TestNistBeacon(TestCase):
         )
         self.assertEqual(self.expected_previous, previous_record)
 
-    def test_get_record(self):
+    @patch('requests.get')
+    def test_get_record(self, requests_get_patched):
+        # Configure mocked Response object
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 200
+        mock_response.text = self.expected_current.xml
+        requests_get_patched.return_value = mock_response
+
+        # Get the record (which will actually be the Mocked response)
         record = NistBeacon.get_record(self.reference_timestamp)
         self.assertEqual(self.expected_current, record)
 
