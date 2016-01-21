@@ -231,26 +231,22 @@ class TestNistBeacon(TestCase):
             )
         )
 
-    def test_chain_check_last(self):
-        patch_base = 'nistbeacon.NistBeacon'
-
-        with patch("{}.get_next".format(patch_base)) as next_call:
-            next_call.return_value = None
-            self.assertTrue(
-                NistBeacon.chain_check(
-                    NistBeacon.get_last_record().timestamp,
-                )
+    @patch('nistbeacon.NistBeacon.get_next')
+    def test_chain_check_last(self, nistbeacon_get_next_patch):
+        nistbeacon_get_next_patch.return_value = None
+        self.assertTrue(
+            NistBeacon.chain_check(
+                NistBeacon.get_last_record().timestamp,
             )
+        )
 
-    def test_chain_check_no_records_around(self):
-        patch_base = 'nistbeacon.NistBeacon'
-
-        with patch("{}.get_previous".format(patch_base)) as prev_call, \
-                patch("{}.get_next".format(patch_base)) as next_call:
-            prev_call.return_value = None
-            next_call.return_value = None
-            self.assertFalse(
-                NistBeacon.chain_check(
-                    self.expected_current.timestamp
-                )
+    @patch('nistbeacon.NistBeacon.get_next')
+    @patch('nistbeacon.NistBeacon.get_previous')
+    def test_chain_check_no_records_around(self, prev_call, next_call):
+        prev_call.return_value = None
+        next_call.return_value = None
+        self.assertFalse(
+            NistBeacon.chain_check(
+                self.expected_current.timestamp
             )
+        )
