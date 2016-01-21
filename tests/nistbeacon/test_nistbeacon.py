@@ -194,7 +194,8 @@ class TestNistBeacon(TestCase):
 
         self.assertIsNone(NistBeacon.get_last_record())
 
-    def test_get_last_record_exceptions(self):
+    @patch('requests.get')
+    def test_get_last_record_exceptions(self, requests_get_patched):
         exceptions_to_test = [
             requests.exceptions.RequestException(),
             requests.exceptions.ConnectionError(),
@@ -205,9 +206,8 @@ class TestNistBeacon(TestCase):
         ]
 
         for exception_to_test in exceptions_to_test:
-            with patch('requests.get') as patched_requests:
-                patched_requests.side_effect = exception_to_test
-                self.assertIsNone(NistBeacon.get_last_record())
+            requests_get_patched.side_effect = exception_to_test
+            self.assertIsNone(NistBeacon.get_last_record())
 
     def test_chain_check_empty_input(self):
         # noinspection PyTypeChecker
