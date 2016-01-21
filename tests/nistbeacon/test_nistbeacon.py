@@ -139,7 +139,13 @@ class TestNistBeacon(TestCase):
                 msg=same_object_error_msg,
             )
 
-    def test_get_next(self):
+    @patch('requests.get')
+    def test_get_next(self, requests_get_patched):
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 200
+        mock_response.text = self.expected_next.xml
+        requests_get_patched.return_value = mock_response
+
         next_record = NistBeacon.get_next(self.reference_timestamp)
         self.assertEqual(self.expected_next, next_record)
 
