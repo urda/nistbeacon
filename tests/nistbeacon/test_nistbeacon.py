@@ -161,9 +161,16 @@ class TestNistBeacon(TestCase):
         record = NistBeacon.get_record(self.reference_timestamp)
         self.assertEqual(self.expected_current, record)
 
-    def test_get_last_record(self):
-        last_record = NistBeacon.get_last_record()
+    @patch('requests.get')
+    def test_get_last_record(self, requests_get_patched):
+        # Configure mocked Response object
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 200
+        mock_response.text = self.expected_current.xml
+        requests_get_patched.return_value = mock_response
 
+        # Get the "last" record. But this will just return a generic record
+        last_record = NistBeacon.get_last_record()
         self.assertIsInstance(last_record, NistBeaconValue)
 
     @patch('requests.get')
