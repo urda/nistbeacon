@@ -166,13 +166,13 @@ class TestNistBeacon(TestCase):
 
         self.assertIsInstance(last_record, NistBeaconValue)
 
-    def test_get_last_record_404(self):
-        with patch('requests.get') as patched_requests:
-            mock_response = Mock()
-            mock_response.status_code = 404
-            patched_requests.return_value = mock_response
+    @patch('requests.get')
+    def test_get_last_record_404(self, requests_get_patched):
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 404
+        requests_get_patched.return_value = mock_response
 
-            self.assertIsNone(NistBeacon.get_last_record())
+        self.assertIsNone(NistBeacon.get_last_record())
 
     def test_get_last_record_exceptions(self):
         exceptions_to_test = [
