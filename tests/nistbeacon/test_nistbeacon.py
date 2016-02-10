@@ -110,19 +110,13 @@ class TestNistBeacon(TestCase):
             mock_response = Mock(spec=Response)
             mock_response.status_code = 200
             mock_response.text = record.xml
-            requests_patch.return_value = mock_response
+
+            requests_patch.side_effect = [
+                mock_response,
+                mock_response,
+            ]
 
             downloaded = NistBeacon.get_first_record(download=True)
-
-        with patch('requests.get') as requests_patch:
-            # Configure mocked Response object
-            record = NistBeaconValue.from_json(cn.NIST_INIT_RECORD)
-
-            mock_response = Mock(spec=Response)
-            mock_response.status_code = 200
-            mock_response.text = record.xml
-            requests_patch.return_value = mock_response
-
             actual = NistBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
 
         download_error_msg = (
