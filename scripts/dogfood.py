@@ -45,5 +45,6 @@ if __name__ == '__main__':
         else:
             print("[OFFLINE]")
             print("Got 'None', Beacon is offline or network issues exist.")
+            sys.exit(2)
 
     sys.exit(0)

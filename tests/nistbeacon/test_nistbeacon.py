@@ -17,6 +17,33 @@ from nistbeacon import (
 class TestNistBeacon(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
+        self.expected_first_next = NistBeaconValue(
+            version='Version 1.0',
+            frequency=int(60),
+            timestamp=int(1378395600),
+            seed_value='337886D7296C0412AC5E2B21955E016D0CC29BE65835345C40CDB5'
+                       '1CED54DE46AA997298491E55440681DA186C8909AE19CC06FDB76E'
+                       'CF322D1E6CA79B8452C8',
+            previous_output_value='17070B49DBF3BA12BEA427CB6651ECF7860FDC37922'
+                                  '68031B77711D63A8610F4CDA551B7FB331103889A62'
+                                  'E2CB23C0F85362BBA49B9E0086D1DA0830E4389AB1',
+            signature_value='86FE4ACAFCF031D98354341A58CAAEBE4A9F0219AF66F6772'
+                            '89A8F56CE7C921764E66FADFEF7D7564DCE8588D5A48203F1'
+                            'E1944E8F07B5838488CBFD025BE52C7C5F69660CBE049561A'
+                            'CA0414FBA61846FF8064091B5DA0D03904F08BFEF46A58FCB'
+                            '00AE09F941EB61C0B1C8F5820B7D5A677FA90977CE797BD1D'
+                            '5F9A6313C655A958E849659815F0C9E74B4578CF77F1C9200'
+                            'E83F8298BFAAF76224866507E4FFCD132C0964F45F0E81A7B'
+                            'F5F970F8D2F19A4573186622A8DC9FB7119EF8F1AE9E39F4F'
+                            '319AFF43582E6C8125A0D836928CA8FE1A5D4AC9839F90DDC'
+                            '14DA714C95E4B694DEE9E9E910771AC98BB5611A732A753D8'
+                            'AFA4B5C38085C9C9CB5A24',
+            output_value='9C14511F0B355D4E8964A058ADA6EFB6A3FDD225E9E102EB6C16'
+                         '3D23DF148E7A5676C8468CD51A201FCB11AB0335658BF8C64E0C'
+                         '441F4E2CA2F4BC2035F88B9D',
+            status_code='0',
+        )
+
         self.reference_timestamp = int(1447873020)
 
         self.expected_current = NistBeaconValue(
@@ -241,14 +268,17 @@ class TestNistBeacon(TestCase):
             )
         )
 
-    def test_chain_check_init(self):
-        test_init = NistBeaconValue.from_json(
-            cn.NIST_INIT_RECORD,
-        )
+    @patch('nistbeacon.NistBeacon.get_record')
+    @patch('nistbeacon.NistBeacon.get_next')
+    @patch('nistbeacon.NistBeacon.get_previous')
+    def test_chain_check_init(self, prev_call, next_call, get_call):
+        prev_call.return_value = None
+        next_call.return_value = self.expected_first_next
+        get_call.return_value = NistBeacon.get_first_record(download=False)
 
         self.assertTrue(
             NistBeacon.chain_check(
-                test_init.timestamp
+                cn.NIST_INIT_RECORD_TIMESTAMP,
             )
         )
 
