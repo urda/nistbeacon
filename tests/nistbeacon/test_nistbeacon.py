@@ -252,12 +252,17 @@ class TestNistBeacon(TestCase):
             )
         )
 
+    @patch('nistbeacon.NistBeacon.get_record')
     @patch('nistbeacon.NistBeacon.get_next')
-    def test_chain_check_last(self, nistbeacon_get_next_patch):
-        nistbeacon_get_next_patch.return_value = None
+    @patch('nistbeacon.NistBeacon.get_previous')
+    def test_chain_check_last(self, prev_call, next_call, get_call):
+        prev_call.return_value = self.expected_previous
+        next_call.return_value = None
+        get_call.return_value = self.expected_current
+
         self.assertTrue(
             NistBeacon.chain_check(
-                NistBeacon.get_last_record().timestamp,
+                self.expected_current.timestamp,
             )
         )
 
