@@ -227,7 +227,14 @@ class TestNistBeacon(TestCase):
         # noinspection PyTypeChecker
         self.assertFalse(NistBeacon.chain_check(None))
 
-    def test_chain_check_majority(self):
+    @patch('nistbeacon.NistBeacon.get_record')
+    @patch('nistbeacon.NistBeacon.get_next')
+    @patch('nistbeacon.NistBeacon.get_previous')
+    def test_chain_check_majority(self, prev_call, next_call, get_call):
+        prev_call.return_value = self.expected_previous
+        next_call.return_value = self.expected_next
+        get_call.return_value = self.expected_current
+
         self.assertTrue(
             NistBeacon.chain_check(
                 self.expected_current.timestamp
