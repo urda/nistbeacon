@@ -19,7 +19,7 @@ pylint:
 
 .PHONY: test
 test:
-	py.test --cov nistbeacon --cov-report html
+	py.test --cov nistbeacon --cov-report html ./tests/unit_tests/
 
 .PHONY: version-check
 version-check:
