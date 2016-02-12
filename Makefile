@@ -1,5 +1,5 @@
 .PHONY: travis
-travis: test pep8 pylint dogfood version-check
+travis: test integration pep8 pylint dogfood version-check
 
 .PHONY: clean
 clean:
@@ -8,6 +8,10 @@ clean:
 .PHONY: dogfood
 dogfood:
 	./scripts/dogfood.py
+
+.PHONY: integration
+integration:
+	py.test ./tests/integration/
 
 .PHONY: pep8
 pep8:
