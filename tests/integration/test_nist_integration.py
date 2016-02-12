@@ -10,16 +10,7 @@ class TestNistIntegration(TestCase):
     def setUp(self):
         self.target_timestamp = 1447873020
 
-    # def test_get_last_record(self):
-    #     pass
-    #
-    # def test_get_next(self):
-    #     pass
-    #
-    # def test_get_previous(self):
-    #     pass
-
-    def test_get_record(self):
+    def test_get_last_record(self):
         downloaded = NistBeacon.get_last_record()
 
         self.assertIsInstance(
@@ -32,3 +23,12 @@ class TestNistIntegration(TestCase):
             expr=downloaded.valid_signature,
             msg="NistBeaconValue signature was invalid",
         )
+
+    # def test_get_next(self):
+    #     pass
+    #
+    # def test_get_previous(self):
+    #     pass
+    #
+    # def test_get_record(self):
+    #     pass
