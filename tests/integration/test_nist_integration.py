@@ -25,8 +25,10 @@ class TestNistIntegration(TestCase):
         self.assertIsInstance(
             obj=downloaded,
             cls=NistBeaconValue,
+            msg="Did not download a NistBeaconValue"
         )
 
         self.assertTrue(
-            downloaded.valid_signature,
+            expr=downloaded.valid_signature,
+            msg="NistBeaconValue signature was invalid",
         )
