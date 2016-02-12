@@ -1,13 +1,9 @@
 .PHONY: travis
-travis: pep8 pylint unittest integration dogfood version-check
+travis: pep8 pylint unittest integration version-check
 
 .PHONY: clean
 clean:
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
-
-.PHONY: dogfood
-dogfood:
-	./scripts/dogfood.py
 
 .PHONY: integration
 integration:
