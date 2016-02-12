@@ -15,7 +15,7 @@ integration:
 
 .PHONY: pep8
 pep8:
-	pep8 --verbose ./nistbeacon/*.py ./scripts/*.py ./tests/*.py
+	pep8 --verbose ./nistbeacon/* ./scripts/* ./tests/*
 
 .PHONY: pylint
 pylint:
