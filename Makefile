@@ -1,5 +1,5 @@
 .PHONY: travis
-travis: test integration pep8 pylint dogfood version-check
+travis: pep8 pylint unittest integration dogfood version-check
 
 .PHONY: clean
 clean:
@@ -21,8 +21,8 @@ pep8:
 pylint:
 	pylint --rcfile=./.pylintrc --reports=y --output-format=text nistbeacon
 
-.PHONY: test
-test:
+.PHONY: unittest
+unittest:
 	py.test --cov nistbeacon --cov-report html ./tests/unit/
 
 .PHONY: version-check
