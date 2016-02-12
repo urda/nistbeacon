@@ -64,6 +64,33 @@ class TestNistIntegration(TestCase):
             status_code='0',
         )
 
+        self.previous_record = NistBeaconValue(
+            version='Version 1.0',
+            frequency=int(60),
+            timestamp=int(1447872960),
+            seed_value='7DFDD1BD78543254B0DDA92893A83B190BB5FD8D56308F0F39256E'
+                       '6796BE43A81C6A94FDA51DB66E23B31CB146BB3626CC5CE46AEDD3'
+                       '16F723053542F28E1F26',
+            previous_output_value='87F0184434F9670DEF77406A52300F76E363FC78598'
+                                  '52EBD381736F04013BD1B37697F305AB540911006FF'
+                                  '6B1B29598B5FE730AE57A65F00A0C94748FCB83138',
+            signature_value='E8F6A08CA36B87D0B4667EEB592CA46F96F84CBD6F44BCAB6'
+                            'AA29CAC09966804925B85FB6835FD35C5789A1544A7F9B836'
+                            '5098CA439E7C461221D74362B5261B154FC4BAB56788A6F5C'
+                            '3AE642EF750D6712DAC4E5742A7B598C80C160F73FBA88D9D'
+                            '03B06D66C8AE90EF03E6717ECA4A535F1082417A73BAB7717'
+                            '1EDD19A8E5272B181E87BCE9D9DBABD3CB05EB778162CD4B9'
+                            'C637A237C1ED54B80AB28AF2846AB6B70A1935BC41EDB4DA2'
+                            'A5EE0AB511504C8299692CDB9316220CE7D71AB3F479F251E'
+                            'F65ED100A59937F4509D71464593C513799927EF7AC734CB2'
+                            '7ECB1D008E2F5DC481A19D9AF4EC97E014356A9B76F190456'
+                            '33742E2C2D3426B6CB5C74',
+            output_value='F4F571DFBA7DA2D3872AF1696B6A32B5039EB9CABF03CBB17EAB'
+                         '095D83B1483A12CE2D0347BEAF2709CA0BAC0EB78C330D20CD3B'
+                         'E2FBEC2F7816AB2BB953AA3D',
+            status_code='0',
+        )
+
     def test_get_last_record(self):
         actual = NistBeacon.get_last_record()
 
@@ -79,8 +106,14 @@ class TestNistIntegration(TestCase):
         self.assertEqual(expected, actual)
         self.assertIsNot(expected, actual)
 
-    # def test_get_previous(self):
-    #     pass
+    def test_get_previous(self):
+        expected = self.previous_record
+        actual = NistBeacon.get_previous(self.target_timestamp)
+
+        self.assertIsInstance(actual, NistBeaconValue)
+        self.assertTrue(actual.valid_signature)
+        self.assertEqual(expected, actual)
+        self.assertIsNot(expected, actual)
 
     def test_get_record(self):
         expected = self.focus_record

@@ -11,7 +11,7 @@ dogfood:
 
 .PHONY: integration
 integration:
-	py.test --verbose ./tests/integration/
+	py.test ./tests/integration/
 
 .PHONY: pep8
 pep8:
