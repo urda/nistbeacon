@@ -26,58 +26,23 @@ class TestNistBeacon(TestCase):
         cls.expected_next = local_record_db[cls.reference_timestamp + 60]
         cls.expected_previous = local_record_db[cls.reference_timestamp - 60]
 
-    def test_get_first_record(self):
-        expected = NistBeacon.get_first_record(download=False)
+    @patch('requests.get')
+    def test_get_first_record(self, requests_get_patched):
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 200
+        mock_response.text = self.expected_first.xml
+        requests_get_patched.return_value = mock_response
 
-        with patch('requests.get') as requests_patch:
-            # Configure mocked Response object
-            record = self.expected_first
+        expected = self.expected_first
+        actual_download_false = NistBeacon.get_first_record(download=False)
+        actual_download_true = NistBeacon.get_first_record(download=True)
 
-            mock_response = Mock(spec=Response)
-            mock_response.status_code = 200
-            mock_response.text = record.xml
+        self.assertEqual(expected, actual_download_false)
+        self.assertEqual(expected, actual_download_true)
 
-            requests_patch.side_effect = [
-                mock_response,
-                mock_response,
-            ]
-
-            downloaded = NistBeacon.get_first_record(download=True)
-            actual = NistBeacon.get_record(self.init_timestamp)
-
-        download_error_msg = (
-            "Failed to confirm the first record! "
-            "Check the remote NIST service."
-        )
-
-        same_object_error_msg = (
-            "These should have been two unique objects regardless of equality."
-        )
-
-        self.assertEqual(
-            expected,
-            actual,
-            msg=download_error_msg,
-        )
-
-        self.assertEqual(
-            expected,
-            downloaded,
-            msg=download_error_msg,
-        )
-
-        test_pairs = [
-            (expected, actual),
-            (expected, downloaded),
-            (actual, downloaded),
-        ]
-
-        for pair in test_pairs:
-            self.assertIsNot(
-                pair[0],
-                pair[1],
-                msg=same_object_error_msg,
-            )
+        self.assertIsNot(expected, actual_download_false)
+        self.assertIsNot(expected, actual_download_true)
+        self.assertIsNot(actual_download_false, actual_download_true)
 
     @patch('requests.get')
     def test_get_next(self, requests_get_patched):
