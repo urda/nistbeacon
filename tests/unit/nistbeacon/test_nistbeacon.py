@@ -91,7 +91,6 @@ class TestNistBeacon(TestCase):
 
     @patch('requests.get')
     def test_get_previous(self, requests_get_patched):
-        # Configure mocked Response object
         mock_response = Mock(spec=Response)
         mock_response.status_code = 200
         mock_response.text = self.expected_previous.xml
@@ -104,25 +103,21 @@ class TestNistBeacon(TestCase):
 
     @patch('requests.get')
     def test_get_record(self, requests_get_patched):
-        # Configure mocked Response object
         mock_response = Mock(spec=Response)
         mock_response.status_code = 200
         mock_response.text = self.expected_current.xml
         requests_get_patched.return_value = mock_response
 
-        # Get the record (which will actually be the Mocked response)
         record = NistBeacon.get_record(self.reference_timestamp)
         self.assertEqual(self.expected_current, record)
 
     @patch('requests.get')
     def test_get_last_record(self, requests_get_patched):
-        # Configure mocked Response object
         mock_response = Mock(spec=Response)
         mock_response.status_code = 200
         mock_response.text = self.expected_current.xml
         requests_get_patched.return_value = mock_response
 
-        # Get the "last" record. But this will just return a generic record
         last_record = NistBeacon.get_last_record()
         self.assertIsInstance(last_record, NistBeaconValue)
 
@@ -149,8 +144,8 @@ class TestNistBeacon(TestCase):
             requests_get_patched.side_effect = exception_to_test
             self.assertIsNone(NistBeacon.get_last_record())
 
+    # noinspection PyTypeChecker
     def test_chain_check_empty_input(self):
-        # noinspection PyTypeChecker
         self.assertFalse(NistBeacon.chain_check(None))
 
     @patch('nistbeacon.NistBeacon.get_record')
