@@ -18,9 +18,9 @@ from tests.test_data.nist_records import local_record_db
 class TestNistBeacon(TestCase):
     @classmethod
     def setUpClass(cls):
-        init_timestamp = 1378395540
-        cls.expected_first = local_record_db[init_timestamp]
-        cls.expected_first_next = local_record_db[init_timestamp + 60]
+        cls.init_timestamp = 1378395540
+        cls.expected_first = local_record_db[cls.init_timestamp]
+        cls.expected_first_next = local_record_db[cls.init_timestamp + 60]
 
         cls.reference_timestamp = int(1447873020)
         cls.expected_current = local_record_db[cls.reference_timestamp]
