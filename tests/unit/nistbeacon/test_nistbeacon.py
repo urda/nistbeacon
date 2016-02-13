@@ -18,12 +18,14 @@ from tests.test_data.nist_records import local_record_db
 class TestNistBeacon(TestCase):
     # noinspection SpellCheckingInspection
     def setUp(self):
-        self.expected_first_next = local_record_db[1378395600]
+        init_timestamp = 1378395540
+        self.expected_first = local_record_db[init_timestamp]
+        self.expected_first_next = local_record_db[init_timestamp + 60]
 
         self.reference_timestamp = int(1447873020)
-        self.expected_current = local_record_db[1447873020]
-        self.expected_next = local_record_db[1447873080]
-        self.expected_previous = local_record_db[1447872960]
+        self.expected_current = local_record_db[self.reference_timestamp]
+        self.expected_next = local_record_db[self.reference_timestamp + 60]
+        self.expected_previous = local_record_db[self.reference_timestamp - 60]
 
     def test_get_first_record(self):
         expected = NistBeacon.get_first_record(download=False)
