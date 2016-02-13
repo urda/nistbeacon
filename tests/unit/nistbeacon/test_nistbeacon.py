@@ -7,7 +7,6 @@ from unittest.mock import (
 import requests.exceptions
 from requests import Response
 
-import nistbeacon.constants as cn
 from nistbeacon import (
     NistBeacon,
     NistBeaconValue,
@@ -32,7 +31,7 @@ class TestNistBeacon(TestCase):
 
         with patch('requests.get') as requests_patch:
             # Configure mocked Response object
-            record = NistBeaconValue.from_json(cn.NIST_INIT_RECORD)
+            record = self.expected_first
 
             mock_response = Mock(spec=Response)
             mock_response.status_code = 200
@@ -44,7 +43,7 @@ class TestNistBeacon(TestCase):
             ]
 
             downloaded = NistBeacon.get_first_record(download=True)
-            actual = NistBeacon.get_record(cn.NIST_INIT_RECORD_TIMESTAMP)
+            actual = NistBeacon.get_record(self.init_timestamp)
 
         download_error_msg = (
             "Failed to confirm the first record! "
@@ -178,7 +177,7 @@ class TestNistBeacon(TestCase):
 
         self.assertTrue(
             NistBeacon.chain_check(
-                cn.NIST_INIT_RECORD_TIMESTAMP,
+                self.init_timestamp,
             )
         )
 
