@@ -21,7 +21,7 @@ class TestNistBeacon(TestCase):
         cls.expected_first = local_record_db[cls.init_timestamp]
         cls.expected_first_next = local_record_db[cls.init_timestamp + 60]
 
-        cls.reference_timestamp = int(1447873020)
+        cls.reference_timestamp = 1447873020
         cls.expected_current = local_record_db[cls.reference_timestamp]
         cls.expected_next = local_record_db[cls.reference_timestamp + 60]
         cls.expected_previous = local_record_db[cls.reference_timestamp - 60]
