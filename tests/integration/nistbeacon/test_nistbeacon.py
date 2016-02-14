@@ -23,6 +23,9 @@ from tests.test_data.nist_records import local_record_db
 class TestNistIntegration(TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.future_timestamp = 32503680000
+        cls.future_record = local_record_db[cls.future_timestamp]
+
         cls.target_timestamp = 1447873020
 
         cls.focus_record = local_record_db[cls.target_timestamp]
@@ -57,3 +60,10 @@ class TestNistIntegration(TestCase):
         self.assertTrue(actual.valid_signature)
         self.assertEqual(expected, actual)
         self.assertIsNot(expected, actual)
+
+    def test_get_record_404(self):
+        expected = self.future_record
+        actual = NistBeacon.get_record(self.future_timestamp)
+
+        self.assertIsNone(actual)
+        self.assertEqual(expected, actual)

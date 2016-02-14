@@ -147,4 +147,7 @@ local_record_db = {
                      '209A45EF864C426F',
         status_code='0',
     ),
+
+    # 32503680000 -> GMT: Wed, 01 Jan 3000 00:00:00 GMT
+    32503680000: None,
 }
