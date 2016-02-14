@@ -15,7 +15,6 @@ limitations under the License.
 """
 
 import json
-from random import Random
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
@@ -428,71 +427,4 @@ class TestNistBeaconValue(TestCase):
             NistBeaconValue.from_xml(
                 self.sample_nist_missing_content
             )
-        )
-
-    def test_pseudo_random(self):
-        """
-        Check the seeding of NistBeaconValue's pseudo random property
-        """
-
-        init = NistBeaconValue.from_json(
-            self.sample_nist_json_first,
-        )
-
-        sample = NistBeaconValue.from_xml(
-            self.sample_nist_xml,
-        )
-
-        # Basic object checking
-        self.assertIsInstance(init, NistBeaconValue)
-        self.assertIsInstance(sample, NistBeaconValue)
-
-        self.assertIsInstance(init.pseudo_random, Random)
-        self.assertIsInstance(sample.pseudo_random, Random)
-        self.assertIsNot(
-            init.pseudo_random,
-            sample.pseudo_random,
-        )
-
-        # Verify that the pseudo random was seeded correctly
-        # Init record check
-        self.assertEqual(
-            init.pseudo_random.random(),
-            0.6461135178195806,
-        )
-
-        self.assertEqual(
-            init.pseudo_random.uniform(100, 1000),
-            973.057931801389,
-        )
-
-        self.assertEqual(
-            init.pseudo_random.randrange(53, 350),
-            230,
-        )
-
-        self.assertEqual(
-            init.pseudo_random.randint(1000, 9999),
-            4596,
-        )
-
-        # Sample value check
-        self.assertEqual(
-            sample.pseudo_random.random(),
-            0.9150597089635818,
-        )
-
-        self.assertEqual(
-            sample.pseudo_random.uniform(100, 1000),
-            416.46104853317524,
-        )
-
-        self.assertEqual(
-            sample.pseudo_random.randrange(53, 350),
-            118,
-        )
-
-        self.assertEqual(
-            sample.pseudo_random.randint(1000, 9999),
-            7526,
         )
