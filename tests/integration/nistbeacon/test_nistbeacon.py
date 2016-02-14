@@ -16,10 +16,7 @@ limitations under the License.
 
 from unittest import TestCase
 
-from nistbeacon import (
-    NistBeacon,
-    NistBeaconValue,
-)
+from nistbeacon import NistBeacon
 from tests.test_data.nist_records import local_record_db
 
 
@@ -35,14 +32,12 @@ class TestNistIntegration(TestCase):
     def test_get_last_record(self):
         actual = NistBeacon.get_last_record()
 
-        self.assertIsInstance(actual, NistBeaconValue)
         self.assertTrue(actual.valid_signature)
 
     def test_get_next(self):
         expected = self.next_record
         actual = NistBeacon.get_next(self.target_timestamp)
 
-        self.assertIsInstance(actual, NistBeaconValue)
         self.assertTrue(actual.valid_signature)
         self.assertEqual(expected, actual)
         self.assertIsNot(expected, actual)
@@ -51,7 +46,6 @@ class TestNistIntegration(TestCase):
         expected = self.previous_record
         actual = NistBeacon.get_previous(self.target_timestamp)
 
-        self.assertIsInstance(actual, NistBeaconValue)
         self.assertTrue(actual.valid_signature)
         self.assertEqual(expected, actual)
         self.assertIsNot(expected, actual)
@@ -60,7 +54,6 @@ class TestNistIntegration(TestCase):
         expected = self.focus_record
         actual = NistBeacon.get_record(self.target_timestamp)
 
-        self.assertIsInstance(actual, NistBeaconValue)
         self.assertTrue(actual.valid_signature)
         self.assertEqual(expected, actual)
         self.assertIsNot(expected, actual)
