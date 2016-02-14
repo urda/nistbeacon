@@ -59,7 +59,7 @@ class TestJson(TestCase):
                 actual_value,
             )
 
-    def test_json_error_handling(self):
+    def test_from_json_errors(self):
         """
         Verify that 'None' is generated correctly with invalid JSON data
         """
