@@ -50,19 +50,6 @@ class TestNistBeaconValue(TestCase):
         self.expected_timestamp = int(1447873020)
         self.expected_version = 'Version 1.0'
 
-        # Invalid XML snippets for error testing
-        self.sample_nist_parse_error = (
-            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            '<record>'
-            'bad stuff ok'
-        )
-
-        self.sample_nist_missing_content = (
-            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            '<record>'
-            '</record>'
-        )
-
         # A full XML sample from the service
         self.sample_nist_xml = (
             '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
@@ -266,53 +253,4 @@ class TestNistBeaconValue(TestCase):
             NistBeaconValue.from_xml(
                 self.sample_nist_xml_invalid_sig_output,
             ).valid_signature
-        )
-
-    def test_from_xml(self):
-        """
-        Test construction from XML
-        """
-
-        self.object_value_test(
-            NistBeaconValue.from_xml(
-                self.sample_nist_xml
-            )
-        )
-
-    def test_to_xml(self):
-        """
-        Test that the value object produces the correct XML string.
-        """
-
-        base_value = NistBeaconValue.from_xml(
-            self.sample_nist_xml
-        )
-
-        value_using_from_xml = NistBeaconValue.from_xml(
-            base_value.xml
-        )
-
-        self.assertEqual(
-            base_value.xml,
-            self.sample_nist_xml,
-        )
-
-        self.assertEqual(
-            base_value,
-            value_using_from_xml,
-        )
-
-    def test_xml_error_handling(self):
-        """
-        Verify that 'None' is generated correctly with invalid XML data
-        """
-
-        self.assertIsNone(
-            NistBeaconValue.from_xml(self.sample_nist_parse_error)
-        )
-
-        self.assertIsNone(
-            NistBeaconValue.from_xml(
-                self.sample_nist_missing_content
-            )
         )
