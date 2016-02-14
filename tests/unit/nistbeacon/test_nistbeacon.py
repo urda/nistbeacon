@@ -113,13 +113,25 @@ class TestNistBeacon(TestCase):
     def test_chain_check_empty_input(self):
         self.assertFalse(NistBeacon.chain_check(None))
 
-    @patch('nistbeacon.NistBeacon.get_record')
-    @patch('nistbeacon.NistBeacon.get_next')
-    @patch('nistbeacon.NistBeacon.get_previous')
-    def test_chain_check_majority(self, prev_call, next_call, get_call):
-        prev_call.return_value = self.expected_previous
-        next_call.return_value = self.expected_next
-        get_call.return_value = self.expected_current
+    @patch('requests.get')
+    def test_chain_check_majority(self, requests_get_patched):
+        first_response = Mock(spec=Response)
+        first_response.status_code = 200
+        first_response.text = self.expected_current.xml
+
+        previous_response = Mock(spec=Response)
+        previous_response.status_code = 200
+        previous_response.text = self.expected_previous.xml
+
+        next_response = Mock(spec=Response)
+        next_response.status_code = 200
+        next_response.text = self.expected_next.xml
+
+        requests_get_patched.side_effect = [
+            first_response,
+            previous_response,
+            next_response,
+        ]
 
         self.assertTrue(
             NistBeacon.chain_check(
@@ -127,13 +139,24 @@ class TestNistBeacon(TestCase):
             )
         )
 
-    @patch('nistbeacon.NistBeacon.get_record')
-    @patch('nistbeacon.NistBeacon.get_next')
-    @patch('nistbeacon.NistBeacon.get_previous')
-    def test_chain_check_init(self, prev_call, next_call, get_call):
-        prev_call.return_value = None
-        next_call.return_value = self.expected_first_next
-        get_call.return_value = NistBeacon.get_first_record(download=False)
+    @patch('requests.get')
+    def test_chain_check_init(self, requests_get_patched):
+        first_response = Mock(spec=Response)
+        first_response.status_code = 200
+        first_response.text = self.expected_first.xml
+
+        previous_response = Mock(spec=Response)
+        previous_response.status_code = 404
+
+        next_response = Mock(spec=Response)
+        next_response.status_code = 200
+        next_response.text = self.expected_first_next.xml
+
+        requests_get_patched.side_effect = [
+            first_response,
+            previous_response,
+            next_response,
+        ]
 
         self.assertTrue(
             NistBeacon.chain_check(
@@ -141,13 +164,24 @@ class TestNistBeacon(TestCase):
             )
         )
 
-    @patch('nistbeacon.NistBeacon.get_record')
-    @patch('nistbeacon.NistBeacon.get_next')
-    @patch('nistbeacon.NistBeacon.get_previous')
-    def test_chain_check_last(self, prev_call, next_call, get_call):
-        prev_call.return_value = self.expected_previous
-        next_call.return_value = None
-        get_call.return_value = self.expected_current
+    @patch('requests.get')
+    def test_chain_check_last(self, requests_get_patched):
+        first_response = Mock(spec=Response)
+        first_response.status_code = 200
+        first_response.text = self.expected_current.xml
+
+        previous_response = Mock(spec=Response)
+        previous_response.status_code = 200
+        previous_response.text = self.expected_previous.xml
+
+        next_response = Mock(spec=Response)
+        next_response.status_code = 404
+
+        requests_get_patched.side_effect = [
+            first_response,
+            previous_response,
+            next_response,
+        ]
 
         self.assertTrue(
             NistBeacon.chain_check(
@@ -155,11 +189,21 @@ class TestNistBeacon(TestCase):
             )
         )
 
-    @patch('nistbeacon.NistBeacon.get_next')
-    @patch('nistbeacon.NistBeacon.get_previous')
-    def test_chain_check_no_records_around(self, prev_call, next_call):
-        prev_call.return_value = None
-        next_call.return_value = None
+    @patch('requests.get')
+    def test_chain_check_no_records_around(self, requests_get_patched):
+        first_response = Mock(spec=Response)
+        first_response.status_code = 200
+        first_response.text = self.expected_current.xml
+
+        none_response = Mock(spec=Response)
+        none_response.status_code = 404
+
+        requests_get_patched.side_effect = [
+            first_response,
+            none_response,
+            none_response,
+        ]
+
         self.assertFalse(
             NistBeacon.chain_check(
                 self.expected_current.timestamp
