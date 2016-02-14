@@ -58,3 +58,14 @@ class TestJson(TestCase):
                 expected[actual_key],
                 actual_value,
             )
+
+    def test_json_error_handling(self):
+        """
+        Verify that 'None' is generated correctly with invalid JSON data
+        """
+
+        self.assertIsNone(NistBeaconValue.from_json('Foo Bar'))
+
+        self.assertIsNone(
+            NistBeaconValue.from_json('{"version": "Version 1.0"}')
+        )
