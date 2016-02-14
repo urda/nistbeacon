@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import json
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
@@ -326,42 +325,6 @@ class TestNistBeaconValue(TestCase):
                 self.sample_nist_xml_invalid_sig_output,
             ).valid_signature
         )
-
-    def test_from_json(self):
-        """
-        Test construction from JSON
-        """
-
-        self.object_value_test(
-            NistBeaconValue.from_json(
-                self.sample_nist_json,
-            )
-        )
-
-    def test_to_json(self):
-        """
-        Test that the value object produces correct JSON.
-        """
-
-        nist_beacon = NistBeaconValue.from_xml(
-            self.sample_nist_xml
-        )
-
-        actual_json = nist_beacon.json
-
-        actual_json_as_dict = json.loads(actual_json)
-        expected_json_as_dict = json.loads(self.sample_nist_json)
-
-        self.assertCountEqual(
-            expected_json_as_dict,
-            actual_json_as_dict,
-        )
-
-        for actual_key, actual_value in actual_json_as_dict.items():
-            self.assertEqual(
-                expected_json_as_dict[actual_key],
-                actual_value,
-            )
 
     def test_from_xml(self):
         """
