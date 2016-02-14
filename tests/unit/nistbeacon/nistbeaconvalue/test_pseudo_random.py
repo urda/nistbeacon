@@ -27,64 +27,68 @@ class TestPseudoRandom(TestCase):
         cls.init_record = local_record_db[1378395540]
         cls.sample_record = local_record_db[1447873020]
 
-    def test_pseudo_random(self):
+    def test_init_record_random_values(self):
         """
-        Check the seeding of NistBeaconValue's pseudo random property
+        Check the seeding of NistBeaconValue's pseudo random property.
+
+        This is for the known initial record.
         """
 
-        init = NistBeaconValue.from_json(self.init_record.json)
-        sample = NistBeaconValue.from_xml(self.sample_record.xml)
+        record = self.init_record
 
-        # Basic object checking
-        self.assertIsInstance(init, NistBeaconValue)
-        self.assertIsInstance(sample, NistBeaconValue)
-
-        self.assertIsInstance(init.pseudo_random, Random)
-        self.assertIsInstance(sample.pseudo_random, Random)
-        self.assertIsNot(
-            init.pseudo_random,
-            sample.pseudo_random,
-        )
+        self.assertIsInstance(record, NistBeaconValue)
+        self.assertIsInstance(record.pseudo_random, Random)
 
         # Verify that the pseudo random was seeded correctly
-        # Init record check
         self.assertEqual(
-            init.pseudo_random.random(),
+            record.pseudo_random.random(),
             0.6461135178195806,
         )
 
         self.assertEqual(
-            init.pseudo_random.uniform(100, 1000),
+            record.pseudo_random.uniform(100, 1000),
             973.057931801389,
         )
 
         self.assertEqual(
-            init.pseudo_random.randrange(53, 350),
+            record.pseudo_random.randrange(53, 350),
             230,
         )
 
         self.assertEqual(
-            init.pseudo_random.randint(1000, 9999),
+            record.pseudo_random.randint(1000, 9999),
             4596,
         )
 
-        # Sample value check
+    def test_sample_record_random_values(self):
+        """
+        Check the seeding of NistBeaconValue's pseudo random property
+
+        This is for the reference testing record
+        """
+
+        record = self.sample_record
+
+        self.assertIsInstance(record, NistBeaconValue)
+        self.assertIsInstance(record.pseudo_random, Random)
+
+        # Verify that the pseudo random was seeded correctly
         self.assertEqual(
-            sample.pseudo_random.random(),
+            record.pseudo_random.random(),
             0.9150597089635818,
         )
 
         self.assertEqual(
-            sample.pseudo_random.uniform(100, 1000),
+            record.pseudo_random.uniform(100, 1000),
             416.46104853317524,
         )
 
         self.assertEqual(
-            sample.pseudo_random.randrange(53, 350),
+            record.pseudo_random.randrange(53, 350),
             118,
         )
 
         self.assertEqual(
-            sample.pseudo_random.randint(1000, 9999),
+            record.pseudo_random.randint(1000, 9999),
             7526,
         )
