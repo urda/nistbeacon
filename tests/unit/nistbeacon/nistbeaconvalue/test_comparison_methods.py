@@ -17,44 +17,41 @@ limitations under the License.
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
-from tests.test_data.nist_records import (
-    local_record_xml_db,
-)
+from tests.test_data.nist_records import local_record_db
 
 
-class TestNistBeaconValue(TestCase):
+class TestComparisonMethods(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.reference_record_xml = local_record_xml_db[1447873020]
+        cls.record_1447872960 = local_record_db[1447872960]
+        cls.record_1447873020 = local_record_db[1447873020]
 
-    def test_equality_operators(self):
+    def test_eq(self):
         """
-        Verify the "equals" and "not equals" operators
-        are working correctly
+        Verify "equals" operation
         """
 
-        from_xml = NistBeaconValue.from_xml(self.reference_record_xml)
+        expected = self.record_1447872960
+        new_record_obj = NistBeaconValue.from_xml(expected.xml)
 
-        from_props = NistBeaconValue(
-            version=from_xml.version,
-            frequency=from_xml.frequency,
-            timestamp=from_xml.timestamp,
-            seed_value=from_xml.seed_value,
-            previous_output_value=from_xml.previous_output_value,
-            signature_value=from_xml.signature_value,
-            output_value=from_xml.output_value,
-            status_code=from_xml.status_code,
+        self.assertFalse(expected is new_record_obj)
+        self.assertEqual(expected, new_record_obj)
+
+    def test_eq_exception(self):
+        """
+        Verify "equals" operation returns without AttributeError or TypeError
+        """
+
+        self.assertFalse(self.record_1447873020 == 0)
+        self.assertFalse(self.record_1447873020 == '')
+        self.assertTrue(self.record_1447873020 != '')
+
+    def test_neq(self):
+        """
+        Verify "not equal" operation
+        """
+
+        self.assertNotEqual(
+            self.record_1447872960,
+            self.record_1447873020,
         )
-
-        # These should be two different objects
-        self.assertFalse(from_props is from_xml)
-
-        # But they should be consider "equal"
-        self.assertTrue(from_props == from_xml)
-
-        # Which should return "False" when asked if they are not equal
-        self.assertFalse(from_props != from_xml)
-
-        # As well as when compared to wrong things
-        self.assertFalse(from_props == '')
-        self.assertTrue(from_props != '')
