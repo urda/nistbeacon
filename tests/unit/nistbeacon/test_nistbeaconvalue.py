@@ -17,13 +17,15 @@ limitations under the License.
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
-from tests.test_data.nist_records import local_record_db
+from tests.test_data.nist_records import (
+    local_record_xml_db,
+)
 
 
 class TestNistBeaconValue(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.reference_record = local_record_db[1447873020]
+        cls.reference_record_xml = local_record_xml_db[1447873020]
 
     # noinspection SpellCheckingInspection
     def setUp(self):
@@ -154,7 +156,7 @@ class TestNistBeaconValue(TestCase):
         are working correctly
         """
 
-        from_xml = NistBeaconValue.from_xml(self.reference_record.xml)
+        from_xml = NistBeaconValue.from_xml(self.reference_record_xml)
 
         from_props = NistBeaconValue(
             version=from_xml.version,
@@ -203,7 +205,7 @@ class TestNistBeaconValue(TestCase):
 
         self.assertTrue(
             NistBeaconValue.from_xml(
-                self.reference_record.xml
+                self.reference_record_xml
             ).valid_signature
         )
 
