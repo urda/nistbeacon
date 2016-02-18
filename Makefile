@@ -1,5 +1,5 @@
-.PHONY: devtest
-devtest: clean travis
+.PHONY: devunittest
+devunittest: clean unittest
 
 .PHONY: travis
 travis: pep8 pylint unittest integration version-check
