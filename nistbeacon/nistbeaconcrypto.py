@@ -30,7 +30,7 @@ class NistBeaconCrypto(object):
 
     # https://beacon.nist.gov/certificate/beacon.cer
     # noinspection SpellCheckingInspection
-    _nist_cer_file = (
+    _NIST_CER_FILE = (
         '-----BEGIN CERTIFICATE-----\n'
         'MIIHZTCCBk2gAwIBAgIESTWNPjANBgkqhkiG9w0BAQsFADBtMQswCQYDVQQGEwJV\n'
         'UzEQMA4GA1UEChMHRW50cnVzdDEiMCAGA1UECxMZQ2VydGlmaWNhdGlvbiBBdXRo\n'
@@ -77,7 +77,7 @@ class NistBeaconCrypto(object):
 
     # https://beacon.nist.gov/certificate/beacon.cer
     # noinspection SpellCheckingInspection
-    _nist_rsa_key = (
+    _NIST_RSA_KEY = (
         '-----BEGIN PUBLIC KEY-----\n'
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5tsXHJGkmM7bev+mHs2\n'
         'lJqiKmOQi763ztnrBCCchYPnL+0u3sS94RmHgwp0C1bVCBlYgJzvcglwwtispnp/\n'
@@ -89,8 +89,8 @@ class NistBeaconCrypto(object):
         '-----END PUBLIC KEY-----\n'
     )
 
-    _rsa_key = RSA.importKey(_nist_rsa_key)
-    _verifier = PKCS1_v1_5.new(_rsa_key)
+    _RSA_KEY = RSA.importKey(_NIST_RSA_KEY)
+    _VERIFIER = PKCS1_v1_5.new(_RSA_KEY)
 
     @classmethod
     def get_hash(
@@ -139,7 +139,7 @@ class NistBeaconCrypto(object):
         :return: True if verification is correct. False otherwise.
         """
 
-        return cls._verifier.verify(
+        return cls._VERIFIER.verify(
             message_hash,
             signature,
         )
