@@ -20,7 +20,6 @@ import json
 from random import Random
 from xml.etree import ElementTree
 
-import nistbeacon.constants as cn
 from nistbeacon.nistbeaconcrypto import NistBeaconCrypto
 
 
@@ -44,6 +43,15 @@ class NistBeaconValue(object):
         '<statusCode>{7}</statusCode>'
         '</record>'
     )
+
+    _NIST_KEY_FREQUENCY = 'frequency'
+    _NIST_KEY_OUTPUT_VALUE = 'outputValue'
+    _NIST_KEY_PREVIOUS_OUTPUT_VALUE = 'previousOutputValue'
+    _NIST_KEY_SEED_VALUE = 'seedValue'
+    _NIST_KEY_SIGNATURE_VALUE = 'signatureValue'
+    _NIST_KEY_STATUS_CODE = 'statusCode'
+    _NIST_KEY_TIMESTAMP = 'timeStamp'
+    _NIST_KEY_VERSION = 'version'
 
     def __init__(
             self,
@@ -107,14 +115,15 @@ class NistBeaconValue(object):
         # Compute JSON, XML strings
         self._json = json.dumps(
             {
-                cn.NIST_KEY_VERSION: self.version,
-                cn.NIST_KEY_FREQUENCY: self.frequency,
-                cn.NIST_KEY_TIMESTAMP: self.timestamp,
-                cn.NIST_KEY_SEED_VALUE: self.seed_value,
-                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: self.previous_output_value,
-                cn.NIST_KEY_SIGNATURE_VALUE: self.signature_value,
-                cn.NIST_KEY_OUTPUT_VALUE: self.output_value,
-                cn.NIST_KEY_STATUS_CODE: self.status_code,
+                self._NIST_KEY_VERSION: self.version,
+                self._NIST_KEY_FREQUENCY: self.frequency,
+                self._NIST_KEY_TIMESTAMP: self.timestamp,
+                self._NIST_KEY_SEED_VALUE: self.seed_value,
+                self._NIST_KEY_PREVIOUS_OUTPUT_VALUE:
+                    self.previous_output_value,
+                self._NIST_KEY_SIGNATURE_VALUE: self.signature_value,
+                self._NIST_KEY_OUTPUT_VALUE: self.output_value,
+                self._NIST_KEY_STATUS_CODE: self.status_code,
             },
             sort_keys=True,
         )
@@ -326,14 +335,14 @@ class NistBeaconValue(object):
         # Our required values are "must haves". This makes it simple
         # to verify we loaded everything out of JSON correctly.
         required_values = {
-            cn.NIST_KEY_FREQUENCY: None,
-            cn.NIST_KEY_OUTPUT_VALUE: None,
-            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
-            cn.NIST_KEY_SEED_VALUE: None,
-            cn.NIST_KEY_SIGNATURE_VALUE: None,
-            cn.NIST_KEY_STATUS_CODE: None,
-            cn.NIST_KEY_TIMESTAMP: None,
-            cn.NIST_KEY_VERSION: None,
+            cls._NIST_KEY_FREQUENCY: None,
+            cls._NIST_KEY_OUTPUT_VALUE: None,
+            cls._NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
+            cls._NIST_KEY_SEED_VALUE: None,
+            cls._NIST_KEY_SIGNATURE_VALUE: None,
+            cls._NIST_KEY_STATUS_CODE: None,
+            cls._NIST_KEY_TIMESTAMP: None,
+            cls._NIST_KEY_VERSION: None,
         }
 
         for key in required_values:
@@ -346,16 +355,16 @@ class NistBeaconValue(object):
 
         # We have all the required values, return a node object
         return cls(
-            version=required_values[cn.NIST_KEY_VERSION],
-            frequency=int(required_values[cn.NIST_KEY_FREQUENCY]),
-            timestamp=int(required_values[cn.NIST_KEY_TIMESTAMP]),
-            seed_value=required_values[cn.NIST_KEY_SEED_VALUE],
+            version=required_values[cls._NIST_KEY_VERSION],
+            frequency=int(required_values[cls._NIST_KEY_FREQUENCY]),
+            timestamp=int(required_values[cls._NIST_KEY_TIMESTAMP]),
+            seed_value=required_values[cls._NIST_KEY_SEED_VALUE],
             previous_output_value=required_values[
-                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE
+                cls._NIST_KEY_PREVIOUS_OUTPUT_VALUE
             ],
-            signature_value=required_values[cn.NIST_KEY_SIGNATURE_VALUE],
-            output_value=required_values[cn.NIST_KEY_OUTPUT_VALUE],
-            status_code=required_values[cn.NIST_KEY_STATUS_CODE],
+            signature_value=required_values[cls._NIST_KEY_SIGNATURE_VALUE],
+            output_value=required_values[cls._NIST_KEY_OUTPUT_VALUE],
+            status_code=required_values[cls._NIST_KEY_STATUS_CODE],
         )
 
     @classmethod
@@ -377,14 +386,14 @@ class NistBeaconValue(object):
         # Our required values are "must haves". This makes it simple
         # to verify we loaded everything out of XML correctly.
         required_values = {
-            cn.NIST_KEY_FREQUENCY: None,
-            cn.NIST_KEY_OUTPUT_VALUE: None,
-            cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
-            cn.NIST_KEY_SEED_VALUE: None,
-            cn.NIST_KEY_SIGNATURE_VALUE: None,
-            cn.NIST_KEY_STATUS_CODE: None,
-            cn.NIST_KEY_TIMESTAMP: None,
-            cn.NIST_KEY_VERSION: None,
+            cls._NIST_KEY_FREQUENCY: None,
+            cls._NIST_KEY_OUTPUT_VALUE: None,
+            cls._NIST_KEY_PREVIOUS_OUTPUT_VALUE: None,
+            cls._NIST_KEY_SEED_VALUE: None,
+            cls._NIST_KEY_SIGNATURE_VALUE: None,
+            cls._NIST_KEY_STATUS_CODE: None,
+            cls._NIST_KEY_TIMESTAMP: None,
+            cls._NIST_KEY_VERSION: None,
         }
 
         # First attempt to load the xml, return 'None' on ParseError
@@ -413,14 +422,14 @@ class NistBeaconValue(object):
 
         # We have all the required values, return a node object
         return cls(
-            version=required_values[cn.NIST_KEY_VERSION],
-            frequency=int(required_values[cn.NIST_KEY_FREQUENCY]),
-            timestamp=int(required_values[cn.NIST_KEY_TIMESTAMP]),
-            seed_value=required_values[cn.NIST_KEY_SEED_VALUE],
+            version=required_values[cls._NIST_KEY_VERSION],
+            frequency=int(required_values[cls._NIST_KEY_FREQUENCY]),
+            timestamp=int(required_values[cls._NIST_KEY_TIMESTAMP]),
+            seed_value=required_values[cls._NIST_KEY_SEED_VALUE],
             previous_output_value=required_values[
-                cn.NIST_KEY_PREVIOUS_OUTPUT_VALUE
+                cls._NIST_KEY_PREVIOUS_OUTPUT_VALUE
             ],
-            signature_value=required_values[cn.NIST_KEY_SIGNATURE_VALUE],
-            output_value=required_values[cn.NIST_KEY_OUTPUT_VALUE],
-            status_code=required_values[cn.NIST_KEY_STATUS_CODE],
+            signature_value=required_values[cls._NIST_KEY_SIGNATURE_VALUE],
+            output_value=required_values[cls._NIST_KEY_OUTPUT_VALUE],
+            status_code=required_values[cls._NIST_KEY_STATUS_CODE],
         )
