@@ -10,7 +10,6 @@ matrix:
     - python: "nightly"
   allow_failures:
     - os: osx
-    - python: "nightly"
 
 # `travis lint` is marking this section as a false positive!
 # References:
