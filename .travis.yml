@@ -35,7 +35,7 @@ install:
   - pip install --upgrade --requirement requirements-travis.txt
 
 script:
-  - make travis
+  - make test
 
 after_success:
   - coveralls
