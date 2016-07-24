@@ -30,8 +30,8 @@ To install the beacon library, simply use :code:`pip`:
 Beacon Usage
 ============
 
-It is easy to use the beacon. Most queries are performed through :code:`NistBeacon`
-which produces :code:`NistBeaconValue` objects.
+It is easy to use the beacon. Most queries are performed through
+:code:`NistBeacon` which produces :code:`NistBeaconValue` objects.
 
 Beacon Sample Code
 ------------------
