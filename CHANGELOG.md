@@ -5,6 +5,8 @@
 - Internal Changes
   - LICENSE
     - Updated for 2016.
+  - `NistBeacon`
+    - `get_first_record` now defaults to downloading the first record.
   - `NistBeaconCrypto`
     - Now computes the `struct` and other values for the `SHA512Hash`.
   - `NistBeaconValue`
