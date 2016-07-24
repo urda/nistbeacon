@@ -125,8 +125,13 @@ class TestNistBeacon(TestCase):
             requests_get_patched.side_effect = exception_to_test
             self.assertIsNone(NistBeacon.get_last_record())
 
-    # noinspection PyTypeChecker
-    def test_chain_check_empty_input(self):
+    @patch('requests.get')
+    def test_chain_check_empty_input(self, requests_get_patched):
+        mock_response = Mock(spec=Response)
+        mock_response.status_code = 404
+        requests_get_patched.return_value = mock_response
+
+        # noinspection PyTypeChecker
         self.assertFalse(NistBeacon.chain_check(None))
 
     @patch('requests.get')
