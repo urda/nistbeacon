@@ -382,5 +382,5 @@ References
 
 .. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
 .. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
-.. |ReleaseCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
-.. _ReleaseCoverage: https://coveralls.io/github/urda/nistbeacon?branch=release
+.. |ReleaseCoverage| image:: https://codecov.io/gh/urda/nistbeacon/branch/release/graph/badge.svg
+.. _ReleaseCoverage: https://codecov.io/gh/urda/nistbeacon
