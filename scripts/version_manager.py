@@ -18,7 +18,10 @@ limitations under the License.
 
 import sys
 from argparse import ArgumentParser
-from collections import Counter
+from collections import (
+    Counter,
+    OrderedDict,
+)
 from os.path import (
     dirname,
     join,
@@ -162,7 +165,7 @@ def get_versions() -> FileVersionResult:
     version_counter = Counter()
     versions_match = False
     version_str = None
-    versions_discovered = {}
+    versions_discovered = OrderedDict()
 
     for version_obj in version_objects:
         discovered = version_obj.get_version()
@@ -208,15 +211,18 @@ if __name__ == '__main__':
     if args.command == "check" or args.command is None:
         version_data = get_versions()
 
+        for key, version_val in version_data.version_details.items():
+            print("{0:.<20} {1}".format(key + " ", version_val))
+
+        print("")
+
         if version_data.uniform:
             print("Versions look OK across the project")
-            print("Version: '{}'".format(version_data.version_result))
+            print("Version is '{}'".format(version_data.version_result))
         else:
+            print("/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\")
             print("Versions DO NOT MATCH across the project!")
-            print()
-            for key, version_val in version_data.version_details.items():
-                print("{0: <10}: {1}".format(key, version_val))
-
+            print("/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\")
             sys.exit(1)
 
     elif args.command == "update":
