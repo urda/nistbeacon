@@ -366,7 +366,7 @@ Project Health
 +=========+=================+====================+
 | Master  | |MasterBuild|_  | |MasterCoverage|_  |
 +---------+-----------------+--------------------+
-| Release | |ReleaseBuild|_ | |ReleaseCoverage|_ |
+| Develop | |DevelopBuild|_ | |DevelopCoverage|_ |
 +---------+-----------------+--------------------+
 
 References
@@ -378,9 +378,9 @@ References
 .. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
 .. _MasterBuild: https://travis-ci.org/urda/nistbeacon
 .. |MasterCoverage| image::  https://codecov.io/gh/urda/nistbeacon/branch/master/graph/badge.svg
-.. _MasterCoverage: https://codecov.io/gh/urda/nistbeacon
+.. _MasterCoverage: https://codecov.io/gh/urda/nistbeacon/branch/master
 
-.. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
-.. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
-.. |ReleaseCoverage| image:: https://codecov.io/gh/urda/nistbeacon/branch/release/graph/badge.svg
-.. _ReleaseCoverage: https://codecov.io/gh/urda/nistbeacon
+.. |DevelopBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=develop
+.. _DevelopBuild: https://travis-ci.org/urda/nistbeacon
+.. |DevelopCoverage| image:: https://codecov.io/gh/urda/nistbeacon/branch/develop/graph/badge.svg
+.. _DevelopCoverage: https://codecov.io/gh/urda/nistbeacon/branch/develop
