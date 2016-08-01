@@ -10,7 +10,11 @@
   - `NistBeaconCrypto`
     - Now computes the `struct` and other values for the `SHA512Hash`.
   - `NistBeaconValue`
-    - Pushed `struct` and signature hash building into `NistBeaconCrypto`.
+    - Pushed `struct` and signature hash building into
+      `NistBeaconCrypto`.
+- Project Changes
+  - Coverage Tool
+    - Switched from Coveralls to Codecov.
 
 ## v0.9.1 (Beta Release)
 
