@@ -11,6 +11,10 @@ test: pep8 pylint unittest integration version-check # Run the full Travis CI te
 clean: # Clean up test artificats
 	rm -rf ./.cache/ ./tests/.cache/ ./htmlcov/ .coverage
 
+.PHONY: docs
+docs: # Build the documentation
+	cd ./docs && make html
+
 .PHONY: integration
 integration: # Run only integration tests
 	py.test ./tests/integration/
