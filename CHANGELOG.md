@@ -1,5 +1,9 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v1.0.0 (Initial Release)
+
+- Updated README links for Codecov
+
 ## v0.9.2 (Beta Release)
 
 - Internal Changes
