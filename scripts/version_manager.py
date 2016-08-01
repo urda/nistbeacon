@@ -141,6 +141,18 @@ class FileVersionResult(object):
 curr_location = dirname(__file__)
 version_objects = [
     FileVersionInfo(
+        key_name='conf.py-release',
+        file_path=join(curr_location, '../docs/conf.py'),
+        magic_line="release = '",
+        strip_end_chars=2,
+    ),
+    FileVersionInfo(
+        key_name='conf.py-version',
+        file_path=join(curr_location, '../docs/conf.py'),
+        magic_line="version = '",
+        strip_end_chars=2,
+    ),
+    FileVersionInfo(
         key_name='package',
         file_path=join(curr_location, '../nistbeacon/__init__.py'),
         magic_line="__version__ = '",
