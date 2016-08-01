@@ -1,6 +1,23 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.2 (Beta Release)
+
+- Internal Changes
+  - LICENSE
+    - Updated for 2016.
+  - `NistBeacon`
+    - `get_first_record` now defaults to downloading the first record.
+  - `NistBeaconCrypto`
+    - Now computes the `struct` and other values for the `SHA512Hash`.
+  - `NistBeaconValue`
+    - Pushed `struct` and signature hash building into
+      `NistBeaconCrypto`.
+- Project Changes
+  - Coverage Tool
+    - Switched from Coveralls to Codecov.
+
 ## v0.9.1 (Beta Release)
+
 - Internal Changes
   - `NistBeacon`
     - `NIST_BASE_URL` renamed to `_NIST_API_URL`, to clarify that the value

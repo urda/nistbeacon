@@ -30,8 +30,8 @@ To install the beacon library, simply use :code:`pip`:
 Beacon Usage
 ============
 
-It is easy to use the beacon. Most queries are performed through :code:`NistBeacon`
-which produces :code:`NistBeaconValue` objects.
+It is easy to use the beacon. Most queries are performed through
+:code:`NistBeacon` which produces :code:`NistBeaconValue` objects.
 
 Beacon Sample Code
 ------------------
@@ -377,10 +377,10 @@ References
 
 .. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
 .. _MasterBuild: https://travis-ci.org/urda/nistbeacon
-.. |MasterCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
-.. _MasterCoverage: https://coveralls.io/github/urda/nistbeacon?branch=master
+.. |MasterCoverage| image::  https://codecov.io/gh/urda/nistbeacon/branch/master/graph/badge.svg
+.. _MasterCoverage: https://codecov.io/gh/urda/nistbeacon
 
 .. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
 .. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
-.. |ReleaseCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=release&service=github
-.. _ReleaseCoverage: https://coveralls.io/github/urda/nistbeacon?branch=release
+.. |ReleaseCoverage| image:: https://codecov.io/gh/urda/nistbeacon/branch/release/graph/badge.svg
+.. _ReleaseCoverage: https://codecov.io/gh/urda/nistbeacon

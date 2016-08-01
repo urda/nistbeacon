@@ -5,8 +5,12 @@ __pycache__/
 dist/
 MANIFEST
 
+# Sphinx
+docs/_build
+
 # Testing
 .coverage
 
 .cache/
 htmlcov/
+

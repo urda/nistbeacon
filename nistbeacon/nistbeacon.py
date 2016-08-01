@@ -1,5 +1,5 @@
 """
-Copyright 2015 Peter Urda
+Copyright 2015-2016 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ limitations under the License.
 import requests
 from requests.exceptions import RequestException
 
-import nistbeacon.constants as cn
 from nistbeacon.nistbeaconvalue import NistBeaconValue
 
 
@@ -29,6 +28,33 @@ class NistBeacon(object):
     """
 
     _NIST_API_URL = "https://beacon.nist.gov/rest/record"
+
+    # noinspection SpellCheckingInspection
+    _INIT_RECORD = NistBeaconValue(
+        version="Version 1.0",
+        frequency=60,
+        timestamp=1378395540,
+        seed_value='87F49DB997D2EED0B4FDD93BAA4CDFCA49095AF98E54B81F2C39B5C400'
+                   '2EC04B8C9E31FA537E64AC35FA2F038AA80730B054CFCF371AB5584CFB'
+                   '4EFD293280EE',
+        previous_output_value="00000000000000000000000000000000000000000000000"
+                              "00000000000000000000000000000000000000000000000"
+                              "0000000000000000000000000000000000",
+        signature_value="F93BBE5714944F31983AE8187D5D94F87FFEC2F98185F9EB4FE5D"
+                        "B61A9E5119FB0756E9AF4B7112DEBF541E9E53D05346B7358C12F"
+                        "A43A8E0D695BFFAF193B1C3FFC4AE7BCF6651812B6D60190DB8FF"
+                        "23C9364374737F45F1A89F22E1E492B0F373E4DB523274E9D31C8"
+                        "6987C64A26F507008828A358B0E166A197D433597480895E9298C"
+                        "60D079673879C3C1AEDA6306C3201991D0A6778B21462BDEBB8D3"
+                        "776CD3D0FA0325AFE99B2D88A7C357E62170320EFB51F9749B5C7"
+                        "B9E7347178AB051BDD097B226664A2D64AF1557BB31540601849F"
+                        "0BE3AAF31D7A25E2B358EEF5A346937ADE34A110722DA8C037F97"
+                        "3350B3846DCAB16C9AA125F2027C246FDB3",
+        output_value="17070B49DBF3BA12BEA427CB6651ECF7860FDC3792268031B77711D6"
+                     "3A8610F4CDA551B7FB331103889A62E2CB23C0F85362BBA49B9E0086"
+                     "D1DA0830E4389AB1",
+        status_code="1",
+    )
 
     @classmethod
     def _query_nist(cls, url_data: str) -> NistBeaconValue:
@@ -99,14 +125,10 @@ class NistBeacon(object):
                 isinstance(next_record, NistBeaconValue)
         ):
             # Edge case, this was potentially the first record of all time
-            init_ref = NistBeaconValue.from_json(
-                cn.NIST_INIT_RECORD,
-            )
-
             return (
                 record.valid_signature and
                 next_record.valid_signature and
-                init_ref == record and
+                cls._INIT_RECORD == record and
                 next_record.previous_output_value == record.output_value
             )
 
@@ -124,7 +146,7 @@ class NistBeacon(object):
     @classmethod
     def get_first_record(
             cls,
-            download: bool=False
+            download: bool=True
     ) -> NistBeaconValue:
         """
         Get the first (oldest) record available. Since the first record
@@ -136,11 +158,9 @@ class NistBeacon(object):
         """
 
         if download:
-            return NistBeacon.get_record(
-                cn.NIST_INIT_RECORD_TIMESTAMP
-            )
+            return NistBeacon.get_record(cls._INIT_RECORD.timestamp)
         else:
-            return NistBeaconValue.from_json(cn.NIST_INIT_RECORD)
+            return NistBeaconValue.from_json(cls._INIT_RECORD.json)
 
     @classmethod
     def get_last_record(cls) -> NistBeaconValue:
