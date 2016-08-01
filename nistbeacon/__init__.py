@@ -22,4 +22,4 @@ __all__ = [
     'NistBeaconValue',
 ]
 
-__version__ = '0.9.2'
+__version__ = '1.0.0'
