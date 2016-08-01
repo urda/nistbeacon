@@ -377,8 +377,8 @@ References
 
 .. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
 .. _MasterBuild: https://travis-ci.org/urda/nistbeacon
-.. |MasterCoverage| image:: https://coveralls.io/repos/urda/nistbeacon/badge.svg?branch=master&service=github
-.. _MasterCoverage: https://coveralls.io/github/urda/nistbeacon?branch=master
+.. |MasterCoverage| image::  https://codecov.io/gh/urda/nistbeacon/branch/master/graph/badge.svg
+.. _MasterCoverage: https://codecov.io/gh/urda/nistbeacon
 
 .. |ReleaseBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=release
 .. _ReleaseBuild: https://travis-ci.org/urda/nistbeacon
