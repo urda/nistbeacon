@@ -8,7 +8,7 @@
   - [Configuring Your Environment](#configuring-your-environment)
 - [How Can I Contribute?](#how-can-i-contribute)
   - [Reporting Bugs](#reporting-bugs)
-  
+
 ## What should I know before I get started?
 
 You should become familiar with the following:
@@ -84,7 +84,6 @@ report when you run across problems.
 **Installed packages:**
 
 [List your `pip freeze` output here]
-
 ```
 
 
