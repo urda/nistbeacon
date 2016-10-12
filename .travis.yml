@@ -8,8 +8,10 @@ matrix:
     - python: "3.5"
     - python: "3.5-dev"
     - python: "nightly"
+    - python: "pypy3"
   allow_failures:
     - os: osx
+    - python: "pypy3"
 
 # `travis lint` is marking this section as a false positive!
 # References:
