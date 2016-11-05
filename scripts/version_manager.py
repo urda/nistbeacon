@@ -26,6 +26,7 @@ from os.path import (
     dirname,
     join,
 )
+from typing import List
 
 
 class FileVersionInfo(object):
@@ -138,36 +139,7 @@ class FileVersionResult(object):
         self.version_result = version_result
 
 
-curr_location = dirname(__file__)
-version_objects = [
-    FileVersionInfo(
-        key_name='conf.py-release',
-        file_path=join(curr_location, '../docs/conf.py'),
-        magic_line="release = '",
-        strip_end_chars=2,
-    ),
-    FileVersionInfo(
-        key_name='conf.py-version',
-        file_path=join(curr_location, '../docs/conf.py'),
-        magic_line="version = '",
-        strip_end_chars=2,
-    ),
-    FileVersionInfo(
-        key_name='package',
-        file_path=join(curr_location, '../nistbeacon/__init__.py'),
-        magic_line="__version__ = '",
-        strip_end_chars=2,
-    ),
-    FileVersionInfo(
-        key_name='setup.py',
-        file_path=join(curr_location, '../setup.py'),
-        magic_line="    version='",
-        strip_end_chars=3,
-    ),
-]
-
-
-def get_versions() -> FileVersionResult:
+def get_versions(version_objects: List[FileVersionInfo]) -> FileVersionResult:
     """
     Search specific project files and extract versions to check.
 
@@ -195,10 +167,11 @@ def get_versions() -> FileVersionResult:
     )
 
 
-def set_versions(new_version: str):
+def set_versions(version_objects: List[FileVersionInfo], new_version: str):
     """
     Update all known version objects with a new version string.
 
+    :param version_objects: The collection of FileVersionInfo objects.
     :param new_version: The new version string to set in the project.
     """
 
@@ -207,6 +180,34 @@ def set_versions(new_version: str):
 
 
 if __name__ == '__main__':
+    curr_location = dirname(__file__)
+    nist_version_objects = [
+        FileVersionInfo(
+            key_name='conf.py-release',
+            file_path=join(curr_location, '../docs/conf.py'),
+            magic_line="release = '",
+            strip_end_chars=2,
+        ),
+        FileVersionInfo(
+            key_name='conf.py-version',
+            file_path=join(curr_location, '../docs/conf.py'),
+            magic_line="version = '",
+            strip_end_chars=2,
+        ),
+        FileVersionInfo(
+            key_name='package',
+            file_path=join(curr_location, '../nistbeacon/__init__.py'),
+            magic_line="__version__ = '",
+            strip_end_chars=2,
+        ),
+        FileVersionInfo(
+            key_name='setup.py',
+            file_path=join(curr_location, '../setup.py'),
+            magic_line="    version='",
+            strip_end_chars=3,
+        ),
+    ]
+
     parser = ArgumentParser()
 
     understood_commands = [
@@ -221,7 +222,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.command == "check" or args.command is None:
-        version_data = get_versions()
+        version_data = get_versions(nist_version_objects)
 
         for key, version_val in version_data.version_details.items():
             print("{0:.<20} {1}".format(key + " ", version_val))
@@ -239,6 +240,6 @@ if __name__ == '__main__':
 
     elif args.command == "update":
         new_version_str = input('New version string > ')
-        set_versions(new_version_str)
+        set_versions(nist_version_objects, new_version_str)
 
     sys.exit(0)
