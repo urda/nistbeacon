@@ -26,7 +26,6 @@ from os.path import (
     dirname,
     join,
 )
-from typing import List
 
 
 class FileVersionInfo(object):
@@ -139,7 +138,7 @@ class FileVersionResult(object):
         self.version_result = version_result
 
 
-def get_versions(version_objects: List[FileVersionInfo]) -> FileVersionResult:
+def get_versions(version_objects: list) -> FileVersionResult:
     """
     Search specific project files and extract versions to check.
 
@@ -167,7 +166,7 @@ def get_versions(version_objects: List[FileVersionInfo]) -> FileVersionResult:
     )
 
 
-def set_versions(version_objects: List[FileVersionInfo], new_version: str):
+def set_versions(version_objects: list, new_version: str):
     """
     Update all known version objects with a new version string.
 
