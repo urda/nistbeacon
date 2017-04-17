@@ -1,6 +1,10 @@
 Python NIST Randomness Beacon
 =============================
 
+.. image:: https://badges.gitter.im/urda/nistbeacon.svg
+   :alt: Join the chat at https://gitter.im/urda/nistbeacon
+   :target: https://gitter.im/urda/nistbeacon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 **WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC
 KEYS.**
 
