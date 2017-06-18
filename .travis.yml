@@ -23,7 +23,7 @@ addons:
 branches:
   only:
     - master
-    - release
+    - develop
 
 before_install:
   - echo Travis OS Name ... ${TRAVIS_OS_NAME}
