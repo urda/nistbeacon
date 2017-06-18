@@ -355,7 +355,7 @@ Contributing
 ============
 
 Please refer to the
-`CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/CONTRIBUTING.md>`_
+`CONTRIBUTING <https://github.com/urda/nistbeacon/blob/master/.github/CONTRIBUTING.md>`_
 document on GitHub
 
 Project Health
