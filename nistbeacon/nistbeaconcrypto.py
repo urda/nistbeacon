@@ -128,10 +128,16 @@ class NistBeaconCrypto(object):
         )
 
     @classmethod
-    def verify(cls, message_hash: SHA512Hash, signature: bytes) -> bool:
+    def verify(
+            cls,
+            timestamp: int,
+            message_hash: SHA512Hash,
+            signature: bytes,
+    ) -> bool:
         """
         Verify a given NIST message hash and signature for a beacon value.
 
+        :param timestamp: The timestamp of the record being verified.
         :param message_hash:
             The hash that was carried out over the message.
             This is an object belonging to the `Crypto.Hash` module.

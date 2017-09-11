@@ -27,6 +27,7 @@ class TestNistBeaconCrypto(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.verifier2013 = "_VERIFIER_20130905"
+        cls.verifier2013_timestamp = 1378395540
 
     def test_verify_converts_1_to_bool(self):
         """
@@ -39,7 +40,12 @@ class TestNistBeaconCrypto(TestCase):
 
         with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             # noinspection PyTypeChecker
-            result = NistBeaconCrypto.verify("junk", "data")
+            result = NistBeaconCrypto.verify(
+                self.verifier2013_timestamp,
+                "junk",
+                "data",
+            )
+
             self.assertIsInstance(result, bool)
             self.assertTrue(result)
 
@@ -57,7 +63,12 @@ class TestNistBeaconCrypto(TestCase):
         with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             for _ in test_data:
                 # noinspection PyTypeChecker
-                result = NistBeaconCrypto.verify("junk", "data")
+                result = NistBeaconCrypto.verify(
+                    self.verifier2013_timestamp,
+                    "junk",
+                    "data",
+                )
+
                 self.assertIsInstance(result, bool)
                 self.assertFalse(result)
 
@@ -74,6 +85,11 @@ class TestNistBeaconCrypto(TestCase):
         with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             for test_data_point in test_data:
                 # noinspection PyTypeChecker
-                result = NistBeaconCrypto.verify("junk", "data")
+                result = NistBeaconCrypto.verify(
+                    self.verifier2013_timestamp,
+                    "junk",
+                    "data",
+                )
+
                 self.assertIsInstance(result, bool)
                 self.assertEqual(test_data_point, result)
