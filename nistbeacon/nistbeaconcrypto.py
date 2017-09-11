@@ -89,8 +89,26 @@ class NistBeaconCrypto(object):
         '-----END PUBLIC KEY-----\n'
     )
 
+    # https://github.com/urda/nistbeacon/issues/22
+    # https://github.com/urda/nistbeacon/issues/26
+    # noinspection SpellCheckingInspection
+    _NIST_RSA_KEY_20170808 = (
+        '-----BEGIN PUBLIC KEY-----\n'
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAryY9m2YHOui12tk93ntM\n'
+        'ZAL2uvlXr7jTaxx5WJ1PM6SJllJ3IopuwUQGLxUEDNinFWE2xlF5sayoR+CRZGDG\n'
+        '6Hjtw2fBRcsQKiIpaws6CdusRaRMM7Wjajm3vk96gD7Mwcqo+uxuq9186UeNPLeA\n'
+        'xMmFlcQcSD4pJgKrZKgHtOk0/t2kz9cgJ343aN0LuV7w91LvfXwdeCtcHM4nyt3g\n'
+        'V+UyxAe6wPoOSsM6Px/YLHWqAqXMfSgEQrd920LyNb+VgNcPyqhLySDyfcUNtr1B\n'
+        'S09nTcw1CaE6sTmtSNLiJCuWzhlzsjcFh5uMoElAaFzN1ilWCRk/02/B/SWYPGxW\n'
+        'IQIDAQAB\n'
+        '-----END PUBLIC KEY-----\n'
+    )
+
     _RSA_KEY_20130905 = RSA.importKey(_NIST_RSA_KEY_20130905)
+    _RSA_KEY_20170808 = RSA.importKey(_NIST_RSA_KEY_20170808)
+
     _VERIFIER_20130905 = PKCS1_v1_5.new(_RSA_KEY_20130905)
+    _VERIFIER_20170808 = PKCS1_v1_5.new(_RSA_KEY_20170808)
 
     @classmethod
     def get_hash(
