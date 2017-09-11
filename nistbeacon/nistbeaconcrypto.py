@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -139,7 +139,13 @@ class NistBeaconCrypto(object):
         :return: True if verification is correct. False otherwise.
         """
 
-        return cls._VERIFIER.verify(
+        result = cls._VERIFIER.verify(
             message_hash,
             signature,
         )
+
+        # Convert 1 to 'True', 'False' otherwise
+        if isinstance(result, int):
+            result = True if result == 1 else False
+
+        return result
