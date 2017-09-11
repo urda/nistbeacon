@@ -24,6 +24,10 @@ from unittest.mock import (
 
 
 class TestNistBeaconCrypto(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.verifier2013 = "_VERIFIER_20130905"
+
     def test_verify_converts_1_to_bool(self):
         """
         Verify that the verify method converts any positive (excluding 1)
@@ -33,7 +37,7 @@ class TestNistBeaconCrypto(TestCase):
         mock_verifier = Mock()
         mock_verifier.verify = Mock(return_value=1)
 
-        with patch.object(NistBeaconCrypto, "_VERIFIER", mock_verifier):
+        with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             # noinspection PyTypeChecker
             result = NistBeaconCrypto.verify("junk", "data")
             self.assertIsInstance(result, bool)
@@ -50,7 +54,7 @@ class TestNistBeaconCrypto(TestCase):
         mock_verifier = Mock()
         mock_verifier.verify = Mock(side_effect=test_data)
 
-        with patch.object(NistBeaconCrypto, "_VERIFIER", mock_verifier):
+        with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             for _ in test_data:
                 # noinspection PyTypeChecker
                 result = NistBeaconCrypto.verify("junk", "data")
@@ -67,7 +71,7 @@ class TestNistBeaconCrypto(TestCase):
         mock_verifier = Mock()
         mock_verifier.verify = Mock(side_effect=test_data)
 
-        with patch.object(NistBeaconCrypto, "_VERIFIER", mock_verifier):
+        with patch.object(NistBeaconCrypto, self.verifier2013, mock_verifier):
             for test_data_point in test_data:
                 # noinspection PyTypeChecker
                 result = NistBeaconCrypto.verify("junk", "data")
