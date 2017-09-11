@@ -1,8 +1,12 @@
 # Python NIST Randomness Beacon CHANGELOG
 
-## Version TBD (Beta Release)
+## v0.9.3 (Beta Release)
 
 - Updated README links for Codecov
+- Updated library to use additional signing key
+  - For more details, see:
+    - https://github.com/urda/nistbeacon/issues/22
+    - https://github.com/urda/nistbeacon/issues/26
 
 ## v0.9.2 (Beta Release)
 
