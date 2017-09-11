@@ -2,7 +2,9 @@
 
 ## v0.9.3 (Beta Release)
 
-- Updated README links for Codecov
+- Updated `LICENSE` to work with GitHub LICENSE features.
+- Updated `README` links for Codecov,
+- Fixed `CONTRIBUTING` link in `README`.
 - Updated library to use additional signing key
   - For more details, see:
     - https://github.com/urda/nistbeacon/issues/22
