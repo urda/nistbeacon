@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ from distutils.core import setup
 setup(
     name='nistbeacon',
     packages=['nistbeacon'],
-    version='0.9.2',
+    version='0.9.3',
 
     description='Python 3 Library to access the NIST Randomness Beacon',
     long_description=open('README.rst').read(),

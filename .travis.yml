@@ -6,10 +6,11 @@ matrix:
     - python: "3.3"
     - python: "3.4"
     - python: "3.5"
-    - python: "3.5-dev"
-    - python: "nightly"
+    - python: "3.6"
+    - python: "3.7-dev"
   allow_failures:
     - os: osx
+    - python: "3.7-dev"
 
 # `travis lint` is marking this section as a false positive!
 # References:
@@ -32,7 +33,7 @@ before_install:
 
 install:
   - pip install --upgrade pip
-  - pip install --upgrade --requirement requirements-travis.txt
+  - pip install --upgrade --requirement requirements-test.txt
 
 script:
   - make test

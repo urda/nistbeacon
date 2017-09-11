@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,4 +22,4 @@ __all__ = [
     'NistBeaconValue',
 ]
 
-__version__ = '0.9.2'
+__version__ = '0.9.3'

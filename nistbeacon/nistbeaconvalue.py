@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -149,8 +149,9 @@ class NistBeaconValue(object):
         )
 
         sig_check_result = NistBeaconCrypto.verify(
-            sha512_hash,
-            binascii.a2b_hex(self.signature_value)[::-1]
+            timestamp=self.timestamp,
+            message_hash=sha512_hash,
+            signature=binascii.a2b_hex(self.signature_value)[::-1],
         )
 
         # The signature sha512'd again should equal the output value

@@ -4,3 +4,4 @@ ipython[all]
 Sphinx
 sphinx-autobuild
 sphinx-rtd-theme
+twine
