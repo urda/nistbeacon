@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class NistBeaconCrypto(object):
 
     # https://beacon.nist.gov/certificate/beacon.cer
     # noinspection SpellCheckingInspection
-    _NIST_CER_FILE = (
+    _NIST_CER_FILE_20130905 = (
         '-----BEGIN CERTIFICATE-----\n'
         'MIIHZTCCBk2gAwIBAgIESTWNPjANBgkqhkiG9w0BAQsFADBtMQswCQYDVQQGEwJV\n'
         'UzEQMA4GA1UEChMHRW50cnVzdDEiMCAGA1UECxMZQ2VydGlmaWNhdGlvbiBBdXRo\n'
@@ -77,7 +77,7 @@ class NistBeaconCrypto(object):
 
     # https://beacon.nist.gov/certificate/beacon.cer
     # noinspection SpellCheckingInspection
-    _NIST_RSA_KEY = (
+    _NIST_RSA_KEY_20130905 = (
         '-----BEGIN PUBLIC KEY-----\n'
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5tsXHJGkmM7bev+mHs2\n'
         'lJqiKmOQi763ztnrBCCchYPnL+0u3sS94RmHgwp0C1bVCBlYgJzvcglwwtispnp/\n'
@@ -89,8 +89,26 @@ class NistBeaconCrypto(object):
         '-----END PUBLIC KEY-----\n'
     )
 
-    _RSA_KEY = RSA.importKey(_NIST_RSA_KEY)
-    _VERIFIER = PKCS1_v1_5.new(_RSA_KEY)
+    # https://github.com/urda/nistbeacon/issues/22
+    # https://github.com/urda/nistbeacon/issues/26
+    # noinspection SpellCheckingInspection
+    _NIST_RSA_KEY_20170808 = (
+        '-----BEGIN PUBLIC KEY-----\n'
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAryY9m2YHOui12tk93ntM\n'
+        'ZAL2uvlXr7jTaxx5WJ1PM6SJllJ3IopuwUQGLxUEDNinFWE2xlF5sayoR+CRZGDG\n'
+        '6Hjtw2fBRcsQKiIpaws6CdusRaRMM7Wjajm3vk96gD7Mwcqo+uxuq9186UeNPLeA\n'
+        'xMmFlcQcSD4pJgKrZKgHtOk0/t2kz9cgJ343aN0LuV7w91LvfXwdeCtcHM4nyt3g\n'
+        'V+UyxAe6wPoOSsM6Px/YLHWqAqXMfSgEQrd920LyNb+VgNcPyqhLySDyfcUNtr1B\n'
+        'S09nTcw1CaE6sTmtSNLiJCuWzhlzsjcFh5uMoElAaFzN1ilWCRk/02/B/SWYPGxW\n'
+        'IQIDAQAB\n'
+        '-----END PUBLIC KEY-----\n'
+    )
+
+    _RSA_KEY_20130905 = RSA.importKey(_NIST_RSA_KEY_20130905)
+    _RSA_KEY_20170808 = RSA.importKey(_NIST_RSA_KEY_20170808)
+
+    _VERIFIER_20130905 = PKCS1_v1_5.new(_RSA_KEY_20130905)
+    _VERIFIER_20170808 = PKCS1_v1_5.new(_RSA_KEY_20170808)
 
     @classmethod
     def get_hash(
@@ -128,10 +146,16 @@ class NistBeaconCrypto(object):
         )
 
     @classmethod
-    def verify(cls, message_hash: SHA512Hash, signature: bytes) -> bool:
+    def verify(
+            cls,
+            timestamp: int,
+            message_hash: SHA512Hash,
+            signature: bytes,
+    ) -> bool:
         """
         Verify a given NIST message hash and signature for a beacon value.
 
+        :param timestamp: The timestamp of the record being verified.
         :param message_hash:
             The hash that was carried out over the message.
             This is an object belonging to the `Crypto.Hash` module.
@@ -139,7 +163,26 @@ class NistBeaconCrypto(object):
         :return: True if verification is correct. False otherwise.
         """
 
-        return cls._VERIFIER.verify(
-            message_hash,
-            signature,
-        )
+        # Determine verifier type to use based on timestamp.
+        if timestamp < 1496176860:
+            verifier = cls._VERIFIER_20130905
+        elif timestamp < 1502202360:
+            verifier = None
+        else:
+            verifier = cls._VERIFIER_20170808
+
+        # If a verifier exists to handle this problem, use it directly.
+        # Else, we cannot verify the record and must mark it invalid.
+        if verifier:
+            result = verifier.verify(
+                message_hash,
+                signature,
+            )
+        else:
+            result = False
+
+        # Convert 1 to 'True', 'False' otherwise
+        if isinstance(result, int):
+            result = True if result == 1 else False
+
+        return result
