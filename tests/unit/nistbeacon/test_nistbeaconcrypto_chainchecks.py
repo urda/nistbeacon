@@ -52,3 +52,18 @@ class TestNistBeaconCryptoChainChecks(TestCase):
         """
         record = NistBeaconValue.from_json(local_record_json_db[1502201640])
         self.assertFalse(record.valid_signature)
+
+    def test_cert_20170808_start(self):
+        """
+        Test the start of records that are signed with the 2017-08-08 cert.
+        """
+        record = NistBeaconValue.from_json(local_record_json_db[1502202360])
+        self.assertTrue(record.valid_signature)
+
+    def test_cert_20170808_end(self):
+        """
+        Test the end (at time of test creation) records that are signed with
+        the 2017-08-08 cert.
+        """
+        record = NistBeaconValue.from_json(local_record_json_db[1505097420])
+        self.assertTrue(record.valid_signature)

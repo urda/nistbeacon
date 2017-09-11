@@ -163,10 +163,23 @@ class NistBeaconCrypto(object):
         :return: True if verification is correct. False otherwise.
         """
 
-        result = cls._VERIFIER_20130905.verify(
-            message_hash,
-            signature,
-        )
+        # Determine verifier type to use based on timestamp.
+        if timestamp < 1496176860:
+            verifier = cls._VERIFIER_20130905
+        elif timestamp < 1502202360:
+            verifier = None
+        else:
+            verifier = cls._VERIFIER_20170808
+
+        # If a verifier exists to handle this problem, use it directly.
+        # Else, we cannot verify the record and must mark it invalid.
+        if verifier:
+            result = verifier.verify(
+                message_hash,
+                signature,
+            )
+        else:
+            result = False
 
         # Convert 1 to 'True', 'False' otherwise
         if isinstance(result, int):
