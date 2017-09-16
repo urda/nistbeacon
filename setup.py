@@ -30,8 +30,8 @@ setup(
     url='https://github.com/urda/nistbeacon',
 
     install_requires=[
-        'pycryptodome>=2.18.4',
-        'requests>=2.8.1',
+        'pycryptodome>=3.4.7,<4',
+        'requests>=2.18.4,<3',
     ],
 
     classifiers=[
