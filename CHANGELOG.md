@@ -1,5 +1,7 @@
 # Python NIST Randomness Beacon CHANGELOG
 
+## v0.9.4 (Beta Release)
+
 ## v0.9.3 (Beta Release)
 
 - Updated `LICENSE` to work with GitHub LICENSE features.

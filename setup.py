@@ -19,7 +19,7 @@ from distutils.core import setup
 setup(
     name='nistbeacon',
     packages=['nistbeacon'],
-    version='0.9.3',
+    version='0.9.4',
 
     description='Python 3 Library to access the NIST Randomness Beacon',
     long_description=open('README.rst').read(),
