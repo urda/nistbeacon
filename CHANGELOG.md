@@ -2,6 +2,8 @@
 
 ## v0.9.4 (Beta Release)
 
+- Project Changes
+  - Switched to `pycryptodome` from `pycrypto`.
 - Internal Changes
   - Synced `LICENSE` file to use boilerplate notice.
   - Removed `nist_records` dependency on `NistBeaconValue`
