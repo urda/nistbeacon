@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,14 +18,18 @@ from random import Random
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
-from tests.test_data.nist_records import local_record_db
+from tests.test_data.nist_records import local_record_json_db
 
 
 class TestPseudoRandom(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.init_record = local_record_db[1378395540]
-        cls.sample_record = local_record_db[1447873020]
+        cls.init_record = local_record_json_db[1378395540]
+        cls.sample_record = local_record_json_db[1447873020]
+
+        # Perform conversions from json data to record objects
+        cls.init_record = NistBeaconValue.from_json(cls.init_record)
+        cls.sample_record = NistBeaconValue.from_json(cls.sample_record)
 
     def test_init_record_random_values(self):
         """

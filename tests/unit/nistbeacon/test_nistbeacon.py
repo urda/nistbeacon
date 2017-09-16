@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,20 +27,35 @@ from nistbeacon import (
     NistBeacon,
     NistBeaconValue,
 )
-from tests.test_data.nist_records import local_record_db
+from tests.test_data.nist_records import local_record_json_db
 
 
 class TestNistBeacon(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.init_timestamp = 1378395540
-        cls.expected_first = local_record_db[cls.init_timestamp]
-        cls.expected_first_next = local_record_db[cls.init_timestamp + 60]
+        cls.expected_first = local_record_json_db[cls.init_timestamp]
+        cls.expected_first_next = local_record_json_db[cls.init_timestamp + 60]
 
+        cls.reference_previous = 1447872960
         cls.reference_timestamp = 1447873020
-        cls.expected_current = local_record_db[cls.reference_timestamp]
-        cls.expected_next = local_record_db[cls.reference_timestamp + 60]
-        cls.expected_previous = local_record_db[cls.reference_timestamp - 60]
+        cls.reference_next = 1447873080
+
+        cls.expected_current = local_record_json_db[cls.reference_timestamp]
+        cls.expected_next = local_record_json_db[cls.reference_next]
+        cls.expected_previous = local_record_json_db[cls.reference_previous]
+
+        # Perform conversions from json data to record objects
+        cls.expected_first = NistBeaconValue.from_json(cls.expected_first)
+        cls.expected_first_next = NistBeaconValue.from_json(
+            cls.expected_first_next
+        )
+
+        cls.expected_current = NistBeaconValue.from_json(cls.expected_current)
+        cls.expected_next = NistBeaconValue.from_json(cls.expected_next)
+        cls.expected_previous = NistBeaconValue.from_json(
+            cls.expected_previous
+        )
 
     @patch('requests.get')
     def test_get_first_record(self, requests_get_patched):

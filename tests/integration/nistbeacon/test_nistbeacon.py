@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,21 +16,29 @@ limitations under the License.
 
 from unittest import TestCase
 
-from nistbeacon import NistBeacon
-from tests.test_data.nist_records import local_record_db
+from nistbeacon import (
+    NistBeacon,
+    NistBeaconValue,
+)
+from tests.test_data.nist_records import local_record_json_db
 
 
 class TestNistIntegration(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.future_timestamp = 32503680000
-        cls.future_record = local_record_db[cls.future_timestamp]
+        cls.future_record = local_record_json_db[cls.future_timestamp]
 
         cls.target_timestamp = 1447873020
 
-        cls.focus_record = local_record_db[cls.target_timestamp]
-        cls.next_record = local_record_db[cls.target_timestamp + 60]
-        cls.previous_record = local_record_db[cls.target_timestamp - 60]
+        cls.focus_record = local_record_json_db[cls.target_timestamp]
+        cls.next_record = local_record_json_db[cls.target_timestamp + 60]
+        cls.previous_record = local_record_json_db[cls.target_timestamp - 60]
+
+        # Perform conversions from json data to record objects
+        cls.focus_record = NistBeaconValue.from_json(cls.focus_record)
+        cls.next_record = NistBeaconValue.from_json(cls.next_record)
+        cls.previous_record = NistBeaconValue.from_json(cls.previous_record)
 
     def test_get_last_record(self):
         actual = NistBeacon.get_last_record()

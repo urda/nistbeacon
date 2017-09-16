@@ -2,6 +2,10 @@
 
 ## v0.9.4 (Beta Release)
 
+- Internal Changes
+  - Removed `nist_records` dependency on `NistBeaconValue`
+  - Removed `local_record_db`. Most records are stored in `json` now.
+
 ## v0.9.3 (Beta Release)
 
 - Updated `LICENSE` to work with GitHub LICENSE features.
