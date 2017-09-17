@@ -1,6 +1,7 @@
 -r requirements-test.txt
 
 ipython[all]
+pandoc
 Sphinx
 sphinx-autobuild
 sphinx-rtd-theme

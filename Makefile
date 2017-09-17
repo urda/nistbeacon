@@ -35,6 +35,7 @@ clean: # Clean up build, test, and other project artifacts
 
 .PHONY: docs
 docs: # Build the documentation
+	pandoc --from markdown_github --to rst ./CHANGELOG.md > ./sphinx/changelog.rst && \
 	pushd ./sphinx && \
 	make clean && \
 	make html && \
