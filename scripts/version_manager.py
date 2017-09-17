@@ -149,6 +149,18 @@ version_objects = [
         magic_line="    version='",
         strip_end_chars=3,
     ),
+    FileVersionInfo(
+        key_name='sphinx/conf.py - release',
+        file_path=join(curr_location, '../sphinx/conf.py'),
+        magic_line="release = '",
+        strip_end_chars=2,
+    ),
+    FileVersionInfo(
+        key_name='sphinx/conf.py - version',
+        file_path=join(curr_location, '../sphinx/conf.py'),
+        magic_line="version = '",
+        strip_end_chars=2,
+    ),
 ]
 
 

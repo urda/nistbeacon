@@ -1,6 +1,6 @@
-# Python NIST Randomness Beacon CHANGELOG
+# CHANGELOG
 
-## v0.9.4 (Beta Release)
+## v0.9.4
 
 - Project Changes
   - Switched to `pycryptodome` from `pycrypto`.
@@ -10,7 +10,7 @@
   - Removed `nist_records` dependency on `NistBeaconValue`
   - Removed `local_record_db`. Most records are stored in `json` now.
 
-## v0.9.3 (Beta Release)
+## v0.9.3
 
 - Updated `LICENSE` to work with GitHub LICENSE features.
 - Updated `README` links for Codecov,
@@ -20,7 +20,7 @@
     - https://github.com/urda/nistbeacon/issues/22
     - https://github.com/urda/nistbeacon/issues/26
 
-## v0.9.2 (Beta Release)
+## v0.9.2
 
 - Internal Changes
   - LICENSE
@@ -36,7 +36,7 @@
   - Coverage Tool
     - Switched from Coveralls to Codecov.
 
-## v0.9.1 (Beta Release)
+## v0.9.1
 
 - Internal Changes
   - `NistBeacon`
@@ -52,7 +52,7 @@
       other `NistBeaconValue` do not have to generate the full RSA objects.
     - Started using the now existing `xmlns` property directly from NIST.
 
-## v0.9.0 (Beta Release)
+## v0.9.0
 
 - Features
   - `NistBeaconValue`
@@ -60,7 +60,7 @@
       Returns a `random.Random` object that has been seeded with
       the `output_value` for a given `NistBeaconValue`.
 
-## v0.8.3 (Alpha Release)
+## v0.8.3
 
 - Internal Changes
   - `NistBeaconValue`
@@ -70,7 +70,7 @@
 - Project Changes (for Developers)
   - `pylint` has been added to the project and build process.
 
-## v0.8.2 (Alpha Release, Bug Fix)
+## v0.8.2
 
 - Bug Fixes:
   - `NistBeaconValue`
@@ -79,24 +79,24 @@
       is just a bug fix release. This `xmlns` value will not show up if one was to
       use the `xml` value from the `NistBeaconValue` object.
 
-## v0.8.1 (Alpha Release)
+## v0.8.1
 
 - Minor documentation changes
 
-## v0.8.0 (Alpha Release)
+## v0.8.0
 
 - Features
   - `NistBeaconValue`
     - Added `json` and `xml` as properties (replaces `to_json()` and `to_xml()`)
 
-## v0.7.0 (Alpha Release)
+## v0.7.0
 
 - Name changes
   - Changed from `py_nist_beacon` to `nistbeacon`
   - Changed from `NistRandomnessBeacon` to `NistBeacon`
   - Changed from `NistRandomnessBeaconValue` to `NistBeaconValue`
 
-## v0.6.0 (Alpha Release)
+## v0.6.0
 
 - Features
   - `NistRandomnessBeacon`
@@ -104,18 +104,18 @@
       `download` allows the caller to either use the local first record
       object, or to download the first record directly from the NIST beacon.
 
-## v0.5.2 (Alpha Release)
+## v0.5.2
 
 - Added a section on installation.
 - Updated `CONTRIBUTING`
 - Re-do `PHONY` targets in `Makefile`
 - Update `travis` build steps to include `3.5-dev` and `nightly`
 
-## v0.5.1 (Alpha Release)
+## v0.5.1
 
 - Badges made to point to their release branches
 
-## v0.5.0 (Alpha Release)
+## v0.5.0
 
 - General
   - Lots of documentation added through `docstrings`! :memo:
@@ -143,7 +143,7 @@ def chain_check(cls, timestamp: int) -> bool:
   - Introduced `valid_signature` as a `bool` property.
     **Replaces `verify_signature`**
 
-## v0.4.0 (Alpha Release)
+## v0.4.0
 
 - Added a `verify_signature` to `NistRandomnessBeaconValue` objects.
   This method returns a `True` or `False` after verifying the provided
@@ -162,10 +162,10 @@ def chain_check(cls, timestamp: int) -> bool:
   - If either of the steps are found to be invalid, `verify_signature` will
     return a `False` result.
 
-## v0.3.0 (Alpha Release)
+## v0.3.0
 
 - Added `to_xml`, `to_json`, and `from_json` methods on beacon values
 
-## v0.2.0 (Alpha Release)
+## v0.2.0
 
 - Initial PyPI release package
