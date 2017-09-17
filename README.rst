@@ -69,7 +69,8 @@ Beacon Sample Code
 Further Documentation
 =====================
 
-Please refer to the `official documentation https://urda.github.io/nistbeacon/`_
+Please refer to the
+`official documentation <https://urda.github.io/nistbeacon/>`_
 to dive deeper into :code:`NistBeacon` and :code:`NistBeaconValue` objects.
 
 Contributing
