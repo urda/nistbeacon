@@ -35,7 +35,12 @@ clean: # Clean up build, test, and other project artifacts
 
 .PHONY: docs
 docs: # Build the documentation
-	cd ./docs && make html
+	pushd ./sphinx && \
+	make clean && \
+	make html && \
+	popd && \
+	rsync -av --delete sphinx/_build/html/ docs/
+	:
 
 
 .PHONY: integration
