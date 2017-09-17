@@ -5,6 +5,7 @@
 - Project Changes
   - Switched to `pycryptodome` from `pycrypto`.
   - Started locking versions for `requirements.txt`.
+  - Created a `sphinx` based documentation site.
 - Internal Changes
   - Synced `LICENSE` file to use boilerplate notice.
   - Removed `nist_records` dependency on `NistBeaconValue`
