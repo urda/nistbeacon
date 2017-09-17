@@ -19,7 +19,7 @@ from distutils.core import setup
 setup(
     name='nistbeacon',
     packages=['nistbeacon'],
-    version='0.9.3',
+    version='0.9.4',
 
     description='Python 3 Library to access the NIST Randomness Beacon',
     long_description=open('README.rst').read(),
@@ -30,8 +30,8 @@ setup(
     url='https://github.com/urda/nistbeacon',
 
     install_requires=[
-        'pycrypto>=2.6.1',
-        'requests>=2.8.1',
+        'pycryptodome>=3.4.7,<4',
+        'requests>=2.18.4,<3',
     ],
 
     classifiers=[
@@ -42,6 +42,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Utilities',
     ],

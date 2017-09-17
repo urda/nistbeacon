@@ -1,2 +1,2 @@
-pycrypto
-requests
+pycryptodome>=3.4.7,<4
+requests>=2.18.4,<3

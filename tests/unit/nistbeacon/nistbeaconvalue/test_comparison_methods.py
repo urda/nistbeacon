@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,21 +17,24 @@ limitations under the License.
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
-from tests.test_data.nist_records import local_record_db
+from tests.test_data.nist_records import local_record_json_db
 
 
 class TestComparisonMethods(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.record_1447872960 = local_record_db[1447872960]
-        cls.record_1447873020 = local_record_db[1447873020]
+        cls.record_a = local_record_json_db[1447872960]
+        cls.record_b = local_record_json_db[1447873020]
+
+        # Perform conversions from json data to record objects
+        cls.record_a = NistBeaconValue.from_json(cls.record_a)
+        cls.record_b = NistBeaconValue.from_json(cls.record_b)
 
     def test_eq(self):
         """
         Verify "equals" operation
         """
-
-        expected = self.record_1447872960
+        expected = self.record_a
         new_record_obj = NistBeaconValue.from_xml(expected.xml)
 
         self.assertFalse(expected is new_record_obj)
@@ -41,17 +44,12 @@ class TestComparisonMethods(TestCase):
         """
         Verify "equals" operation returns without AttributeError or TypeError
         """
-
-        self.assertFalse(self.record_1447873020 == 0)
-        self.assertFalse(self.record_1447873020 == '')
-        self.assertTrue(self.record_1447873020 != '')
+        self.assertFalse(self.record_b == 0)
+        self.assertFalse(self.record_b == '')
+        self.assertTrue(self.record_b != '')
 
     def test_neq(self):
         """
         Verify "not equal" operation
         """
-
-        self.assertNotEqual(
-            self.record_1447872960,
-            self.record_1447873020,
-        )
+        self.assertNotEqual(self.record_a, self.record_b)

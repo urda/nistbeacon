@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
 from tests.test_data.nist_records import (
-    local_record_db,
+    local_record_json_db,
     local_record_xml_db,
 )
 
@@ -27,8 +27,11 @@ class TestXml(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.target_timestamp = 1447873020
-        cls.target_record = local_record_db[cls.target_timestamp]
+        cls.target_record = local_record_json_db[cls.target_timestamp]
         cls.target_xml = local_record_xml_db[cls.target_timestamp]
+
+        # Perform conversions from json data to record objects
+        cls.target_record = NistBeaconValue.from_json(cls.target_record)
 
     def test_from_xml(self):
         """

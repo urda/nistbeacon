@@ -6,7 +6,7 @@ dist/
 MANIFEST
 
 # Sphinx
-docs/_build
+sphinx/_build
 
 # Testing
 .coverage

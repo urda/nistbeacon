@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2017 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,14 +17,15 @@ limitations under the License.
 from unittest import TestCase
 
 from nistbeacon import NistBeaconValue
-from tests.test_data.nist_records import local_record_db
+from tests.test_data.nist_records import local_record_json_db
 
 
 # noinspection SpellCheckingInspection
 class TestJson(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.reference_record = local_record_db[1447873020]
+        cls.reference_record = local_record_json_db[1447873020]
+        cls.reference_record = NistBeaconValue.from_json(cls.reference_record)
 
     def test_frequency(self):
         expected = 60

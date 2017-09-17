@@ -32,7 +32,7 @@ Once you have your local `virtualenv` ready to go, simply install the full dev t
 pip install -r requirements-dev.txt
 ```
 
-If you have have problems installing `pycrypto`, you may need `python3-dev` or a similar library on your
+If you have have problems installing `pycryptodome`, you may need `python3-dev` or a similar library on your
 machine. For Ubuntu and other linux systems `apt-get install python3-dev` will usually set you straight.
 Once you have it installed try running your `pip install` command again. **If this still does not work**
 please add a note in this [GitHub Issue](https://github.com/urda/nistbeacon/issues/4) and then open
