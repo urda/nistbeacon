@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2020 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,9 +16,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import datetime
 import sys
 from argparse import ArgumentParser
-from collections import Counter
+from collections import (
+    Counter,
+    OrderedDict,
+)
 from os.path import (
     dirname,
     join,
@@ -174,7 +178,7 @@ def get_versions() -> FileVersionResult:
     version_counter = Counter()
     versions_match = False
     version_str = None
-    versions_discovered = {}
+    versions_discovered = OrderedDict()
 
     for version_obj in version_objects:
         discovered = version_obj.get_version()
@@ -203,13 +207,78 @@ def set_versions(new_version: str):
         version_obj.set_version(new_version)
 
 
+def get_version_without_beta(version_info: FileVersionResult) -> str:
+    """
+    Get the project's version string *without* any test or beta build labels.
+
+    :param version_info: The current version_info of the project.
+    :return: The current version string, without any beta build string values.
+    """
+
+    if not version_info:
+        raise TypeError("version_info cannot be 'None'!")
+
+    if not version_info.uniform:
+        raise ValueError("version_info is not uniform!")
+
+    beta_flag = ".123."
+    current_version = version_info.version_result
+
+    # We can just split and take the first value since:
+    #
+    #  - If the flag *is not there*, we get the entire string back.
+    #
+    #    OR
+    #
+    #  - If the flag *is there*, we want everything before it,
+    #    AKA the first value.
+    #
+    return current_version.split(beta_flag)[0]
+
+
+def get_version_with_beta(version_info: FileVersionResult) -> str:
+    """
+    Get the project's version string *with* a beta build label based on UTC.
+
+    :param version_info: The current version_info of the project.
+    :return: The project's version string, with a beta build number.
+    """
+
+    if not version_info:
+        raise TypeError("version_info cannot be 'None'!")
+
+    if not version_info.uniform:
+        raise ValueError("version_info is not uniform!")
+
+    # Capture datetime as UTC for build timestamp
+    utc_datetime = datetime.datetime.utcnow()
+
+    # Setup version string information
+    beta_flag = ".123."
+    build_number = utc_datetime.strftime("%Y%m%d.%H%M%S")
+    cleaned_version = get_version_without_beta(version_info)
+
+    # Return the new version string for the build.
+    return "{base}{flag}{build}".format(
+        base=cleaned_version,
+        flag=beta_flag,
+        build=build_number,
+    )
+
+
 if __name__ == '__main__':
     parser = ArgumentParser()
 
     understood_commands = [
         'check',
+        'get-version-only',
+        'set-beta-build',
+        'unset-beta-build',
         'update',
     ]
+
+    warning_banner = "/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\"
+    warning_version_mismatch = "Versions DO NOT MATCH across the project!"
 
     sp = parser.add_subparsers(dest="command")
     for command in understood_commands:
@@ -220,26 +289,60 @@ if __name__ == '__main__':
     if args.command == "check" or args.command is None:
         version_data = get_versions()
 
+        for key, version_val in version_data.version_details.items():
+            print("{0:.<20} {1}".format(key + " ", version_val))
+
+        print("")
+
         if version_data.uniform:
             print("Versions look OK across the project")
-            print("Version: '{}'".format(version_data.version_result))
+            print("Version is '{}'".format(version_data.version_result))
         else:
-            print("Versions DO NOT MATCH across the project!")
-            print()
-            for key, version_val in version_data.version_details.items():
-                print("{0: <10}: {1}".format(key, version_val))
-
+            print(warning_banner)
+            print(warning_version_mismatch)
+            print(warning_banner)
             sys.exit(1)
+
+    elif args.command == "get-version-only":
+        version_data = get_versions()
+
+        if not version_data.uniform:
+            sys.exit(1)
+
+        print(version_data.version_result)
+
+    elif args.command == "set-beta-build":
+        version_data = get_versions()
+
+        # Halt operations if versions do not match across project
+        if not version_data.uniform:
+            print(warning_banner)
+            print("Unable to set beta build on project version!")
+            print(warning_version_mismatch)
+            print(warning_banner)
+            sys.exit(1)
+
+        build_version = get_version_with_beta(version_data)
+        print("Setting beta build version as: '{}'".format(build_version))
+        set_versions(build_version)
+
+    elif args.command == "unset-beta-build":
+        version_data = get_versions()
+
+        # Halt operations if versions do not match across project
+        if not version_data.uniform:
+            print(warning_banner)
+            print("Unable to unset beta build on project version!")
+            print(warning_version_mismatch)
+            print(warning_banner)
+            sys.exit(1)
+
+        clean_version = get_version_without_beta(version_data)
+        print("Resetting version as: '{}'".format(clean_version))
+        set_versions(clean_version)
 
     elif args.command == "update":
         new_version_str = input('New version string > ')
         set_versions(new_version_str)
-
-    else:
-        print("You need to specific a command for the manager!")
-        print("Available commands are:")
-
-        for command in understood_commands:
-            print("    {}".format(command))
 
     sys.exit(0)

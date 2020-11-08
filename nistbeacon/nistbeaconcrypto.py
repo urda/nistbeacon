@@ -1,5 +1,5 @@
 """
-Copyright 2015-2017 Peter Urda
+Copyright 2015-2020 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,13 +17,14 @@ limitations under the License.
 import binascii
 import struct
 
+from Crypto import Hash
 from Crypto.Hash import SHA512
 from Crypto.Hash.SHA512 import SHA512Hash
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
 
-class NistBeaconCrypto(object):
+class NistBeaconCrypto:
     """
     Helper class to handle beacon value signature and crypto checks.
     """
@@ -149,7 +150,7 @@ class NistBeaconCrypto(object):
     def verify(
             cls,
             timestamp: int,
-            message_hash: SHA512Hash,
+            message_hash: Hash,
             signature: bytes,
     ) -> bool:
         """
@@ -174,6 +175,11 @@ class NistBeaconCrypto(object):
         # If a verifier exists to handle this problem, use it directly.
         # Else, we cannot verify the record and must mark it invalid.
         if verifier:
+            # PyCharm is wrong, see:
+            #   site-packages/Crypto/Signature/PKCS1_v1_5.py
+            #     Crypto.Signature.PKCS1_v1_5._pycrypto_verify
+            #
+            # noinspection PyNoneFunctionAssignment
             result = verifier.verify(
                 message_hash,
                 signature,
@@ -183,6 +189,6 @@ class NistBeaconCrypto(object):
 
         # Convert 1 to 'True', 'False' otherwise
         if isinstance(result, int):
-            result = True if result == 1 else False
+            result = bool(result == 1)
 
         return result

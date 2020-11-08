@@ -1,5 +1,5 @@
 """
-Copyright 2015-2017 Peter Urda
+Copyright 2015-2020 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from typing import Optional
+
 import binascii
 import hashlib
 import json
@@ -23,7 +25,7 @@ from xml.etree import ElementTree
 from nistbeacon.nistbeaconcrypto import NistBeaconCrypto
 
 
-class NistBeaconValue(object):
+class NistBeaconValue:
     """
     A single NIST Beacon Value object represents one beacon value.
     It has all the normal properties of a NIST beacon API call,
@@ -368,7 +370,7 @@ class NistBeaconValue(object):
         )
 
     @classmethod
-    def from_xml(cls, input_xml: str) -> 'NistBeaconValue':
+    def from_xml(cls, input_xml: str) -> Optional['NistBeaconValue']:
         """
         Convert a string of XML which represents a NIST Randomness Beacon value
         into a 'NistBeaconValue' object.

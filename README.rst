@@ -83,13 +83,11 @@ document on GitHub
 Project Health
 ==============
 
-+---------+-----------------+--------------------+
-| Branch  | Build Status    | Coverage Status    |
-+=========+=================+====================+
-| Master  | |MasterBuild|_  | |MasterCoverage|_  |
-+---------+-----------------+--------------------+
-| Develop | |DevelopBuild|_ | |DevelopCoverage|_ |
-+---------+-----------------+--------------------+
++---------+-----------------+--------------------+----------------------+
+| Branch  | Linting Checks  | Testing Status     | Code Coverage Status |
++=========+=================+====================+======================+
+| Master  | |MasterLint|    | |MasterTesting|    | |MasterCoverage|     |
++---------+-----------------+--------------------+----------------------+
 
 References
 ==========
@@ -97,12 +95,6 @@ References
 -  `NIST Randomness Beacon Homepage <https://beacon.nist.gov/home>`_
 -  `NIST Beacon REST API <https://beacon.nist.gov/record/0.1/beacon-0.1.0.xsd>`_
 
-.. |MasterBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=master
-.. _MasterBuild: https://travis-ci.org/urda/nistbeacon
-.. |MasterCoverage| image::  https://codecov.io/gh/urda/nistbeacon/branch/master/graph/badge.svg
-.. _MasterCoverage: https://codecov.io/gh/urda/nistbeacon/branch/master
-
-.. |DevelopBuild| image:: https://travis-ci.org/urda/nistbeacon.svg?branch=develop
-.. _DevelopBuild: https://travis-ci.org/urda/nistbeacon
-.. |DevelopCoverage| image:: https://codecov.io/gh/urda/nistbeacon/branch/develop/graph/badge.svg
-.. _DevelopCoverage: https://codecov.io/gh/urda/nistbeacon/branch/develop
+.. |MasterCoverage| image::  https://codecov.io/gh/urda/nistbeacon/branch/master/graph/badge.svg?branch=master
+.. |MasterLint| image:: https://github.com/urda/nistbeacon/workflows/Linting%20Checks/badge.svg?branch=master
+.. |MasterTesting| image:: https://github.com/urda/nistbeacon/workflows/Comprehensive%20Testing/badge.svg?branch=master

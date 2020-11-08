@@ -1,5 +1,5 @@
 """
-Copyright 2015-2016 Peter Urda
+Copyright 2015-2020 Peter Urda
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+from typing import Optional
 
 import requests
 from requests.exceptions import RequestException
@@ -20,7 +21,7 @@ from requests.exceptions import RequestException
 from nistbeacon.nistbeaconvalue import NistBeaconValue
 
 
-class NistBeacon(object):
+class NistBeacon:
     """
     The NistBeacon object is used to query the NIST Randomness Beacon.
     For the most part, it returns actual NistBeaconValue objects for the
@@ -57,7 +58,7 @@ class NistBeacon(object):
     )
 
     @classmethod
-    def _query_nist(cls, url_data: str) -> NistBeaconValue:
+    def _query_nist(cls, url_data: str) -> Optional[NistBeaconValue]:
         try:
             nist_response = requests.get(
                 "{0}/{1}".format(
@@ -71,8 +72,8 @@ class NistBeacon(object):
                     nist_response.status_code is requests.codes.OK
             ):
                 return NistBeaconValue.from_xml(nist_response.text)
-            else:
-                return None
+
+            return None
         except RequestException:
             return None
 
@@ -104,23 +105,6 @@ class NistBeacon(object):
             return False
 
         if (
-                isinstance(prev_record, NistBeaconValue) and
-                isinstance(next_record, NistBeaconValue)
-        ):
-            # Majority case, somewhere in the middle of the chain
-            # True if:
-            #   - All three records have proper signatures
-            #   - The requested record's previous output equals previous
-            #   - The next possible record's previous output equals the record
-            return (
-                record.valid_signature and
-                prev_record.valid_signature and
-                next_record.valid_signature and
-                record.previous_output_value == prev_record.output_value and
-                next_record.previous_output_value == record.output_value
-            )
-
-        if (
                 prev_record is None and
                 isinstance(next_record, NistBeaconValue)
         ):
@@ -143,6 +127,19 @@ class NistBeacon(object):
                 record.previous_output_value == prev_record.output_value
             )
 
+        # Majority case, somewhere in the middle of the chain
+        # True if:
+        #   - All three records have proper signatures
+        #   - The requested record's previous output equals previous
+        #   - The next possible record's previous output equals the record
+        return (
+                record.valid_signature and
+                prev_record.valid_signature and
+                next_record.valid_signature and
+                record.previous_output_value == prev_record.output_value and
+                next_record.previous_output_value == record.output_value
+        )
+
     @classmethod
     def get_first_record(
             cls,
@@ -159,8 +156,8 @@ class NistBeacon(object):
 
         if download:
             return NistBeacon.get_record(cls._INIT_RECORD.timestamp)
-        else:
-            return NistBeaconValue.from_json(cls._INIT_RECORD.json)
+
+        return NistBeaconValue.from_json(cls._INIT_RECORD.json)
 
     @classmethod
     def get_last_record(cls) -> NistBeaconValue:
