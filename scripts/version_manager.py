@@ -265,7 +265,7 @@ if __name__ == '__main__':
         'update',
     ]
 
-    warning_banner = "/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\/!\\"
+    warning_banner = '/!\\' * 14
     warning_version_mismatch = "Versions DO NOT MATCH across the project!"
 
     sp = parser.add_subparsers(dest="command")

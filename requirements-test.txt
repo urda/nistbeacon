@@ -4,3 +4,4 @@ pycodestyle
 pylint
 pytest
 pytest-cov
+setuptools
