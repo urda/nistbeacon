@@ -1,0 +1,4 @@
+- pulse  - The periodic message output from a beacon
+- chain  - A sequence of hash-chained pulses
+- period - The fixed time windows between expected consecutive pulses in a chain.
+- gap    - A time interval during which one-or-more scheduled pulses were NOT produced by the beacon (i.e. outage).
