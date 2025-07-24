@@ -15,10 +15,12 @@ limitations under the License.
 """
 
 from .nistbeacon import NistBeacon
+from .nistbeaconpulse import NistBeaconPulse
 from .nistbeaconvalue import NistBeaconValue
 
 __all__ = [
     'NistBeacon',
+    'NistBeaconPulse',
     'NistBeaconValue',
 ]
 

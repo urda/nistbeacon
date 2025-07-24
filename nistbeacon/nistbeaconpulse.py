@@ -27,6 +27,8 @@ class NistBeaconPulse:
     different beacons.
     """
 
+    _DEFAULT_VERSION = ''
+
     _KEY_URI = 'uri'
     _KEY_VERSION = 'version'
     _KEY_CIPHER_SUITE = 'cipherSuite'
@@ -47,3 +49,25 @@ class NistBeaconPulse:
     _KEY_STATUS_CODE = 'statusCode'
     _KEY_SIGNATURE_VALUE = 'signatureValue'
     _KEY_OUTPUT_VALUE = 'outputValue'
+
+    _version: str
+
+    def __init__(
+            self,
+            version: str = 'Version 2.0',
+    ):
+        """
+        :param version:
+            Reported NIST randomness beacon version
+        """
+        self._version = version
+
+        self._verify_props()
+
+    @property
+    def version(self) -> str:
+        return self._version
+
+    def _verify_props(self) -> None:
+        if not self._version:
+            raise ValueError('Version cannot be null.')
