@@ -18,7 +18,7 @@ from typing import Optional
 import requests
 from requests.exceptions import RequestException
 
-from nistbeacon.nistbeaconvalue import NistBeaconValue
+from .nistbeaconvalue import NistBeaconValue
 
 
 class NistBeacon:

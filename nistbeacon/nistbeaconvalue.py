@@ -21,7 +21,7 @@ from random import Random
 from typing import Optional
 from xml.etree import ElementTree
 
-from nistbeacon.nistbeaconcrypto import NistBeaconCrypto
+from .nistbeaconcrypto import NistBeaconCrypto
 
 
 class NistBeaconValue:
