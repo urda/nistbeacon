@@ -26,9 +26,9 @@ help: # Show this help screen
 ########################################################################################################################
 
 
-.PHONY: pep8
-pep8: # Run pep8 against project files
-	pep8 --verbose ./nistbeacon/* ./scripts/* ./tests/*
+.PHONY: pycodestyle
+pycodestyle: # Run pycodestyle against project files
+	pycodestyle --verbose ./nistbeacon/* ./scripts/* ./tests/*
 
 
 .PHONY: pylint
@@ -82,7 +82,7 @@ clean: # Clean up build, test, and other project artifacts
 
 # Perform required pre-build steps for all build types
 .PHONY: build-pre
-build-pre: clean pep8 pylint unittest integration version-check
+build-pre: clean pycodestyle pylint unittest integration version-check
 
 
 # Build 'sdist' and 'bdist_wheel' for this package

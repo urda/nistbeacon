@@ -72,7 +72,7 @@ class TestCertBoundaries(TestCase):
         #
         with \
                 patch.object(NistBeaconCrypto, self.verifier2013) \
-                as verifier2013,\
+                as verifier2013, \
                 patch.object(NistBeaconCrypto, self.verifier2017) \
                 as verifier2017:
             actual_record = NistBeacon.get_record(timestamp)
@@ -96,7 +96,7 @@ class TestCertBoundaries(TestCase):
         #
         with \
                 patch.object(NistBeaconCrypto, self.verifier2013) \
-                as verifier2013,\
+                as verifier2013, \
                 patch.object(NistBeaconCrypto, self.verifier2017) \
                 as verifier2017:
             actual_record = NistBeacon.get_record(timestamp)

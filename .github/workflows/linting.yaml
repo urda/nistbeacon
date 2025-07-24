@@ -29,8 +29,8 @@ jobs:
           python -m pip install --upgrade pip wheel
           pip install -r requirements-test.txt
 
-      - name: Pep8 Check
-        run: make pep8
+      - name: pycodestyle Check
+        run: make pycodestyle
 
       - name: Pylint Check
         run: make pylint

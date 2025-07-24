@@ -141,7 +141,7 @@ class NistBeacon:
     @classmethod
     def get_first_record(
             cls,
-            download: bool=True
+            download: bool = True
     ) -> NistBeaconValue:
         """
         Get the first (oldest) record available. Since the first record
