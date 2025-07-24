@@ -26,3 +26,24 @@ class NistBeaconPulse:
     Still others intend to make it easier to securely combine outputs from
     different beacons.
     """
+
+    _KEY_URI = 'uri'
+    _KEY_VERSION = 'version'
+    _KEY_CIPHER_SUITE = 'cipherSuite'
+    _KEY_PERIOD = 'period'
+    _KEY_CERTIFICATE_ID = 'certificateId'
+    _KEY_CHAIN_INDEX = 'chainIndex'
+    _KEY_PULSE_INDEX = 'pulseIndex'
+    _KEY_TIME_STAMP = 'timeStamp'
+    _KEY_LOCAL_RANDOM_VALUE = 'localRandomValue'
+    _KEY_EXTERNAL = 'external'
+    _KEY_EXTERNAL_SOURCE_ID = 'sourceId'
+    _KEY_EXTERNAL_STATUS_CODE = 'statusCode'
+    _KEY_EXTERNAL_VALUE = 'value'
+    _KEY_LIST_VALUE_URI = 'uri'
+    _KEY_LIST_VALUE_TYPE = 'type'
+    _KEY_LIST_VALUE_VALUE = 'value'
+    _KEY_PRECOMMITMENT_VALUE = 'precommitmentValue'
+    _KEY_STATUS_CODE = 'statusCode'
+    _KEY_SIGNATURE_VALUE = 'signatureValue'
+    _KEY_OUTPUT_VALUE = 'outputValue'
