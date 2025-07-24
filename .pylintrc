@@ -3,6 +3,10 @@
 max-args=10
 max-attributes=15
 
+[MESSAGES CONTROL]
+
+disable=too-many-positional-arguments
+
 [TYPECHECK]
 
 ignored-classes=requests.structures.LookupDict

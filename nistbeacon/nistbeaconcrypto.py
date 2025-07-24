@@ -175,6 +175,7 @@ class NistBeaconCrypto:
         # If a verifier exists to handle this problem, use it directly.
         # Else, we cannot verify the record and must mark it invalid.
         if verifier:
+            verifier: PKCS1_v1_5
             # PyCharm is wrong, see:
             #   site-packages/Crypto/Signature/PKCS1_v1_5.py
             #     Crypto.Signature.PKCS1_v1_5._pycrypto_verify

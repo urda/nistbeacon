@@ -61,10 +61,8 @@ class NistBeacon:
     def _query_nist(cls, url_data: str) -> Optional[NistBeaconValue]:
         try:
             nist_response = requests.get(
-                "{0}/{1}".format(
-                    cls._NIST_API_URL,
-                    url_data,
-                )
+                url=f'{cls._NIST_API_URL}/{url_data}',
+                timeout=30,
             )
 
             if (
@@ -178,7 +176,7 @@ class NistBeacon:
         :return: The next beacon value if available. 'None' otherwise.
         """
 
-        return cls._query_nist("next/{}".format(timestamp))
+        return cls._query_nist(f'next/{timestamp}')
 
     @classmethod
     def get_previous(cls, timestamp: int) -> NistBeaconValue:
@@ -189,7 +187,7 @@ class NistBeacon:
         :return: The previous beacon value if available. 'None; otherwise
         """
 
-        return cls._query_nist("previous/{}".format(timestamp))
+        return cls._query_nist(f'previous/{timestamp}')
 
     @classmethod
     def get_record(cls, timestamp: int) -> NistBeaconValue:

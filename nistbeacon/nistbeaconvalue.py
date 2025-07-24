@@ -14,12 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from typing import Optional
-
 import binascii
 import hashlib
 import json
 from random import Random
+from typing import Optional
 from xml.etree import ElementTree
 
 from nistbeacon.nistbeaconcrypto import NistBeaconCrypto
@@ -161,7 +160,7 @@ class NistBeaconValue:
             binascii.a2b_hex(self.signature_value)
         ).hexdigest().upper()
 
-        sig_hash_check = (expected_signature == self.output_value)
+        sig_hash_check = expected_signature == self.output_value
 
         # Store the valid signature state after computation
         self._valid_signature = sig_check_result and sig_hash_check
@@ -407,7 +406,7 @@ class NistBeaconValue:
         # Using the required values, let's load the xml values in
         for key in required_values:
             discovered_element = tree.find(
-                "{0}:{1}".format('nist-0.1', key),
+                f'nist-0.1:{key}',
                 namespaces=understood_namespaces,
             )
 
